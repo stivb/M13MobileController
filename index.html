@@ -125,6 +125,20 @@
             <div data-role="footer">
                 <h1>Footer</h1>
             </div>
+		<div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+
+        <p id="question">Are you sure you want to delete: <span id="songTitlePlaceholder"></span>      </p>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+            </div>
+            <div class="ui-block-b">
+                <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+            </div>
+        </div>
+
+		</div><!-- /popup -->
         </div>
 	 <div data-role="page" id="page2">
             <div data-role="header">
@@ -229,7 +243,10 @@
                 <a data-role="button" id="Save">Save</a>
 				<a data-role="button" id="Cancel" href="#page1">Cancel</a>
             </div>
-        </div>
+        </div><!-- /content -->
+		
+		
+
        
     
     <script type="text/javascript" src="cordova.js"></script>
@@ -249,6 +266,7 @@
         app.initialize();
 
 		var currentlyEdited="";
+		var currentlyBeingDeleted="";
 		
 		
 		var twelve = "123456789ABC";
@@ -438,7 +456,33 @@
 			$.mobile.navigate("#page2");
 		});
 		
+<<<<<<< HEAD
 		
+=======
+		$( document ).on( "swipeleft swiperight", ".songChainItem", function( event ) {
+				
+					
+					confirmAndDelete( $(this).text());
+			});
+			
+		function confirmAndDelete(litem)
+		{
+			
+			$("#songTitlePlaceholder").text(litem);
+			$( "#confirm" ).popup( "open" );
+		}
+		
+		
+		// Proceed when the user confirms
+		$( "#confirm #yes" ).on( "click", function() {
+				var toDelete = $("#songTitlePlaceholder").text();
+				delete songChains[toDelete];
+				populateSongChainList();
+		});
+					
+
+
+>>>>>>> origin/master
 		
 		$('#Test').click(function() {
 			SceneAndEffects("22257A");
