@@ -43,6 +43,37 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+	<style>
+	#myGroup {
+    font-size: 84%;
+	}
+	#myGroup .ui-controlgroup-label{
+    float: none;
+    display: block;
+    text-align: center;
+    width: 100%;
+	}
+	#myGroup .ui-controlgroup-label legend{
+    font-weight: bold;
+    font-size: 130%;   
+    width: 100%;
+    margin-bottom: 8px;
+	}
+	#myGroup .ui-controlgroup-controls {
+    float: none; 
+    display: block;
+    width: 100%;
+	}
+	#myGroup .ui-radio{
+    width: 25%;
+	}
+	#myGroup .ui-radio label{
+    text-align: center;
+    white-space: nowrap;
+	}
+	
+	
+</style>
     <title>Hello World</title>
 </head>
 
@@ -118,7 +149,28 @@
                     <label for="text1">Song Name</label>
                     <input type="text" id="txtSongName" />
                 </div>
+				<hr/>
+				<div id="myGroup" data-role="fieldcontain"   > 
+				Scene Folder
+				
+				<fieldset data-role="controlgroup"  data-type="horizontal">
+				
+				<input type="radio" name="sceneFolder" id="sceneFolder1" class="sceneFolder" value="1" >
+				<label for="sceneFolder1">One</label>
+				<input type="radio" name="sceneFolder" id="sceneFolder2" class="sceneFolder" value="2">
+				<label for="sceneFolder2">Two</label>
+				<input type="radio" name="sceneFolder" id="sceneFolder3" class="sceneFolder" value="3">
+				<label for="sceneFolder3">Three</label>
+				<input type="radio" name="sceneFolder" id="sceneFolder4" class="sceneFolder" value="4">
+				<label for="sceneFolder4">Four</label>
+				</fieldset>
+				</div>
+				Scene 
+					
+				
+				
                 <div class="ui-grid-c">
+					
                     <div class="ui-block-a">
                         <select class="scene" data-native-menu="false" id="M1">
 							<option ></option>
@@ -189,7 +241,7 @@
                     </div>
                 </div>
                 <a data-role="button" id="Save">Save</a>
-				<a data-role="button" id="Test">Test</a>
+				<a data-role="button" id="Cancel" href="#page1">Cancel</a>
             </div>
         </div><!-- /content -->
 		
@@ -203,17 +255,16 @@
 	var songChains;
 	
 	$( document ).ready(function() {
+		
 		if (localStorage["savedSongChains"]) {
 			songChains = JSON.parse(localStorage["savedSongChains"]);
 		}
 		else songChains = new Object();
 	});
+	
 
         app.initialize();
-		
-		
-		
-		
+
 		var currentlyEdited="";
 		var currentlyBeingDeleted="";
 		
@@ -270,12 +321,12 @@
 			
 		});
 		
-		function clearScenes()
+		function clearScene()
 		{
 		for (var i=1;i<=4;i++)
 			{
 			var dd = "M"+i;
-			if ($(this).attr('id')!=dd)
+			if ($(dd).attr('id')!=dd)
 				{
 				var myselect = $("#"+dd);
 				myselect[0].selectedIndex = 0;
@@ -304,9 +355,19 @@
 		$('#txtSongName').val(currentlyEdited);
 		}
 		
+		function setSceneFolder(letter)
+		{
+		if (letter=="") return;
+		var i = letter*1;
+		//$('.sceneFolder').prop('checked',false).checkboxradio("refresh");
+		$('#sceneFolder' + letter).prop('checked', true).checkboxradio("refresh");
+		}
+		
+		
+		
 		function setScene(letter)
 		{
-		clearScenes();
+		clearScene();
 		if (letter=="") return;
 		var dd = isInWhichDropDown(letter)+1;
 		var s = getNeighbours(letter);
@@ -335,9 +396,11 @@
 		
 		function SceneAndEffects(s)
 		{
-		if (s=="") setScene("");
-		else setScene(s.charAt(0));
-		setEffects(s.substring(1));
+		if (s=="") {clearScenes();return;}
+		
+		setSceneFolder(s.charAt(0));
+		setScene(s.charAt(1));
+		setEffects(s.substring(2));
 		}
 		
 		function hasValue(obj, key, value) {
@@ -350,6 +413,7 @@
 			if (songChainKey=="") {alert("Please add title");return;}
 			
 			var val = new Array();
+			val.push(getSceneFolder());
 			val.push(getScene());
 			$("select.effect").each(function(){		
 				if (this.value=="on")  val.push(this.id.charAt(1));
@@ -357,6 +421,7 @@
 			
 			var songChain = val.join('');
 			songChains[songChainKey] = songChain;
+			//in the event the user has changed the title, delete the entry under the old title
 			if (songChainKey!="" && songChainKey!=currentlyEdited)
 				delete songChains[currentlyEdited];
 			$.mobile.navigate("#page1");
@@ -368,7 +433,7 @@
 		
 		
 		$('#newChain').click(function() {
-			currentlyEdited="";
+			var currentlyEdited ="";
 			$.mobile.navigate( "#page2" );
 		});
 		
@@ -383,10 +448,17 @@
 		});
 		
 		$(document).on('click', '.songChainItem', function(){
+			alert(songChains[$(this).text()]);
+		});
+		
+		$(document).on('taphold', '.songChainItem', function(){
 			currentlyEdited = $(this).text();
 			$.mobile.navigate("#page2");
 		});
 		
+<<<<<<< HEAD
+		
+=======
 		$( document ).on( "swipeleft swiperight", ".songChainItem", function( event ) {
 				
 					
@@ -410,10 +482,17 @@
 					
 
 
+>>>>>>> origin/master
 		
 		$('#Test').click(function() {
-			SceneAndEffects("2257A");
+			SceneAndEffects("22257A");
 		});
+		
+		function getSceneFolder()
+		{
+		var s = $('input[name=sceneFolder]:checked').val();
+		return s;
+		}
 		
 		function populateSongChainList()
 		{
