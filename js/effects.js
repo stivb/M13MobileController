@@ -17,7 +17,7 @@
      "Effect":"Analog w/Mod",
      "Time":0,
      "Fdbk":0,
-      "Mod Speed":0,
+     "Mod Speed":0,
      "Mod Depth":0,
      "Mix":0
   },
@@ -25,7 +25,7 @@
      "Effect":"Auto Volume Echo",
      "Time":0,
      "Fdbk":0,
-      "Mod Depth":0,
+     "Mod Depth":0,
      "Swell Time":0,
      "Mix":0
   },
@@ -33,7 +33,7 @@
      "Effect":"Digital Delay",
      "Time":0,
      "Fdbk":0,
-      "Bass":0,
+     "Bass":0,
      "Treble":0,
      "Mix":0
   },
@@ -41,7 +41,7 @@
      "Effect":"Digital Delay w/ Mod",
      "Time":0,
      "Fdbk":0,
-      "Mod Speed":0,
+     "Mod Speed":0,
      "Mod Depth":0,
      "Mix":0
   },
@@ -49,7 +49,7 @@
      "Effect":"Dynamic Delay",
      "Time":0,
      "Fdbk":0,
-      "Threshold":0,
+     "Threshold":0,
      "Ducking":0,
      "Mix":0
   },
@@ -65,7 +65,7 @@
      "Effect":"Echo Platter DryThru",
      "Time":0,
      "Fdbk":0,
-      "Wow/Flutter":0,
+     "Wow/Flutter":0,
      "Drive":0,
      "Mix":0
   },
@@ -227,7 +227,7 @@
      "Effect":"Facial Fuzz",
      "Drive":0,
      "Bass":0,
-      "Mid":0,
+     "Mid":0,
      "Treble":0,
      "Output":0
   },
@@ -251,7 +251,7 @@
      "Effect":"Heavy Dist",
      "Drive":0,
      "Bass":0,
-      "Mid":0,
+     "Mid":0,
      "Treble":0,
      "Output":0
   },
@@ -267,7 +267,7 @@
      "Effect":"Jumbo Fuzz",
      "Drive":0,
      "Bass":0,
-      "Mid":0,
+     "Mid":0,
      "Treble":0,
      "Output":0
   },
@@ -283,7 +283,7 @@
      "Effect":"Line 6 Drive",
      "Drive":0,
      "Bass":0,
-      "Mid":0,
+     "Mid":0,
      "Treble":0,
      "Output":0
   },
@@ -291,7 +291,7 @@
      "Effect":"Mid Focus EQ",
      "HP Freq":0,
      "HP Q":0,
-      "LP Freq":0,
+     "LP Freq":0,
      "LP Q":0,
      "Gain":0
   },
@@ -304,7 +304,7 @@
      "Effect":"Octave Fuzz",
      "Drive":0,
      "Bass":0,
-      "Mid":0,
+     "Mid":0,
      "Treble":0,
      "Output":0
   },
@@ -333,7 +333,7 @@
      "Effect":"Screamer",
      "Drive":0,
      "Bass":0,
-      "Mid":0,
+     "Mid":0,
      "Treble":0,
      "Output":0
   },
@@ -436,7 +436,7 @@
      "Effect":"Obi-Wah",
      "Freq":0,
      "Q (Width)":0,
-      "Speed":0,
+     "Speed":0,
      "Filter LP/BP/HP":0,
      "Mix":0
   },
