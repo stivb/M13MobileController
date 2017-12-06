@@ -70,14 +70,29 @@
 	#myGroup .ui-radio label{
     text-align: center;
     white-space: nowrap;
+	}
 	
 	#EffectChooser .ui-btn-inner{
     text-overflow: initial; /* Get rid of the ellipsis */
     padding-left: 5px; /* Play with padding to make max use of available button width */
 	}
-    #EffectChooser .ui-btn-text {
+    
+	#EffectChooser .ui-btn-text {
     font-size: 15px; /* Play with font size of the text */
 	}
+	.percentIndicator  {
+    width: 40px;
+    height: 20px;
+    margin: 10px auto;
+    padding: 10 px;
+    position: relative;
+	background-color: #666666;
+	text-align:center;
+}
+
+	.param
+	{
+	text-align:center;
 	}
 	
 	
@@ -109,7 +124,7 @@
 		
 		
 			
-			 <div data-role="page" id="SongListPage">
+	<div data-role="page" id="SongListPage">
             <div data-role="header">
                 <h1>Header</h1>
                 <a data-role="button" class="ui-btn-right" data-icon="gear" data-iconpos="notext"></a>
@@ -280,7 +295,66 @@
                 </ul>
 			</div>
         </div>
-		
+		<div data-role="page" id="EffectSetterPage">
+            <div data-role="content">
+                <div class="ui-grid-b">
+                    <div class="ui-block-a param">
+					<span class="param">Param 1</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 2</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 3</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-a param">
+					<span class="param">Param 4</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 5</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 6</span>
+					<div class="percentIndicator"></div>
+					</div>
+                </div>
+                <div data-role="fieldcontain" id="slider1">
+                    <label for="slider1-range"></label>
+                    <input type="range" id="slider1-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider2">
+                    <label for="slider2-range"></label>
+                    <input type="range" id="slider2-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider3">
+                    <label for="slider3-range"></label>
+                    <input type="range" id="slider3-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider4">
+                    <label for="slider4-range"></label>
+                    <input type="range" id="slider4-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider5">
+                    <label for="slider5-range"></label>
+                    <input type="range" id="slider5-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider6">
+                    <label for="slider6-range"></label>
+                    <input type="range" id="slider6-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+            </div>
+        </div>
 
        
     
