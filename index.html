@@ -70,6 +70,14 @@
 	#myGroup .ui-radio label{
     text-align: center;
     white-space: nowrap;
+	
+	#EffectChooser .ui-btn-inner{
+    text-overflow: initial; /* Get rid of the ellipsis */
+    padding-left: 5px; /* Play with padding to make max use of available button width */
+	}
+    #EffectChooser .ui-btn-text {
+    font-size: 15px; /* Play with font size of the text */
+	}
 	}
 	
 	
@@ -85,7 +93,7 @@
             <div data-role="content">
 			<div class="app">
 			<h1>PhoneGap</h1>
-			<a href="#page1" data-role="button">Start</a>
+			<a href="#SongListPage" data-role="button">Start</a>
 			<div id="deviceready" class="blink">
 				<p class="event listening">Connecting to Device</p>
 				<p class="event received">Device is Ready</p>
@@ -101,7 +109,7 @@
 		
 		
 			
-			 <div data-role="page" id="page1">
+			 <div data-role="page" id="SongListPage">
             <div data-role="header">
                 <h1>Header</h1>
                 <a data-role="button" class="ui-btn-right" data-icon="gear" data-iconpos="notext"></a>
@@ -140,7 +148,7 @@
 
 		</div><!-- /popup -->
         </div>
-	 <div data-role="page" id="page2">
+	 <div data-role="page" id="FolderSceneEffectsPage">
             <div data-role="header">
                 <h1>Header</h1>
             </div>
@@ -241,10 +249,37 @@
                     </div>
                 </div>
                 <a data-role="button" id="Save">Save</a>
-				<a data-role="button" id="Cancel" href="#page1">Cancel</a>
+				<a data-role="button" id="Cancel" href="#SongListPage">Cancel</a>
             </div>
         </div><!-- /content -->
-		
+		<div data-role="page" id="EffectChooserPage">
+            <div data-role="content">
+                
+                <div class="ui-grid-d EffectChooser">
+				
+                    <div class="ui-block-a">
+                        <a data-role="button">Distortion</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a data-role="button">Delay</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a data-role="button">Filters</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a data-role="button">Modulation</a>
+                    </div>
+                    <div class="ui-block-e">
+                        <a data-role="button">Reverb</a>
+                    </div>
+                </div>
+				<ul data-role="listview" data-inset="true">
+                    <li>List Item</li>
+                    <li>List Item</li>
+                    <li>List Item</li>
+                </ul>
+			</div>
+        </div>
 		
 
        
@@ -431,7 +466,7 @@
 			//in the event the user has changed the title, delete the entry under the old title
 			if (songChainKey!="" && songChainKey!=currentlyEdited)
 				delete songChains[currentlyEdited];
-			$.mobile.navigate("#page1");
+			$.mobile.navigate("#SongListPage");
 			
 			localStorage.savedSongChains = JSON.stringify(songChains);
 				
@@ -441,17 +476,17 @@
 		
 		$('#newChain').click(function() {
 			var currentlyEdited ="";
-			$.mobile.navigate( "#page2" );
+			$.mobile.navigate( "#FolderSceneEffectsPage" );
 			
 		});
 		
 		
 		
-		$(document).on('pagebeforeshow', '#page1', function(){ 
+		$(document).on('pagebeforeshow', '#SongListPage', function(){ 
 			populateSongChainList();
 		});
 		
-		$(document).on('pagebeforeshow', '#page2', function(){ 
+		$(document).on('pagebeforeshow', '#FolderSceneEffectsPage', function(){ 
 			populateSongChainForm();
 		});
 		
@@ -461,7 +496,7 @@
 		
 		$(document).on('taphold', '.songChainItem', function(){
 			currentlyEdited = $(this).text();
-			$.mobile.navigate("#page2");
+			$.mobile.navigate("#FolderSceneEffectsPage");
 		});
 		
 
