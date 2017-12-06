@@ -335,6 +335,13 @@
 			}
 		}
 		
+		function clearFolder()
+		{
+		$('.sceneFolder').prop('checked',false).checkboxradio("refresh");
+		}
+		
+		
+		
 		function getScene()
 		{
 		for (var i=1;i<=4;i++)
@@ -359,7 +366,7 @@
 		{
 		if (letter=="") return;
 		var i = letter*1;
-		//$('.sceneFolder').prop('checked',false).checkboxradio("refresh");
+		clearFolder();
 		$('#sceneFolder' + letter).prop('checked', true).checkboxradio("refresh");
 		}
 		
@@ -394,9 +401,9 @@
 		}
 		
 		
-		function SceneAndEffects(s)
+		function setFolderSceneAndEffects(s)
 		{
-		if (s=="") {clearScenes();return;}
+		if (s=="") {clearScene();return;}
 		
 		setSceneFolder(s.charAt(0));
 		setScene(s.charAt(1));
@@ -435,6 +442,7 @@
 		$('#newChain').click(function() {
 			var currentlyEdited ="";
 			$.mobile.navigate( "#page2" );
+			
 		});
 		
 		
@@ -508,9 +516,10 @@
 		{
 		setSongTitle();
 		var chain = "";
+		alert(currentlyEdited);
 		if (currentlyEdited!="") chain=songChains[currentlyEdited];
-		
-		SceneAndEffects(chain);
+		alert("chain is " + chain);
+		setFolderSceneAndEffects(chain);
 		}
 		
 		
