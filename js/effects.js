@@ -1,4 +1,10 @@
-﻿var EffectsGroupsList=
+﻿var visualEffectChain =
+    {
+        "Description":"",
+        "Effects":[]
+    };
+
+var EffectsGroupsList=
 [
 { 
 	 "EffectsGroup":"Delay",
@@ -184,12 +190,12 @@
   {
      "Effect":"Blue Comp",
      "Sustain":0,
-     "Level":0,
+     "Level":0
   },
   {
      "Effect":"Blue Comp Treb",
      "Sustain":0,
-     "Level":0,
+     "Level":0
   },
   {
      "Effect":"Boost Comp",
@@ -298,7 +304,7 @@
   {
      "Effect":"Noise Gate",
      "Thresh":0,
-     "Decay":0,
+     "Decay":0
   },
   {
      "Effect":"Octave Fuzz",
@@ -327,7 +333,7 @@
   {
      "Effect":"Red Comp",
      "Sustain":0,
-     "Level":0,
+     "Level":0
   },
   {
      "Effect":"Screamer",
@@ -353,7 +359,7 @@
   {
      "Effect":"Tube Comp",
      "Sens":0,
-     "Level":0,
+     "Level":0
   },
   {
      "Effect":"Tube Drive",
@@ -366,16 +372,16 @@
   {
      "Effect":"Vetta Comp",
      "Sens":0,
-     "Level":0,
+     "Level":0
   },
   {
      "Effect":"Vetta Juice",
      "Sens":0,
-     "Level":0,
+     "Level":0
   },
   {
      "Effect":"Volume Pedal",
-     "Volume":0,
+     "Volume":0
   }]
   },
   {
@@ -564,7 +570,7 @@
 },
 {
 	"EffectsGroup":"Modulation",
-	"EffectsColor":"Blue",
+	"EffectColor":"Blue",
 	"Effects":
 [
   {
@@ -573,14 +579,14 @@
      "Range":0,
      "Enhance":0,
      "Manual":0,
-     "Even/Odd":0,
+     "Even/Odd":0
   },
   {
      "Effect":"AC Flanger",
      "Speed":0,
      "Width":0,
      "Regen":0,
-     "Manual":0,
+     "Manual":0
   },
   {
      "Effect":"Analog Chorus",
@@ -738,7 +744,7 @@
   },
   {
   "EffectsGroup":"Reverb",
-  "EffectsColor":"Orange",
+  "EffectColor":"Orange",
   "Effects":
   [
   {
@@ -832,8 +838,24 @@
 
 
 
-//allEffects();
-console.log(JSON.stringify(getEffect("Octo")));
+function allEffectsByGroup(groupName)
+{
+    var thisEffect;
+    var retval = new Array();
+    var i,j,fg;
+    for (i=0;i<EffectsGroupsList.length;i++) if (EffectsGroupsList[i].EffectsGroup==groupName) break;
+    fg = EffectsGroupsList[i];
+    for (j=0;j<fg.Effects.length;j++)
+        {
+        thisEffect = JSON.parse(JSON.stringify(fg.Effects[j]));
+        thisEffect.EffectsGroup = fg.EffectsGroup;
+        thisEffect.EffectColor = fg.EffectColor;
+        retval.push(thisEffect);
+        }
+    return retval;
+}
+
+
 
 function allEffects()
 {
@@ -848,7 +870,7 @@ for (i=0;i<EffectsGroupsList.length;i++)
 	}
 }
 
-function getEffect(s)
+function getEffect(effectName)
 {
 var i,j,fg,fgstr;
 for (i=0;i<EffectsGroupsList.length;i++)
@@ -858,14 +880,18 @@ for (i=0;i<EffectsGroupsList.length;i++)
 	console.log(fgstr);
 	for (j=0;j<fg.Effects.length;j++)
 		{
-		if (fg.Effects[j].Effect==s) 
+		if (fg.Effects[j].Effect==effectName)
 			{
 			var retval = JSON.parse(JSON.stringify(fg.Effects[j])) ;
-			retval.EffectsGroup = fgstr;
+			retval.EffectsGroup = fg.EffectsGroup;
+			retval.EffectColor = fg.EffectColor;
 			return retval;
 			}
 		}
 	}
 }
 
-  
+
+
+console.log(JSON.stringify(getEffect("Octo")));
+console.log(JSON.stringify(allEffectsByGroup("Modulation")));
