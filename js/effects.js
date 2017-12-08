@@ -870,6 +870,23 @@ for (i=0;i<EffectsGroupsList.length;i++)
 	}
 }
 
+function effectAsParallelArray(efg)
+{
+
+    var retval = new Object();
+    retval.keyz = removeNonNumericFromArray(Object.keys(efg));
+    retval.valuez = removeNonNumericFromArray(Object.values(efg));
+    return retval;
+}
+
+function removeNonNumericFromArray(arr)
+{
+    arr.shift();
+    arr.pop();
+    arr.pop();
+    return arr;
+}
+
 function getEffect(effectName)
 {
 var i,j,fg,fgstr;
@@ -893,5 +910,6 @@ for (i=0;i<EffectsGroupsList.length;i++)
 
 
 
-console.log(JSON.stringify(getEffect("Octo")));
+var thisEffect = getEffect("Octo");
+console.log(JSON.stringify(effectAsParallelArray(thisEffect)));
 console.log(JSON.stringify(allEffectsByGroup("Modulation")));
