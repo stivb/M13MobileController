@@ -29,6 +29,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/effects.js"></script>
 
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
@@ -113,14 +114,14 @@
                 <h1>Header</h1>
             </div>
             <div data-role="content">
-			<div class="app">
-			<h1>PhoneGap</h1>
-			<a href="#SongListPage" data-role="button">Start</a>
-			<div id="deviceready" class="blink">
-				<p class="event listening">Connecting to Device</p>
-				<p class="event received">Device is Ready</p>
-			</div>
-    </div>
+                <div class="app">
+                <h1>PhoneGap</h1>
+                <a href="#SongListPage" data-role="button">Start</a>
+                <div id="deviceready" class="blink">
+                    <p class="event listening">Connecting to Device</p>
+                    <p class="event received">Device is Ready</p>
+                </div>
+                </div>
 			
 			
 			</div>
@@ -664,9 +665,9 @@
 			//in the event the user has changed the title, delete the entry under the old title
 			if (songChainKey!="" && songChainKey!=currentlyEdited)
 				delete songChains[currentlyEdited];
-			$.mobile.navigate("#SongListPage");
+			    $.mobile.navigate("#SongListPage");
 			
-			localStorage.savedSongChains = JSON.stringify(songChains);
+			    localStorage.savedSongChains = JSON.stringify(songChains);
 				
 		});
 		
@@ -717,6 +718,7 @@
 				var toDelete = $("#songTitlePlaceholder").text();
 				delete songChains[toDelete];
 				populateSongChainList();
+                localStorage.savedSongChains = JSON.stringify(songChains);
 		});
 					
 
