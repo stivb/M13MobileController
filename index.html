@@ -29,7 +29,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="js/effects.js"></script>
+
 
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
@@ -44,67 +44,7 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-	<style>
-	#myGroup {
-    font-size: 84%;
-	}
-	#myGroup .ui-controlgroup-label{
-    float: none;
-    display: block;
-    text-align: center;
-    width: 100%;
-	}
-	#myGroup .ui-controlgroup-label legend{
-    font-weight: bold;
-    font-size: 130%;   
-    width: 100%;
-    margin-bottom: 8px;
-	}
-	#myGroup .ui-controlgroup-controls {
-    float: none; 
-    display: block;
-    width: 100%;
-	}
-	#myGroup .ui-radio{
-    width: 25%;
-	}
-	#myGroup .ui-radio label{
-    text-align: center;
-    white-space: nowrap;
-	}
-	
-	#EffectChooser .ui-btn-inner{
-    text-overflow: initial; /* Get rid of the ellipsis */
-    padding-left: 5px; /* Play with padding to make max use of available button width */
-	}
-    
-	#EffectChooser .ui-btn-text {
-    font-size: 15px; /* Play with font size of the text */
-	}
-	.percentIndicator  {
-    width: 40px;
-    height: 20px;
-    margin: 10px auto;
-    padding: 10 px;
-    position: relative;
-	background-color: #666666;
-	text-align:center;
-}
-
-	.param
-	{
-	text-align:center;
-	}
-	
-	.effect
-
-	{
-    border-style: solid;
-    border-width: 1px;
-}
-	
-	
-</style>
+	<link rel="stylesheet" type="text/css" href = "css/effects.css"/>
     <title>Hello World</title>
 </head>
 
@@ -116,7 +56,7 @@
             <div data-role="content">
                 <div class="app">
                 <h1>PhoneGap</h1>
-                <a href="#SongListPage" data-role="button">Start</a>
+                <a href="#SongListPage" data-role="button" id="connectButton">Start</a>
                 <div id="deviceready" class="blink">
                     <p class="event listening">Connecting to Device</p>
                     <p class="event received">Device is Ready</p>
@@ -366,10 +306,16 @@
 		<div data-role="page" id="EffectChainPage">
 		<div data-role="content" >
 		<h1>Song Title</h1>
+            <div class="ui-grid-c">
+                <div class="ui-block-a"><a data-role="button" id="BtnFx1">Fx 1</a></div>
+                <div class="ui-block-b"><a data-role="button" id="BtnFx2">Fx 2</a></div>
+                <div class="ui-block-c"><a data-role="button" id="BtnFx3">Fx 3</a></div>
+                <div class="ui-block-d"><a data-role="button" id="BtnFx4">Fx 4</a></div>
+            </div><!-- /grid-c -->
 				<span class="effectName">Effect 1</span>
-                <div class="ui-grid-b effect">
+                <div class="ui-grid-b effect" id="DivFx1">
 				
-                    <div class="ui-block-a param">
+                    <div class="ui-block-a param" >
 					<span class="param">Param 1</span>
 					<div class="percentIndicator"></div>
 					</div>
@@ -395,7 +341,7 @@
 					</div>
                 </div>
 				<span class="effectName">Effect 2</span>
-				<div class="ui-grid-b effect">
+				<div class="ui-grid-b effect" id="DivFx2">
                     <div class="ui-block-a param">
 					<span class="param">Param 1</span>
 					<div class="percentIndicator"></div>
@@ -422,7 +368,7 @@
 					</div>
                 </div>
 				<span class="effectName">Effect 3</span>
-				<div class="ui-grid-b effect">
+				<div class="ui-grid-b effect" id="DivFx3">
                     <div class="ui-block-a param">
 					<span class="param">Param 1</span>
 					<div class="percentIndicator"></div>
@@ -449,7 +395,7 @@
 					</div>
                 </div>
 				<span class="effectName">Effect 4</span>
-				<div class="ui-grid-b effect">
+				<div class="ui-grid-b effect" id="DivFx4">
                     <div class="ui-block-a param">
 					<span class="param">Param 1</span>
 					<div class="percentIndicator"></div>
@@ -480,6 +426,7 @@
     
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/effects.js"></script>
     <script type="text/javascript">
 	var songChains;
 	
