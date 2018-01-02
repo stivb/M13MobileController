@@ -567,6 +567,11 @@
 		{
 		$('.sceneFolder').prop('checked',false).checkboxradio("refresh");
 		}
+
+		function clearEffects()
+        {
+            setEffects("");
+        }
 		
 		
 		
@@ -631,7 +636,7 @@
 		
 		function setFolderSceneAndEffects(s)
 		{
-		if (s=="") {clearScene();return;}
+		if (s=="") {clearScene();clearFolder();clearEffects();return;}
 		
 		setSceneFolder(s.charAt(0));
 		setScene(s.charAt(1));
@@ -668,7 +673,7 @@
 		
 		
 		$('#newChain').click(function() {
-			var currentlyEdited ="";
+			currentlyEdited ="";
 			$.mobile.navigate( "#FolderSceneEffectsPage" );
 			
 		});
@@ -744,9 +749,7 @@
 		{
 		setSongTitle();
 		var chain = "";
-		alert(currentlyEdited);
 		if (currentlyEdited!="") chain=songChains[currentlyEdited];
-		alert("chain is " + chain);
 		setFolderSceneAndEffects(chain);
 		}
 		
