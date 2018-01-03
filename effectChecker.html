@@ -24,108 +24,108 @@
         <div class="ui-grid-b effect" id="DivFx1">
 
             <div class="ui-block-a param" >
-                <span class="param">Param 1</span>
+                <span class="paramName">Param 1</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 2</span>
+                <span class="paramName">Param 2</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 3</span>
+                <span class="paramName">Param 3</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-a param">
-                <span class="param">Param 4</span>
+                <span class="paramName">Param 4</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 5</span>
+                <span class="paramName">Param 5</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 6</span>
+                <span class="paramName">Param 6</span>
                 <div class="percentIndicator"></div>
             </div>
         </div>
         <span class="effectName" id="spanFx2">Effect 2</span>
         <div class="ui-grid-b effect" id="DivFx2">
             <div class="ui-block-a param">
-                <span class="param">Param 1</span>
+                <span class="paramName">Param 1</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 2</span>
+                <span class="paramName">Param 2</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 3</span>
+                <span class="paramName">Param 3</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-a param">
-                <span class="param">Param 4</span>
+                <span class="paramName">Param 4</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 5</span>
+                <span class="paramName">Param 5</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 6</span>
+                <span class="paramName">Param 6</span>
                 <div class="percentIndicator"></div>
             </div>
         </div>
         <span class="effectName" id="spanFx3">Effect 3</span>
         <div class="ui-grid-b effect" id="DivFx3">
             <div class="ui-block-a param">
-                <span class="param">Param 1</span>
+                <span class="paramName">Param 1</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 2</span>
+                <span class="paramName">Param 2</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 3</span>
+                <span class="paramName">Param 3</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-a param">
-                <span class="param">Param 4</span>
+                <span class="paramName">Param 4</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 5</span>
+                <span class="paramName">Param 5</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 6</span>
+                <span class="paramName">Param 6</span>
                 <div class="percentIndicator"></div>
             </div>
         </div>
         <span class="effectName" id="spanFx4">Effect 4</span>
         <div class="ui-grid-b effect" id="DivFx4">
             <div class="ui-block-a param">
-                <span class="param">Param 1</span>
+                <span class="paramName">Param 1</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 2</span>
+                <span class="paramName">Param 2</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 3</span>
+                <span class="paramName">Param 3</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-a param">
-                <span class="param">Param 4</span>
+                <span class="paramName">Param 4</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-b param">
-                <span class="param">Param 5</span>
+                <span class="paramName">Param 5</span>
                 <div class="percentIndicator"></div>
             </div>
             <div class="ui-block-c param">
-                <span class="param">Param 6</span>
+                <span class="paramName">Param 6</span>
                 <div class="percentIndicator"></div>
             </div>
         </div>
@@ -230,6 +230,7 @@
 
 <script>
 
+    var fX = new Array({},{},{},{});
     var currEffectNum=-1;
     $( ".effectGroupBtn" ).click(function() {
 
@@ -263,9 +264,24 @@
 
 
     $('body').on('click', 'a.effectChoice', function() {
+        var fxName = $(this).text();
         $( "#EffectChooserPage" ).popup( "close" );
-        $("#spanFx" + currEffectNum).text($(this).text() );
+        $("#spanFx" + currEffectNum).text(fxName );
+        var currEffect = getEffect(fxName );
+        fX[currEffectNum-1] = currEffect;
+        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        $( "#DivFx"+ currEffectNum ).children().hide();
+        $( "#DivFx"+ currEffectNum ).find( ".paramName" ).each(function(index,elmt){
+            $(this).parent().show();
+            $(this).text(paramNames[index]);
+        });
+        $( "#DivFx"+ currEffectNum ).trigger("create");
     });
+
+    function visualizeFx(num)
+    {
+
+    }
 </script>
 </body>
 </body>
