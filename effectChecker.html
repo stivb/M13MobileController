@@ -276,10 +276,20 @@
         var sliderHeaders = $("#EffectTweakerPage").find("p");
        // alert($(labels[0]).text());
         $.each(paramNames, function( index, value ) {
-            $(labels[index]).text(paramNames[index]);
+            $(labels[index]).text(value);
             $(labels[index]).parent().css("visibility","visible");
-            $(sliderHeaders[index]).text(paramNames[index]);
+            $(sliderHeaders[index]).text(value);
             $(sliders[index]).css("visibility","visible");
+            $("#slider" + (index+1) + "-range").val(currEffect[value]).slider().slider('refresh');
+        });
+
+    });
+
+    $("#EffectTweakerPageOk").click(function() {
+        var currEffect = fX[currEffectNum-1] ;
+        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        $.each(paramNames, function( index, value ) {
+            currEffect[value] = $("#slider" + (index+1) + "-range").val();
         });
 
     });
