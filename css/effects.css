@@ -57,3 +57,8 @@
     border-width: 1px;
 }
 
+#EffectTweakerPage-popup {
+      width: 80%;
+      left: 10%;
+      right: 10%
+  }

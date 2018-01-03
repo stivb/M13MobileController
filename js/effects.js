@@ -8,7 +8,7 @@ var EffectsGroupsList=
 [
 { 
 	 "EffectsGroup":"Delay",
-	 "EffectColor":"Green",
+	 "EffectColor":"lime",
 	 "Effects":
 [
   {
@@ -386,7 +386,7 @@ var EffectsGroupsList=
   },
   {
   "EffectsGroup":"Filter",
-  "EffectColor":"Purple",
+  "EffectColor":"fuchsia",
   "Effects":
   [
   {
@@ -570,7 +570,7 @@ var EffectsGroupsList=
 },
 {
 	"EffectsGroup":"Modulation",
-	"EffectColor":"Blue",
+	"EffectColor":"aqua",
 	"Effects":
 [
   {

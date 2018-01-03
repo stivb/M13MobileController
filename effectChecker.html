@@ -155,59 +155,65 @@
         </div>
 
         <div data-role="popup" id="EffectTweakerPage">
-            <div data-role="content">
                 <div class="ui-grid-b effect">
-                    <div class="ui-block-a param">
-                        <span class="param">Param 1</span>
+                    <div class="ui-block-a param etp">
+                        <span class="paramName">Param 1</span>
                         <div class="percentIndicator"></div>
                     </div>
-                    <div class="ui-block-b param">
-                        <span class="param">Param 2</span>
+                    <div class="ui-block-b param etp">
+                        <span class="paramName">Param 2</span>
                         <div class="percentIndicator"></div>
                     </div>
-                    <div class="ui-block-c param">
-                        <span class="param">Param 3</span>
+                    <div class="ui-block-c param etp">
+                        <span class="paramName">Param 3</span>
                         <div class="percentIndicator"></div>
                     </div>
-                    <div class="ui-block-a param">
-                        <span class="param">Param 4</span>
+                    <div class="ui-block-a param etp">
+                        <span class="paramName">Param 4</span>
                         <div class="percentIndicator"></div>
                     </div>
-                    <div class="ui-block-b param">
-                        <span class="param">Param 5</span>
+                    <div class="ui-block-b param etp">
+                        <span class="paramName">Param 5</span>
                         <div class="percentIndicator"></div>
                     </div>
-                    <div class="ui-block-c param">
-                        <span class="param">Param 6</span>
+                    <div class="ui-block-c param etp">
+                        <span class="paramName">Param 6</span>
                         <div class="percentIndicator"></div>
                     </div>
                 </div>
-                <div data-role="fieldcontain" id="slider1">
+
+                <div data-role="fieldcontain" id="slider1" class="slider etp">
+                    <p> Param 1</p>
                     <label for="slider1-range"></label>
                     <input type="range" id="slider1-range" value="50" min="0" max="100" step="1"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider2">
+                <div data-role="fieldcontain" id="slider2" class="slider etp">
+                    <p> Param 1</p>
                     <label for="slider2-range"></label>
                     <input type="range" id="slider2-range" value="50" min="0" max="100" step="1"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider3">
+                <div data-role="fieldcontain" id="slider3" class="slider etp">
+                    <p> Param 1</p>
                     <label for="slider3-range"></label>
                     <input type="range" id="slider3-range" value="50" min="0" max="100" step="1"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider4">
+                <div data-role="fieldcontain" id="slider4" class="slider etp">
+                    <p> Param 1</p>
                     <label for="slider4-range"></label>
                     <input type="range" id="slider4-range" value="50" min="0" max="100" step="1"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider5">
+                <div data-role="fieldcontain" id="slider5" class="slider etp ">
+                    <p> Param 1</p>
                     <label for="slider5-range"></label>
                     <input type="range" id="slider5-range" value="50" min="0" max="100" step="1"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider6">
+                <div data-role="fieldcontain" id="slider6" class="slider etp">
+                    <p> Param 1</p>
                     <label for="slider6-range"></label>
                     <input type="range" id="slider6-range" value="50" min="0" max="100" step="1"
                     />
@@ -221,7 +227,7 @@
                         <a data-role="button" id="EffectTweakerPageCancel">Cancel</a>
                     </div>
                 </div>
-            </div>
+
 
 
         </div>
@@ -257,9 +263,25 @@
 
     $(".effect").click(function() {
 
-        alert($(this).attr('id'));
+        var id = $(this).attr("id");
+        currEffectNum = id.slice(-1)*1;
+        var currEffect = fX[currEffectNum-1] ;
         $( "#EffectTweakerPage").popup();
         $( "#EffectTweakerPage" ).popup( "open" );
+        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        $( ".etp").css("visibility", "hidden");
+        $( "#EffectTweakerPage").css("background-color",currEffect.EffectColor);
+        var sliders = $("#EffectTweakerPage").find(".slider");
+        var labels =  $("#EffectTweakerPage").find(".paramName");
+        var sliderHeaders = $("#EffectTweakerPage").find("p");
+       // alert($(labels[0]).text());
+        $.each(paramNames, function( index, value ) {
+            $(labels[index]).text(paramNames[index]);
+            $(labels[index]).parent().css("visibility","visible");
+            $(sliderHeaders[index]).text(paramNames[index]);
+            $(sliders[index]).css("visibility","visible");
+        });
+
     });
 
 
@@ -270,12 +292,17 @@
         var currEffect = getEffect(fxName );
         fX[currEffectNum-1] = currEffect;
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
-        $( "#DivFx"+ currEffectNum ).children().hide();
+        $( "#DivFx"+ currEffectNum ).children().css("visibility", "hidden");
+        $( "#DivFx"+ currEffectNum ).css("background-color",currEffect.EffectColor);
         $( "#DivFx"+ currEffectNum ).find( ".paramName" ).each(function(index,elmt){
-            $(this).parent().show();
-            $(this).text(paramNames[index]);
+
+            if (paramNames.length>index)
+            {
+                $(this).text(paramNames[index]);
+                $(this).parent().css("visibility","visible");
+            }
         });
-        $( "#DivFx"+ currEffectNum ).trigger("create");
+
     });
 
     function visualizeFx(num)
