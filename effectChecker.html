@@ -129,32 +129,105 @@
                 <div class="percentIndicator"></div>
             </div>
         </div>
+        <div data-role="popup" id="EffectChooserPage">
+
+            <div class="ui-grid-d EffectChooser">
+
+                <div class="ui-block-a">
+                    <a class="effectGroupBtn" data-role="button">Fuzz</a>
+                </div>
+                <div class="ui-block-b">
+                    <a class="effectGroupBtn" data-role="button">Delay</a>
+                </div>
+                <div class="ui-block-c">
+                    <a class="effectGroupBtn" data-role="button">Filter</a>
+                </div>
+                <div class="ui-block-d">
+                    <a class="effectGroupBtn" data-role="button">Modulation</a>
+                </div>
+                <div class="ui-block-e">
+                    <a class="effectGroupBtn" data-role="button">Reverb</a>
+                </div>
+            </div>
+            <ul id="effectList" data-role="listview" data-inset="true">
+            </ul>
+
+        </div>
+
+        <div data-role="popup" id="EffectTweakerPage">
+            <div data-role="content">
+                <div class="ui-grid-b effect">
+                    <div class="ui-block-a param">
+                        <span class="param">Param 1</span>
+                        <div class="percentIndicator"></div>
+                    </div>
+                    <div class="ui-block-b param">
+                        <span class="param">Param 2</span>
+                        <div class="percentIndicator"></div>
+                    </div>
+                    <div class="ui-block-c param">
+                        <span class="param">Param 3</span>
+                        <div class="percentIndicator"></div>
+                    </div>
+                    <div class="ui-block-a param">
+                        <span class="param">Param 4</span>
+                        <div class="percentIndicator"></div>
+                    </div>
+                    <div class="ui-block-b param">
+                        <span class="param">Param 5</span>
+                        <div class="percentIndicator"></div>
+                    </div>
+                    <div class="ui-block-c param">
+                        <span class="param">Param 6</span>
+                        <div class="percentIndicator"></div>
+                    </div>
+                </div>
+                <div data-role="fieldcontain" id="slider1">
+                    <label for="slider1-range"></label>
+                    <input type="range" id="slider1-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider2">
+                    <label for="slider2-range"></label>
+                    <input type="range" id="slider2-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider3">
+                    <label for="slider3-range"></label>
+                    <input type="range" id="slider3-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider4">
+                    <label for="slider4-range"></label>
+                    <input type="range" id="slider4-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider5">
+                    <label for="slider5-range"></label>
+                    <input type="range" id="slider5-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider6">
+                    <label for="slider6-range"></label>
+                    <input type="range" id="slider6-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" id="EffectTweakerPageOk">Ok</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a data-role="button" id="EffectTweakerPageCancel">Cancel</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </div>
-<div data-role="popup" id="EffectChooserPage">
 
-        <div class="ui-grid-d EffectChooser">
-
-            <div class="ui-block-a">
-                <a class="effectGroupBtn" data-role="button">Fuzz</a>
-            </div>
-            <div class="ui-block-b">
-                <a class="effectGroupBtn" data-role="button">Delay</a>
-            </div>
-            <div class="ui-block-c">
-                <a class="effectGroupBtn" data-role="button">Filter</a>
-            </div>
-            <div class="ui-block-d">
-                <a class="effectGroupBtn" data-role="button">Modulation</a>
-            </div>
-            <div class="ui-block-e">
-                <a class="effectGroupBtn" data-role="button">Reverb</a>
-            </div>
-        </div>
-        <ul id="effectList" data-role="listview" data-inset="true">
-        </ul>
-
-</div>
 <script>
 
     var currEffectNum=-1;
@@ -184,7 +257,8 @@
     $(".effect").click(function() {
 
         alert($(this).attr('id'));
-
+        $( "#EffectTweakerPage").popup();
+        $( "#EffectTweakerPage" ).popup( "open" );
     });
 
 
