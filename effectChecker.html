@@ -236,6 +236,11 @@
 
 <script>
 
+    var populatedFx = [{"Effect":"4 Band Shift EQ","LO":"34","LMID":"25","HMID":"18","HI":"9","SHFT":"6","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
+        {"Effect":"Bass Octaver","Drive":"33","Bass":"38","Mid":"26","Treble":"32","Output":"30","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
+        {"Effect":"Comet Trails","Freq":"79","Q (Width)":"40","Speed":"56","Gain":"83","Mix":"46","EffectsGroup":"Filter","EffectColor":"fuchsia"},
+        {"Effect":"Reverse","Time":"39","Fdbk":"74","Mod Speed":"51","Mod Depth":"33","Mix":"36","EffectsGroup":"Delay","EffectColor":"lime"}];
+
     var fX = new Array({},{},{},{});
     var currEffectNum=-1;
     $( ".effectGroupBtn" ).click(function() {
@@ -291,7 +296,8 @@
         $.each(paramNames, function( index, value ) {
             currEffect[value] = $("#slider" + (index+1) + "-range").val();
         });
-
+        $( "#EffectTweakerPage" ).popup( "close" );
+        console.log(JSON.stringify(currEffect));
     });
 
 
