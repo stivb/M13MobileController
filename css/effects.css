@@ -41,7 +41,7 @@
     margin: 10px auto;
     padding: 10 px;
     position: relative;
-    background-color: #666666;
+    background-image: linear-gradient( to right, black, white 0% );
     text-align:center;
 }
 

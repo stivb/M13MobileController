@@ -182,40 +182,40 @@
                     </div>
                 </div>
 
-                <div data-role="fieldcontain" id="slider1" class="slider etp">
+                <div data-role="fieldcontain"  class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider1-range"></label>
-                    <input type="range" id="slider1-range" value="50" min="0" max="100" step="1"
+                    <label for="slider1"></label>
+                    <input type="range" id="slider1" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider2" class="slider etp">
+                <div data-role="fieldcontain"  class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider2-range"></label>
-                    <input type="range" id="slider2-range" value="50" min="0" max="100" step="1"
+                    <label for="slider2"></label>
+                    <input type="range" id="slider2" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider3" class="slider etp">
+                <div data-role="fieldcontain" class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider3-range"></label>
-                    <input type="range" id="slider3-range" value="50" min="0" max="100" step="1"
+                    <label for="slider3"></label>
+                    <input type="range" id="slider3" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider4" class="slider etp">
+                <div data-role="fieldcontain" " class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider4-range"></label>
-                    <input type="range" id="slider4-range" value="50" min="0" max="100" step="1"
+                    <label for="slider4"></label>
+                    <input type="range" id="slider4" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider5" class="slider etp ">
+                <div data-role="fieldcontain"  class="slider etp ">
                     <p> Param 1</p>
-                    <label for="slider5-range"></label>
-                    <input type="range" id="slider5-range" value="50" min="0" max="100" step="1"
+                    <label for="slider5"></label>
+                    <input type="range" id="slider5" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
-                <div data-role="fieldcontain" id="slider6" class="slider etp">
+                <div data-role="fieldcontain"  class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider6-range"></label>
-                    <input type="range" id="slider6-range" value="50" min="0" max="100" step="1"
+                    <label for="slider6"></label>
+                    <input type="range" id="slider6" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
 
@@ -236,10 +236,12 @@
 
 <script>
 
-    var populatedFx = [{"Effect":"4 Band Shift EQ","LO":"34","LMID":"25","HMID":"18","HI":"9","SHFT":"6","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
-        {"Effect":"Bass Octaver","Drive":"33","Bass":"38","Mid":"26","Treble":"32","Output":"30","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
-        {"Effect":"Comet Trails","Freq":"79","Q (Width)":"40","Speed":"56","Gain":"83","Mix":"46","EffectsGroup":"Filter","EffectColor":"fuchsia"},
-        {"Effect":"Reverse","Time":"39","Fdbk":"74","Mod Speed":"51","Mod Depth":"33","Mix":"36","EffectsGroup":"Delay","EffectColor":"lime"}];
+    var populatedFx = {fx1:{"Effect":"4 Band Shift EQ","LO":"34","LMID":"25","HMID":"18","HI":"9","SHFT":"6","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
+        fx2:{"Effect":"Bass Octaver","Drive":"33","Bass":"38","Mid":"26","Treble":"32","Output":"30","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
+        fx3:{"Effect":"Comet Trails","Freq":"79","Q (Width)":"40","Speed":"56","Gain":"83","Mix":"46","EffectsGroup":"Filter","EffectColor":"fuchsia"},
+        fx4:{"Effect":"Reverse","Time":"39","Fdbk":"74","Mod Speed":"51","Mod Depth":"33","Mix":"36","EffectsGroup":"Delay","EffectColor":"lime"}};
+
+    console.log(jQuery.param(populatedFx));
 
     var fX = new Array({},{},{},{});
     var currEffectNum=-1;
@@ -279,13 +281,15 @@
         var sliders = $("#EffectTweakerPage").find(".slider");
         var labels =  $("#EffectTweakerPage").find(".paramName");
         var sliderHeaders = $("#EffectTweakerPage").find("p");
+        var paramBoxes = $("#EffectTweakerPage").find(".percentIndicator");
        // alert($(labels[0]).text());
         $.each(paramNames, function( index, value ) {
             $(labels[index]).text(value);
             $(labels[index]).parent().css("visibility","visible");
             $(sliderHeaders[index]).text(value);
             $(sliders[index]).css("visibility","visible");
-            $("#slider" + (index+1) + "-range").val(currEffect[value]).slider().slider('refresh');
+            $("#slider" + (index+1)).val(currEffect[value]).slider().slider('refresh');
+            $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
         });
 
     });
@@ -293,11 +297,18 @@
     $("#EffectTweakerPageOk").click(function() {
         var currEffect = fX[currEffectNum-1] ;
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        var targetEffectsDiv = "#DivFx" + currEffectNum;
+        var paramBoxes = $(targetEffectsDiv).find(".percentIndicator");
         $.each(paramNames, function( index, value ) {
-            currEffect[value] = $("#slider" + (index+1) + "-range").val();
+            currEffect[value] = $("#slider" + (index+1) ).val();
+            $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
         });
         $( "#EffectTweakerPage" ).popup( "close" );
         console.log(JSON.stringify(currEffect));
+    });
+
+    $("#EffectTweakerPageCancel").click(function() {
+        $( "#EffectTweakerPage" ).popup( "close" );
     });
 
 
@@ -308,6 +319,7 @@
         var currEffect = getEffect(fxName );
         fX[currEffectNum-1] = currEffect;
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        $( "#DivFx"+ currEffectNum ).find(".percentIndicator").css("background-image",pc(0));
         $( "#DivFx"+ currEffectNum ).children().css("visibility", "hidden");
         $( "#DivFx"+ currEffectNum ).css("background-color",currEffect.EffectColor);
         $( "#DivFx"+ currEffectNum ).find( ".paramName" ).each(function(index,elmt){
@@ -321,9 +333,23 @@
 
     });
 
+    function doUpdate(obj)
+    {
+        var i = obj.id.charAt(obj.id.length-1)-1;
+        var val = obj.value;
+        var paramBoxes = $("#EffectTweakerPage").find(".percentIndicator");
+        $(paramBoxes[i]).css("background-image",pc(val));
+    }
     function visualizeFx(num)
     {
 
+    }
+
+    function pc(percent)
+    {
+        var retval = "linear-gradient(to right, black, white x%)";
+        retval = retval.replace("x%","" + percent + "%");
+        return retval;
     }
 </script>
 </body>
