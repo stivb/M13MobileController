@@ -219,12 +219,15 @@
                     />
                 </div>
 
-                <div class="ui-grid-a">
+                <div class="ui-grid-b">
                     <div class="ui-block-a">
                         <a data-role="button" id="EffectTweakerPageOk">Ok</a>
                     </div>
                     <div class="ui-block-b">
                         <a data-role="button" id="EffectTweakerPageCancel">Cancel</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a data-role="button" id="EffectTweakerPageRemove">Remove</a>
                     </div>
                 </div>
 
@@ -308,6 +311,13 @@
     });
 
     $("#EffectTweakerPageCancel").click(function() {
+        $( "#EffectTweakerPage" ).popup( "close" );
+    });
+
+    $("#EffectTweakerPageRemove").click(function() {
+        fX[currEffectNum-1] = null;
+        $( "#DivFx"+ currEffectNum ).css("background-color","#f9f9f9");
+        $( "#DivFx"+ currEffectNum ).children().css("visibility", "hidden");
         $( "#EffectTweakerPage" ).popup( "close" );
     });
 
