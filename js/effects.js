@@ -913,3 +913,23 @@ for (i=0;i<EffectsGroupsList.length;i++)
 var thisEffect = getEffect("Octo");
 console.log(JSON.stringify(effectAsParallelArray(thisEffect)));
 console.log(JSON.stringify(allEffectsByGroup("Modulation")));
+
+$( document ).ready(function() {
+
+
+    var efgs = EffectsGroupsList.map(function (item) {return item.EffectsGroup;});
+    $.each(efgs, function( index, value ) {
+        populateEffects(value);
+        });
+});
+
+function populateEffects(effectGroup)
+{
+    var s = allEffectsByGroup(effectGroup);
+    var fns = s.map(function (item) {return item.EffectsGroup;});
+    var selector = "#popup" + effectGroup + " ul";
+    $.each(fns, function( index, value ) {
+        $(selector).append("<li>" + value + "</li>");
+    });
+    $(selector).listview('refresh');
+}

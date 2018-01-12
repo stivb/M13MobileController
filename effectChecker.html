@@ -1,7 +1,339 @@
-﻿<html>
+﻿<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
 <head>
-<script src="js/effects.js"></script>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/effects.js"></script>
+
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <style>
+        .Delay {background:lawngreen !important;}
+        .Distortion {background:lightyellow !important;}
+        .Filters {background: #ff00ff !important;}
+        .Modulation {background:dodgerblue !important;}
+        .Reverb {background:orange !important;}
+
+        #myGroup {
+            font-size: 84%;
+        }
+        #myGroup .ui-controlgroup-label{
+            float: none;
+            display: block;
+            text-align: center;
+            width: 100%;
+        }
+        #myGroup .ui-controlgroup-label legend{
+            font-weight: bold;
+            font-size: 130%;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        #myGroup .ui-controlgroup-controls {
+            float: none;
+            display: block;
+            width: 100%;
+        }
+        #myGroup .ui-radio{
+            width: 25%;
+        }
+        #myGroup .ui-radio label{
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        #EffectChooser .ui-btn-inner{
+            text-overflow: initial; /* Get rid of the ellipsis */
+            padding-left: 5px; /* Play with padding to make max use of available button width */
+        }
+
+        #EffectChooser .ui-btn-text {
+            font-size: 15px; /* Play with font size of the text */
+        }
+        .percentIndicator  {
+            width: 40px;
+            height: 20px;
+            margin: 10px auto;
+            padding: 10 px;
+            position: relative;
+            background-color: #666666;
+            text-align:center;
+        }
+
+        .param
+        {
+            text-align:center;
+        }
+
+        .effect
+
+        {
+            border-style: solid;
+            border-width: 1px;
+        }
+
+
+    </style>
+    <title>Hello World</title>
 </head>
 <body>
+<div data-role="page" id="EffectChooserPage">
+    <div data-role="content">
+
+        <div class="ui-grid-d EffectChooser">
+
+            <div class="ui-block-a">
+                <a href="#popupDelay" data-role="button" class="Delay">Delay</a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#popupDistortion" data-role="button" class="Distortion" >Distortion</a>
+            </div>
+
+            <div class="ui-block-c">
+                <a href="#popupFilters" data-role="button" class="Filters">Filters</a>
+            </div>
+            <div class="ui-block-d" >
+                <a  href="#popupModulation" data-role="button" class="Modulation">Modulation</a>
+            </div>
+            <div class="ui-block-e" >
+                <a  href="#popupReverb"data-role="button" class="Reverb">Reverb</a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div data-role="popup" id="popupDelay" data-theme="a" class="ui-corner-all">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div>
+    <div data-role="popup" id="popupDistortion" data-theme="a" class="ui-corner-all">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div>
+    <div data-role="popup" id="popupFilters" data-theme="a" class="ui-corner-all">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div>
+    <div data-role="popup" id="popupModulation" data-theme="a" class="ui-corner-all">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div>
+    <div data-role="popup" id="popupReverb" data-theme="a" class="ui-corner-all">
+        <ul data-role="listview" data-inset="true">
+        </ul>
+    </div>
+</div>
+<div data-role="page" id="EffectSetterPage">
+    <div data-role="content">
+        <div class="ui-grid-b effect">
+            <div class="ui-block-a param">
+                <span class="param">Param 1</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 2</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 3</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-a param">
+                <span class="param">Param 4</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 5</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 6</span>
+                <div class="percentIndicator"></div>
+            </div>
+        </div>
+        <div data-role="fieldcontain" id="slider1">
+            <label for="slider1-range"></label>
+            <input type="range" id="slider1-range" value="50" min="0" max="100" step="1"
+            />
+        </div>
+        <div data-role="fieldcontain" id="slider2">
+            <label for="slider2-range"></label>
+            <input type="range" id="slider2-range" value="50" min="0" max="100" step="1"
+            />
+        </div>
+        <div data-role="fieldcontain" id="slider3">
+            <label for="slider3-range"></label>
+            <input type="range" id="slider3-range" value="50" min="0" max="100" step="1"
+            />
+        </div>
+        <div data-role="fieldcontain" id="slider4">
+            <label for="slider4-range"></label>
+            <input type="range" id="slider4-range" value="50" min="0" max="100" step="1"
+            />
+        </div>
+        <div data-role="fieldcontain" id="slider5">
+            <label for="slider5-range"></label>
+            <input type="range" id="slider5-range" value="50" min="0" max="100" step="1"
+            />
+        </div>
+        <div data-role="fieldcontain" id="slider6">
+            <label for="slider6-range"></label>
+            <input type="range" id="slider6-range" value="50" min="0" max="100" step="1"
+            />
+        </div>
+    </div>
+</div>
+<div data-role="page" id="EffectChainPage">
+    <div data-role="content" >
+        <h1>Song Title</h1>
+        <span class="effectName">Effect 1</span>
+        <div class="ui-grid-b effect">
+
+            <div class="ui-block-a param">
+                <span class="param">Param 1</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 2</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 3</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-a param">
+                <span class="param">Param 4</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 5</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 6</span>
+                <div class="percentIndicator"></div>
+            </div>
+        </div>
+        <span class="effectName">Effect 2</span>
+        <div class="ui-grid-b effect">
+            <div class="ui-block-a param">
+                <span class="param">Param 1</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 2</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 3</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-a param">
+                <span class="param">Param 4</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 5</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 6</span>
+                <div class="percentIndicator"></div>
+            </div>
+        </div>
+        <span class="effectName">Effect 3</span>
+        <div class="ui-grid-b effect">
+            <div class="ui-block-a param">
+                <span class="param">Param 1</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 2</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 3</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-a param">
+                <span class="param">Param 4</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 5</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 6</span>
+                <div class="percentIndicator"></div>
+            </div>
+        </div>
+        <span class="effectName">Effect 4</span>
+        <div class="ui-grid-b effect">
+            <div class="ui-block-a param">
+                <span class="param">Param 1</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 2</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 3</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-a param">
+                <span class="param">Param 4</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-b param">
+                <span class="param">Param 5</span>
+                <div class="percentIndicator"></div>
+            </div>
+            <div class="ui-block-c param">
+                <span class="param">Param 6</span>
+                <div class="percentIndicator"></div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
