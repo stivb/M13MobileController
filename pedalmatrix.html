@@ -49,6 +49,22 @@
 </head>
 
 <body>
+<script id="songChainItem" type="text/html">
+    <li>
+        <div class="ui-grid-b">
+            <div class="ui-block-b" style="width: 60%;">
+                <h1 class="songTitle">$SONGTITLE</h1>
+            </div>
+            <div class="ui-block-c" style="width: 40%; float: right;">
+                <div style="float: right;">
+                    <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard">PedalBoard Sketch</a>
+                    <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effect">Effect Sketch</a>
+                    <a href="#" data-role="button" data-icon="action" data-iconpos="notext" data-theme="c" data-inline="true" class="midi">Trigger</a>
+                </div>
+            </div>
+        </div>
+    </li>
+</script>
 	  <div data-role="page" id="page0">
             <div data-role="header">
                 <h1>Header</h1>
@@ -85,14 +101,9 @@
             <div data-role="content">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <a data-role="button" id="newChain" data-icon="plus">Add</a>
+                        <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
                     </div>
-                    <div class="ui-block-b">
-                        <div data-role="fieldcontain">
-                            <label for="text2">Label</label>
-                            <input type="text" id="text2" />
-                        </div>
-                    </div>
+
                 </div>
                 <ul data-role="listview" id="songChainList" data-inset="true">
                     
@@ -681,8 +692,22 @@
 
 
 
+        $(document).on('click', '.pedalboard', function () {
+            alert(getTitleFromSongChainItem($(this)));
+        })
+
 		
-		$('#Test').click(function() {
+		function getTitleFromSongChainItem(elmt)
+        {
+            alert(JSON.stringify(elmt.closest("li")));
+            return elmt.closest("li").find(".songTitle").text();
+        }
+
+
+
+
+
+        $('#Test').click(function() {
 			SceneAndEffects("22257A");
 		});
 		
@@ -697,11 +722,23 @@
 		$('#songChainList').empty();
 		$.each( songChains, function( key, value ) 
 			{
-			$("#songChainList").append('<li><a href="#" class="songChainItem">'
-			+ key + '</a></li>');
+			//var listItem =  '<li><a href="#" class="songChainItem">' + key + '</a></li>';
+               $("#songChainList").append(makeSongChainItem(key));
+               $( "#songChainList" ).listview( "refresh" );
+
+			//$("#songChainList").append('<li><a href="#" class="songChainItem">'
+			//+ key + '</a></li>');
 			});
-		$( "#songChainList" ).listview( "refresh" )
+		$( "#songChainList" ).trigger("create");
 		}
+
+		function makeSongChainItem(key)
+        {
+            var s = $('#songChainItem').html();
+            s = s.replace("$SONGTITLE",key);
+            return s;
+
+        }
 		
 		
 		function populateSongChainForm()
