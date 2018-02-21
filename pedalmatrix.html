@@ -638,8 +638,8 @@
 			    localStorage.savedSongChains = JSON.stringify(songChains);
 				
 		});
-		
-		
+
+
 		
 		$('#newChain').click(function() {
 			currentlyEdited ="";
@@ -688,20 +688,41 @@
 				populateSongChainList();
                 localStorage.savedSongChains = JSON.stringify(songChains);
 		});
-					
-
 
 
         $(document).on('click', '.pedalboard', function () {
-            alert(getTitleFromSongChainItem($(this)));
-        })
+            var song = getTitleFromSongChainItem($(this));
+            showPedalBoard(song);
+        });
+
+        function showPedalBoard(song)
+        {
+            currentlyEdited = song;
+            $.mobile.navigate("#FolderSceneEffectsPage");
+        }
+
+        $(document).on('click', '.effect', function () {
+            var song = getTitleFromSongChainItem($(this));
+            showEffects(song);
+        });
+
+        function showEffects(song)
+        {
+            alert(song);
+        }
+
+        $(document).on('click', '.midi', function () {
+            var song = getTitleFromSongChainItem($(this));
+            doBlueTooth(song);
+        });
 
 		
 		function getTitleFromSongChainItem(elmt)
         {
-            alert(JSON.stringify(elmt.closest("li")));
             return elmt.closest("li").find(".songTitle").text();
         }
+
+
 
 
 
@@ -722,12 +743,8 @@
 		$('#songChainList').empty();
 		$.each( songChains, function( key, value ) 
 			{
-			//var listItem =  '<li><a href="#" class="songChainItem">' + key + '</a></li>';
                $("#songChainList").append(makeSongChainItem(key));
                $( "#songChainList" ).listview( "refresh" );
-
-			//$("#songChainList").append('<li><a href="#" class="songChainItem">'
-			//+ key + '</a></li>');
 			});
 		$( "#songChainList" ).trigger("create");
 		}
