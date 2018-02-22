@@ -8,7 +8,7 @@ var EffectsGroupsList=
 [
 { 
 	 "EffectsGroup":"Delay",
-	 "EffectColor":"Green",
+	 "EffectColor":"lime",
 	 "Effects":
 [
   {
@@ -386,7 +386,7 @@ var EffectsGroupsList=
   },
   {
   "EffectsGroup":"Filter",
-  "EffectColor":"Purple",
+  "EffectColor":"fuchsia",
   "Effects":
   [
   {
@@ -570,7 +570,7 @@ var EffectsGroupsList=
 },
 {
 	"EffectsGroup":"Modulation",
-	"EffectColor":"Blue",
+	"EffectColor":"aqua",
 	"Effects":
 [
   {
@@ -857,18 +857,26 @@ function allEffectsByGroup(groupName)
 
 
 
-function allEffects()
+function allEffectNames()
 {
 var i,j,fg;
+var effects = new Array();
 for (i=0;i<EffectsGroupsList.length;i++)
 	{
 	fg = EffectsGroupsList[i];
-	for (j=0;j<fg.Effects.length;j++)
-		{
-		console.log(fg.Effects[j].Effect);
-		}
+	for (j=0;j<fg.Effects.length;j++) effects.push(fg.Effects[j].Effect)
 	}
 }
+
+function allEffectNamesByGroup(groupName)
+{
+    var retval = allEffectsByGroup(groupName).map(function(elem) {
+        return elem.Effect;
+    });
+    return retval;
+}
+
+
 
 function effectAsParallelArray(efg)
 {
