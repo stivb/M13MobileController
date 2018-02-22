@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <link rel="stylesheet" type="text/css" href = "css/effects_uh.css"/>
+    <link rel="stylesheet" type="text/css" href = "css/effects.css"/>
 <script src="js/effects.js"></script>
 </head>
 <body>
 <div data-role="page" id="EffectChainPage">
+    <div data-role="header" >
+        Song Title
+    </div>
     <div data-role="content" >
-        <h1>Song Title</h1>
         <div class="ui-grid-c">
             <div class="ui-block-a"><a data-role="button" id="BtnFx1" class="btnFxChooser">Fx 1</a></div>
             <div class="ui-block-b"><a data-role="button" id="BtnFx2" class="btnFxChooser">Fx 2</a></div>
@@ -129,6 +131,16 @@
                 <div class="percentIndicator"></div>
             </div>
         </div>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#" data-role="button">Save</a></li>
+                <li><a href="#" data-role="button">Cancel</a></li>
+            </ul>
+        </div>
+    </div>
+
         <div data-role="popup" id="EffectChooserPage">
 
             <div class="ui-grid-d EffectChooser">
@@ -153,6 +165,8 @@
             </ul>
 
         </div>
+
+
 
         <div data-role="popup" id="EffectTweakerPage">
                 <div class="ui-grid-b effect">
