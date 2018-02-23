@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+
+Word Count<input type="text" id="wordCount" value="51"/><br/>
+Initial Words Per Page<input type="text" id="wordsPerPage" value="25"/>#
+
+<button id="optimize">Optimize</button>
+<script>
+    $("#optimize").click(function() {
+        var list = new Array();
+        var wordCount = $("#wordCount").val()*1;
+        var wordsPerPage = $("#wordsPerPage").val()*1;
+        alert(optimalWordsPerPage(wordCount,wordsPerPage));
+        /*
+        alert("" + wordCount + " " + wordsPerPage);
+        if (wordCount % wordsPerPage==0) alert("Optimal is " + wordsPerPage);
+        else
+            {
+            for (var i=wordsPerPage;i<wordsPerPage+(wordsPerPage/2);i++)
+                {
+                    if (wordCount % i> 12)
+                        {
+                            alert("Optimal is " + i);
+                            return;
+                        }
+                }
+            }
+            */
+    });
+
+function optimalWordsPerPage(numWords, startingPointWpP) {
+    if (numWords % startingPointWpP == 0) return startingPointWpP;
+    else
+        for (var i = startingPointWpP; i < startingPointWpP * 2; i++) if (numWords % i > 12) return i;
+
+}
+
+
+
+
+</script>
+
+</body>
+</html>
