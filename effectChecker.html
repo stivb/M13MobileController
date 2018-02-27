@@ -370,7 +370,6 @@
     $("#EffectTweakerPageOk").click(function() {
         updateEffects(currEffectNum);
         $( "#EffectTweakerPage" ).popup( "close" );
-        console.log(JSON.stringify(currEffect));
     });
 
 
@@ -387,6 +386,7 @@
             currEffect[value] = $("#slider" + (index+1) ).val();  //saves a numerical value for each of the settableThingNames
             $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
         });
+
 
     }
     /*

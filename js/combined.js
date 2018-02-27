@@ -31,7 +31,7 @@ function savePedalBoardState(pbfxChainName, sixletters)
 }
 
 function saveFxChainState(pbfxChainName, fxChain)
-{ 
+{
     if (!pedalBoardFxChains[pbfxChainName]) pedalBoardFxChains[pbfxChainName] = new Object();
     pedalBoardFxChains[pbfxChainName].fxChain = fxChain;
     savePedalBoardFxChains();
@@ -39,15 +39,27 @@ function saveFxChainState(pbfxChainName, fxChain)
 
 function loadPedalBoardState(pbfxChainName)
 {
-    if (!pedalBoardFxChains[pbfxChainName].pedalBoard) return new Object();
-    return pedalBoardFxChains[pbfxChainName].pedalBoard;
+    if (isInstantiated(pbfxChainName))return pedalBoardFxChains[pbfxChainName].pedalBoard;
+    return new Object();
 }
 
 function loadFxChainState(pbfxChainName)
 {
-    if (!pedalBoardFxChains[pbfxChainName].fxChain) return new Object();
-    return pedalBoardFxChains[pbfxChainName].fxChain;
+    if (isInstantiated(pbfxChainName))return pedalBoardFxChains[pbfxChainName].fxChain;
+    //a chain state is an array of 4 effect bags -
+    //the items in the chain can be empty
+    return new Array({},{},{},{});
 }
+
+function isInstantiated(pbfxChainName)
+{
+    if (pbfxChainName=="") return false;
+    if (!pedalBoardFxChains) return false;
+    if (!pedalBoardFxChains[pbfxChainName]) return false;
+    return true;
+}
+
+
 
 function renameFxChain(old_key, new_key)
 {

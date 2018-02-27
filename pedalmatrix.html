@@ -231,19 +231,19 @@
                 <div class="ui-grid-d EffectChooser">
 				
                     <div class="ui-block-a">
-                        <a data-role="button">Distortion</a>
+                        <a data-role="button">Dist</a>
                     </div>
                     <div class="ui-block-b">
-                        <a data-role="button">Delay</a>
+                        <a data-role="button">Del</a>
                     </div>
                     <div class="ui-block-c">
-                        <a data-role="button">Filters</a>
+                        <a data-role="button">Fltr</a>
                     </div>
                     <div class="ui-block-d">
-                        <a data-role="button">Modulation</a>
+                        <a data-role="button">Mod</a>
                     </div>
                     <div class="ui-block-e">
-                        <a data-role="button">Reverb</a>
+                        <a data-role="button">Verb</a>
                     </div>
                 </div>
 				<ul data-role="listview" data-inset="true">
@@ -697,7 +697,8 @@
 
         function showEffects(song)
         {
-            alert(song);
+            currentlyEditedPbFxChainName = song;
+            window.location.href = "effectChecker.html";
         }
 
         $(document).on('click', '.midi', function () {
