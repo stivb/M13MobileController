@@ -1,10 +1,18 @@
-var currentlyEditedPbFxChainName="";
-var currentlyBeingDeleted="";
+
 
 var pedalBoardFxChains;
 
 
 
+function setCurrentPbfxChainName(nome)
+{
+    localStorage["currentPbfxChainName"] = nome;
+}
+
+function getCurrentpPbfxChainName()
+{
+    return localStorage["currentPbfxChainName"];
+}
 
 function loadPedalBoardFxChains()
 {

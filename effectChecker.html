@@ -136,8 +136,8 @@
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
             <ul>
-                <li><a href="#" data-role="button">Save</a></li>
-                <li><a href="#" data-role="button">Cancel</a></li>
+                <li><a href="#" id="saveFxChain" data-role="button">Save</a></li>
+                <li><a href="#" id="cancelFxChain" data-role="button">Cancel</a></li>
             </ul>
         </div>
     </div>
@@ -278,7 +278,7 @@
     var fX;
 
     $( document ).ready(function() {
-
+        alert(currentlyEditedPbFxChainName);
          fX = loadFxChainState(currentlyEditedPbFxChainName);
     });
 
@@ -454,6 +454,7 @@
     });
 
 
+
     //a function which mirrors in the small pc indicators the movement in the sliders
     function doUpdate(obj)
     {
@@ -473,6 +474,26 @@
         var retval = "linear-gradient(to right, black, white x%)";
         retval = retval.replace("x%","" + percent + "%");
         return retval;
+    }
+
+    $('#saveFxChain').on('click', function() {
+        saveFxChain();
+    });
+
+    $('#cancelFxChain').on('click', function() {
+        cancelFxChain();
+    });
+
+
+    function saveFxChain()
+    {
+        saveFxChainState(currentlyEditedPbFxChainName,fX);
+        window.location.href="pedalmatrix.html#SongListPage";
+    }
+
+    function cancelFxChain()
+    {
+        window.location.href="pedalmatrix.html#SongListPage";
     }
 </script>
 </body>
