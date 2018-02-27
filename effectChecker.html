@@ -277,15 +277,11 @@
 
     var fX;
 
-    $( document ).ready(function() {
 
-         loadPedalBoardFxChains();
-         fX = loadFxChainState(getCurrentPbfxChainName());
-         alert(JSON.stringify(fX));
-    });
 
 
     $(document).on('pagebeforeshow', '#EffectChainPage', function(){
+        fX = loadFxChainState(getCurrentPbfxChainName());
         if(jQuery.isEmptyObject(fX)) return;
         for (var i = 1;i<5 ;i++)
         {
@@ -398,6 +394,7 @@
     function paintEffects(effectNum)
     {
         var currEffect = fX[effectNum-1];
+        $( "#spanFx"+ effectNum ).text(currEffect.Effect);
         $( "#DivFx"+ effectNum ).children().css("visibility", "hidden");
         $( "#DivFx"+ effectNum ).css("background-color",currEffect.EffectColor);
 

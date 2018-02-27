@@ -1,5 +1,4 @@
 
-var pedalBoardFxChains;
 
 
 
@@ -13,53 +12,69 @@ function getCurrentPbfxChainName()
     return localStorage["currentPbfxChainName"];
 }
 
-function loadPedalBoardFxChains()
+function getPedalBoardFxChains()
 {
-    if (localStorage["pedalBoardFxChains"])     pedalBoardFxChains = JSON.parse(localStorage["pedalBoardFxChains"]);
-    else pedalBoardFxChains = new Object();
+    if (localStorage["pedalBoardFxChains"])     return JSON.parse(localStorage["pedalBoardFxChains"]);
+    return new Object();
 }
 
-function savePedalBoardFxChains()
+function savePedalBoardFxChains(pbfxChainz)
 {
-    localStorage["pedalBoardFxChains"] = JSON.stringify(pedalBoardFxChains);
+    localStorage["pedalBoardFxChains"] = JSON.stringify(pbfxChainz);
 }
+
 
 function allPedalBoardFxKeys()
 {
+    var pedalBoardFxChains = getPedalBoardFxChains();
     return Object.keys(pedalBoardFxChains);
 }
 
 
 function savePedalBoardState(pbfxChainName, sixletters)
 {
+    var pedalBoardFxChains = getPedalBoardFxChains();
     if (!pedalBoardFxChains[pbfxChainName])pedalBoardFxChains[pbfxChainName] = new Object();
     pedalBoardFxChains[pbfxChainName].pedalBoard = sixletters;
-    savePedalBoardFxChains();
+    savePedalBoardFxChains(pedalBoardFxChains);
 }
 
 function saveFxChainState(pbfxChainName, fxChain)
 {
+    var pedalBoardFxChains = getPedalBoardFxChains();
     if (!pedalBoardFxChains[pbfxChainName]) pedalBoardFxChains[pbfxChainName] = new Object();
     pedalBoardFxChains[pbfxChainName].fxChain = fxChain;
-    savePedalBoardFxChains();
+    savePedalBoardFxChains(pedalBoardFxChains);
 }
 
 function loadPedalBoardState(pbfxChainName)
 {
+    var pedalBoardFxChains = getPedalBoardFxChains();
     if (isInstantiated(pbfxChainName))return pedalBoardFxChains[pbfxChainName].pedalBoard;
     return new Object();
 }
 
 function loadFxChainState(pbfxChainName)
 {
-    if (isInstantiated(pbfxChainName))return pedalBoardFxChains[pbfxChainName].fxChain;
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    alert("*****" + JSON.stringify(pedalBoardFxChains));
+    alert("*****" + isInstantiated(pbfxChainName));
+    alert("****" + hasNamedChain(pedalBoardFxChains,pbfxChainName));
+    if (isInstantiated(pbfxChainName) && hasNamedChain(pedalBoardFxChains,pbfxChainName))return pedalBoardFxChains[pbfxChainName].fxChain;
     //a chain state is an array of 4 effect bags -
     //the items in the chain can be empty
     return new Array({},{},{},{});
 }
 
+function hasNamedChain(pbfxChainz,pbfxChainName)
+{
+    if (pbfxChainz[pbfxChainName].fxChain) return true;
+    return false;
+}
+
 function isInstantiated(pbfxChainName)
 {
+    var pedalBoardFxChains = getPedalBoardFxChains();
     if (pbfxChainName=="") return false;
     if (!pedalBoardFxChains) return false;
     if (!pedalBoardFxChains[pbfxChainName]) return false;
@@ -70,15 +85,16 @@ function isInstantiated(pbfxChainName)
 
 function renameFxChain(old_key, new_key)
 {
+    var pedalBoardFxChains = getPedalBoardFxChains();
     if (old_key !== new_key) {
         Object.defineProperty(pedalBoardFxChains, new_key,
             Object.getOwnPropertyDescriptor(pedalBoardFxChains, old_key));
-        deletePbFxChain(old_key);
+        deletePbFxChain(pedalBoardFxChains, old_key);
     }
-
+    savePedalBoardFxChains(pedalBoardFxChains);
 }
 
-function deletePbFxChain(pbfxChainName)
+function deletePbFxChain(pedalBoardFxChains, pbfxChainName)
 {
     delete pedalBoardFxChains[pbfxChainName];
     localStorage["pedalBoardFxChains"] = JSON.stringify(pedalBoardFxChains);
