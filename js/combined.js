@@ -25,13 +25,13 @@ function allPedalBoardFxKeys()
 
 function savePedalBoardState(pbfxChainName, sixletters)
 {
-    if (!pedalBoardFxChains[pbfxChainName]) pedalBoardFxChains[pbfxChainName] = new Object();
+    if (!pedalBoardFxChains[pbfxChainName])pedalBoardFxChains[pbfxChainName] = new Object();
     pedalBoardFxChains[pbfxChainName].pedalBoard = sixletters;
     savePedalBoardFxChains();
 }
 
 function saveFxChainState(pbfxChainName, fxChain)
-{
+{ 
     if (!pedalBoardFxChains[pbfxChainName]) pedalBoardFxChains[pbfxChainName] = new Object();
     pedalBoardFxChains[pbfxChainName].fxChain = fxChain;
     savePedalBoardFxChains();
@@ -39,11 +39,13 @@ function saveFxChainState(pbfxChainName, fxChain)
 
 function loadPedalBoardState(pbfxChainName)
 {
+    if (!pedalBoardFxChains[pbfxChainName].pedalBoard) return new Object();
     return pedalBoardFxChains[pbfxChainName].pedalBoard;
 }
 
 function loadFxChainState(pbfxChainName)
 {
+    if (!pedalBoardFxChains[pbfxChainName].fxChain) return new Object();
     return pedalBoardFxChains[pbfxChainName].fxChain;
 }
 

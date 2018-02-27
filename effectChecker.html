@@ -254,6 +254,7 @@
 
 <script>
 
+    /*
     $( document ).ready(function() {
 
         if (localStorage["savedFxChains"]) {
@@ -272,10 +273,18 @@
     //var fX = new Array({},{},{},{});
     //var fX = populatedFx;
     var currEffectNum=-1;
+    */
 
+    var fX;
+
+    $( document ).ready(function() {
+
+         fX = loadFxChainState(currentlyEditedPbFxChainName);
+    });
 
 
     $(document).on('pagebeforeshow', '#EffectChainPage', function(){
+        if(jQuery.isEmptyObject(fX)) return;
         for (var i = 1;i<5 ;i++)
         {
             currEffectNum=i;
