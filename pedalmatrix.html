@@ -53,13 +53,12 @@
     <li>
         <div class="ui-grid-b">
             <div class="ui-block-b" style="width: 60%;">
-                <h1 class="songTitle">$SONGTITLE</h1>
+                <span class="songTitle">$SONGTITLE</span>
             </div>
             <div class="ui-block-c" style="width: 40%; float: right;">
                 <div style="float: right;">
                     <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard">PedalBoard Sketch</a>
                     <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effect">Effect Sketch</a>
-                    <a href="#" data-role="button" data-icon="action" data-iconpos="notext" data-theme="c" data-inline="true" class="midi">Trigger</a>
                 </div>
             </div>
         </div>
@@ -99,23 +98,12 @@
                 <a data-role="button" class="ui-btn-right" data-icon="gear" data-iconpos="notext"></a>
             </div>
             <div data-role="content">
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
-                    </div>
-
-                </div>
+                 <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
                 <ul data-role="listview" id="songChainList" data-inset="true">
-                    
                 </ul>
             </div>
             <<div data-role="footer" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><a href=index.html" data-ajax="false">Up</a></li>
-                <li><a href="effectChecker.html" data-ajax="false">Effects</a></li>
-            </ul>
-        </div><!-- /navbar -->
+
     </div>
 		<div id="confirm" class="ui-content" data-role="popup" data-theme="a">
 
@@ -138,7 +126,7 @@
             </div>
             <div data-role="content">
                 <div data-role="fieldcontain">
-                    <label for="text1">Song Name</label>
+                    <label for="txtSongName">Song Name</label>
                     <input type="text" id="txtSongName" />
                 </div>
 				<hr/>
@@ -743,18 +731,17 @@
 		$('#songChainList').empty();
 		$.each( songChains, function( key, value ) 
 			{
-               $("#songChainList").append(makeSongChainItem(key));
+               $("#songChainList").append(visualizeSongChainItem(key));
                $( "#songChainList" ).listview( "refresh" );
 			});
 		$( "#songChainList" ).trigger("create");
 		}
 
-		function makeSongChainItem(key)
+		function visualizeSongChainItem(key)
         {
             var s = $('#songChainItem').html();
             s = s.replace("$SONGTITLE",key);
             return s;
-
         }
 		
 		
