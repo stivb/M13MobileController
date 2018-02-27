@@ -278,8 +278,10 @@
     var fX;
 
     $( document ).ready(function() {
-        alert(currentlyEditedPbFxChainName);
-         fX = loadFxChainState(currentlyEditedPbFxChainName);
+
+         loadPedalBoardFxChains();
+         fX = loadFxChainState(getCurrentPbfxChainName());
+         alert(JSON.stringify(fX));
     });
 
 
@@ -487,7 +489,7 @@
 
     function saveFxChain()
     {
-        saveFxChainState(currentlyEditedPbFxChainName,fX);
+        saveFxChainState(getCurrentPbfxChainName(),fX);
         window.location.href="pedalmatrix.html#SongListPage";
     }
 

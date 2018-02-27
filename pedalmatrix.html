@@ -547,7 +547,7 @@
 		
 		function setSongTitle()
 		{
-		$('#txtSongName').val(currentlyEditedPbFxChainName);
+		$('#txtSongName').val(getCurrentPbfxChainName());
 		}
 		
 		function setSceneFolder(letter)
@@ -618,10 +618,10 @@
 			//OLD: songChains[songChainKey] = songChain;
             savePedalBoardState(songChainKey,songChain);
 			//in the event the user has changed the title, delete the entry under the old title
-			if (songChainKey!="" && songChainKey!=currentlyEditedPbFxChainName)
+			if (songChainKey!="" && songChainKey!=getCurrentPbfxChainName())
             {
-                deletePbFxChain(currentlyEditedPbFxChainName);
-                currentlyEditedPbFxChainName = songChainKey;
+                deletePbFxChain(getCurrentPbfxChainName());
+                setCurrentPbfxChainName(songChainKey);
             }
             $.mobile.navigate("#SongListPage");
 			
@@ -631,7 +631,7 @@
 
 		
 		$('#newChain').click(function() {
-			currentlyEditedPbFxChainName ="";
+            setCurrentPbfxChainName("");
 			$.mobile.navigate( "#FolderSceneEffectsPage" );
 			
 		});
@@ -651,7 +651,7 @@
 		});
 		
 		$(document).on('taphold', '.songChainItem', function(){
-			currentlyEditedPbFxChainName = $(this).text();
+            setCurrentPbfxChainName($(this).text());
 			$.mobile.navigate("#FolderSceneEffectsPage");
 		});
 		
@@ -686,7 +686,7 @@
 
         function showPedalBoard(song)
         {
-            currentlyEditedPbFxChainName = song;
+            setCurrentPbfxChainName(song);
             $.mobile.navigate("#FolderSceneEffectsPage");
         }
 
@@ -697,7 +697,7 @@
 
         function showEffects(song)
         {
-            currentlyEditedPbFxChainName = song;
+            setCurrentPbfxChainName(song);
             window.location.href = "effectChecker.html";
         }
 
@@ -751,7 +751,7 @@
 		{
 		setSongTitle();
 		var chain = "";
-		if (currentlyEditedPbFxChainName!="") chain=loadPedalBoardState(currentlyEditedPbFxChainName);
+		if (getCurrentPbfxChainName()!="") chain=loadPedalBoardState(getCurrentPbfxChainName());
 		setFolderSceneAndEffects(chain);
 		}
 		
