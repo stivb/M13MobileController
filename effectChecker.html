@@ -5,6 +5,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="js/combined.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <link rel="stylesheet" type="text/css" href = "css/effects.css"/>
@@ -252,6 +253,14 @@
 </div>
 
 <script>
+
+    $( document ).ready(function() {
+
+        if (localStorage["savedFxChains"]) {
+            fxChains = JSON.parse(localStorage["savedFxChains"]);
+        }
+        else fxChains = new Object();
+    });
 
     var fX = [{"Effect":"4 Band Shift EQ","LO":"34","LMID":"25","HMID":"18","HI":"9","SHFT":"6","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
         {"Effect":"Bass Octaver","Drive":"33","Bass":"38","Mid":"26","Treble":"32","Output":"30","EffectsGroup":"Fuzz","EffectColor":"Yellow"},

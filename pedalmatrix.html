@@ -27,6 +27,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="js/combined.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
@@ -440,18 +441,15 @@
 	var songChains;
 	
 	$( document ).ready(function() {
-		
-		if (localStorage["savedSongChains"]) {
-			songChains = JSON.parse(localStorage["savedSongChains"]);
-		}
-		else songChains = new Object();
+
+        loadPedalBoardFxChains();
 	});
 	
 
         app.initialize();
 
-		var currentlyEdited="";
-		var currentlyBeingDeleted="";
+
+
 		
 		
 		var twelve = "123456789ABC";
@@ -549,7 +547,7 @@
 		
 		function setSongTitle()
 		{
-		$('#txtSongName').val(currentlyEdited);
+		$('#txtSongName').val(currentlyEditedPbFxChainName);
 		}
 		
 		function setSceneFolder(letter)
@@ -617,20 +615,23 @@
 			});
 			
 			var songChain = val.join('');
-			songChains[songChainKey] = songChain;
+			//OLD: songChains[songChainKey] = songChain;
+            savePedalBoardState(songChainKey,songChain);
 			//in the event the user has changed the title, delete the entry under the old title
-			if (songChainKey!="" && songChainKey!=currentlyEdited)
-				delete songChains[currentlyEdited];
-			    $.mobile.navigate("#SongListPage");
+			if (songChainKey!="" && songChainKey!=currentlyEditedPbFxChainName)
+            {
+                deletePbFxChain(currentlyEditedPbFxChainName);
+                currentlyEditedPbFxChainName = songChainKey;
+            }
+            $.mobile.navigate("#SongListPage");
 			
-			    localStorage.savedSongChains = JSON.stringify(songChains);
-				
+
 		});
 
 
 		
 		$('#newChain').click(function() {
-			currentlyEdited ="";
+			currentlyEditedPbFxChainName ="";
 			$.mobile.navigate( "#FolderSceneEffectsPage" );
 			
 		});
@@ -650,7 +651,7 @@
 		});
 		
 		$(document).on('taphold', '.songChainItem', function(){
-			currentlyEdited = $(this).text();
+			currentlyEditedPbFxChainName = $(this).text();
 			$.mobile.navigate("#FolderSceneEffectsPage");
 		});
 		
@@ -685,7 +686,7 @@
 
         function showPedalBoard(song)
         {
-            currentlyEdited = song;
+            currentlyEditedPbFxChainName = song;
             $.mobile.navigate("#FolderSceneEffectsPage");
         }
 
@@ -729,9 +730,9 @@
 		function populateSongChainList()
 		{
 		$('#songChainList').empty();
-		$.each( songChains, function( key, value ) 
+		$.each( allPedalBoardFxKeys(), function( key, value )
 			{
-               $("#songChainList").append(visualizeSongChainItem(key));
+               $("#songChainList").append(visualizeSongChainItem(value));
                $( "#songChainList" ).listview( "refresh" );
 			});
 		$( "#songChainList" ).trigger("create");
@@ -749,7 +750,7 @@
 		{
 		setSongTitle();
 		var chain = "";
-		if (currentlyEdited!="") chain=songChains[currentlyEdited];
+		if (currentlyEditedPbFxChainName!="") chain=loadPedalBoardState(currentlyEditedPbFxChainName);
 		setFolderSceneAndEffects(chain);
 		}
 		
