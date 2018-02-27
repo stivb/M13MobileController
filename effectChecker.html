@@ -253,21 +253,37 @@
 
 <script>
 
-    var populatedFx = {fx1:{"Effect":"4 Band Shift EQ","LO":"34","LMID":"25","HMID":"18","HI":"9","SHFT":"6","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
-        fx2:{"Effect":"Bass Octaver","Drive":"33","Bass":"38","Mid":"26","Treble":"32","Output":"30","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
-        fx3:{"Effect":"Comet Trails","Freq":"79","Q (Width)":"40","Speed":"56","Gain":"83","Mix":"46","EffectsGroup":"Filter","EffectColor":"fuchsia"},
-        fx4:{"Effect":"Reverse","Time":"39","Fdbk":"74","Mod Speed":"51","Mod Depth":"33","Mix":"36","EffectsGroup":"Delay","EffectColor":"lime"}};
+    var fX = [{"Effect":"4 Band Shift EQ","LO":"34","LMID":"25","HMID":"18","HI":"9","SHFT":"6","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
+        {"Effect":"Bass Octaver","Drive":"33","Bass":"38","Mid":"26","Treble":"32","Output":"30","EffectsGroup":"Fuzz","EffectColor":"Yellow"},
+        {"Effect":"Comet Trails","Freq":"79","Q (Width)":"40","Speed":"56","Gain":"83","Mix":"46","EffectsGroup":"Filter","EffectColor":"fuchsia"},
+        {"Effect":"Reverse","Time":"39","Fdbk":"74","Mod Speed":"51","Mod Depth":"33","Mix":"36","EffectsGroup":"Delay","EffectColor":"lime"}];
 
-    console.log(jQuery.param(populatedFx));
+    //console.log(jQuery.param(populatedFx));
 
-    var fX = new Array({},{},{},{});
+    //var fX = new Array({},{},{},{});
+    //var fX = populatedFx;
     var currEffectNum=-1;
+
+
+
+    $(document).on('pagebeforeshow', '#EffectChainPage', function(){
+        for (var i = 1;i<5 ;i++)
+        {
+            currEffectNum=i;
+            paintEffects(i);
+            $('#EffectChainPage').trigger('create');
+        }
+
+    });
+
+    //when the user clicks on one of the 5 groups of effects (fuzz/reverb/delay/modulation/filters)
     $( ".effectGroupBtn" ).click(function() {
 
         var filterGroup = $(this).text();
         var effectsToShow = allEffectNamesByGroup(filterGroup);
         var cList = $('#effectList');
         cList.empty();
+        //updating the list with all the effects from that group of effects
         $.each(effectsToShow, function(i)
         {
             var li = $('<li/>').appendTo(cList);
@@ -276,6 +292,7 @@
         cList.listview( "refresh" );
     });
 
+    //user choosing which one in the effect chaing (fx1,fx2,fx3,fx4) to activate
     $( ".btnFxChooser" ).click(function() {
 
         $( "#EffectChooserPage").popup();
@@ -285,44 +302,106 @@
 
     });
 
+
+    //clicking on one of the 4 big boxes for "effects"
     $(".effect").click(function() {
 
         var id = $(this).attr("id");
-        currEffectNum = id.slice(-1)*1;
-        var currEffect = fX[currEffectNum-1] ;
+        currEffectNum = id.slice(-1)*1; //0,1,2,3 depending on which effect (1-4))
+        var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
+
         $( "#EffectTweakerPage").popup();
         $( "#EffectTweakerPage" ).popup( "open" );
+
+        /*
+        paramNames are just the names of things you can set for that effect
+        e.g "fbk" "q" - the things per effect
+        excluding merely formatting stuff like  .EffectColor (color)  .Effect (effect name) and .EffectsGroup
+        paramNames are just the things you can set
+        you can get the VALUE per effect by
+        currEffect[value]
+         */
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
         $( ".etp").css("visibility", "hidden");
         $( "#EffectTweakerPage").css("background-color",currEffect.EffectColor);
+
+        /*
+        these are lists of sliders labels slider headers and param boxes per effect
+        e.g q fbk etc etc
+        each one represents a bag of names and values per setting (fbk q etc)
+         */
         var sliders = $("#EffectTweakerPage").find(".slider");
         var labels =  $("#EffectTweakerPage").find(".paramName");
         var sliderHeaders = $("#EffectTweakerPage").find("p");
         var paramBoxes = $("#EffectTweakerPage").find(".percentIndicator");
-       // alert($(labels[0]).text());
-        $.each(paramNames, function( index, value ) {
-            $(labels[index]).text(value);
+
+
+        /*
+        here what you have is an array of strings and values - e.g q - 60 fbk 90
+         */
+        $.each(paramNames, function( index, settableThingName ) {
+            $(labels[index]).text(settableThingName);   //
             $(labels[index]).parent().css("visibility","visible");
-            $(sliderHeaders[index]).text(value);
+            $(sliderHeaders[index]).text(settableThingName);
             $(sliders[index]).css("visibility","visible");
-            $("#slider" + (index+1)).val(currEffect[value]).slider().slider('refresh');
-            $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
+            $("#slider" + (index+1)).val(currEffect[settableThingName]).slider().slider('refresh');
+            $(paramBoxes[index]).css("background-image",pc(currEffect[settableThingName]));
         });
 
     });
 
     $("#EffectTweakerPageOk").click(function() {
-        var currEffect = fX[currEffectNum-1] ;
-        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
-        var targetEffectsDiv = "#DivFx" + currEffectNum;
-        var paramBoxes = $(targetEffectsDiv).find(".percentIndicator");
-        $.each(paramNames, function( index, value ) {
-            currEffect[value] = $("#slider" + (index+1) ).val();
-            $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
-        });
+        updateEffects(currEffectNum);
         $( "#EffectTweakerPage" ).popup( "close" );
         console.log(JSON.stringify(currEffect));
     });
+
+
+    function updateEffects(effectNum)
+    {
+        var currEffect = fX[effectNum-1] ;//an item from the 4 object array
+
+        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));//gets rid of non settableThingName items
+
+        var targetEffectsDiv = "#DivFx" + effectNum;
+        $( "#DivFx"+ effectNum ).css("background-color",currEffect.EffectColor);
+        var paramBoxes = $(targetEffectsDiv).find(".percentIndicator");
+        $.each(paramNames, function( index, value ) {
+            currEffect[value] = $("#slider" + (index+1) ).val();  //saves a numerical value for each of the settableThingNames
+            $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
+        });
+
+    }
+    /*
+    used to reflect the json onto the the screen of the effects page
+    this is for (one of the four) effects in a chain
+     */
+    function paintEffects(effectNum)
+    {
+        var currEffect = fX[effectNum-1];
+        $( "#DivFx"+ effectNum ).children().css("visibility", "hidden");
+        $( "#DivFx"+ effectNum ).css("background-color",currEffect.EffectColor);
+
+
+        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        var targetEffectsDiv = "#DivFx" + effectNum;
+
+        var paramBoxes = $(targetEffectsDiv).find(".percentIndicator");
+        var paramNameHolders = $(targetEffectsDiv).find(".paramName");
+        $( "#DivFx"+ effectNum ).find( ".paramName" ).each(function(index,elmt){
+            if (paramNames.length>index)
+                {
+                var nome = paramNames[index];
+                var numericValue = currEffect[nome];
+                $(paramNameHolders[index]).text(nome);
+                $(paramBoxes[index]).css("background-image",pc(numericValue));
+                $(this).parent().css("visibility","visible");
+                }
+        });
+
+    }
+
+
 
     $("#EffectTweakerPageCancel").click(function() {
         $( "#EffectTweakerPage" ).popup( "close" );
@@ -357,6 +436,8 @@
 
     });
 
+
+    //a function which mirrors in the small pc indicators the movement in the sliders
     function doUpdate(obj)
     {
         var i = obj.id.charAt(obj.id.length-1)-1;
@@ -369,6 +450,7 @@
 
     }
 
+    //creates a css value from a percentage - so visually show the percent value
     function pc(percent)
     {
         var retval = "linear-gradient(to right, black, white x%)";
