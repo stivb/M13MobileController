@@ -1,6 +1,6 @@
 
 
-
+//resetPedalBoardFxChains();
 
 function setCurrentPbfxChainName(nome)
 {
@@ -14,7 +14,8 @@ function getCurrentPbfxChainName()
 
 function getPedalBoardFxChains()
 {
-    if (localStorage["pedalBoardFxChains"])     return JSON.parse(localStorage["pedalBoardFxChains"]);
+
+    if (localStorage["pedalBoardFxChains"].length>5)     return JSON.parse(localStorage["pedalBoardFxChains"]);
     return new Object();
 }
 
@@ -34,7 +35,11 @@ function allPedalBoardFxKeys()
 function savePedalBoardState(pbfxChainName, sixletters)
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
-    if (!pedalBoardFxChains[pbfxChainName])pedalBoardFxChains[pbfxChainName] = new Object();
+    if (!pedalBoardFxChains[pbfxChainName])
+    {
+        pedalBoardFxChains[pbfxChainName] = new Object();
+    }
+    alert(JSON.stringify(pedalBoardFxChains));
     pedalBoardFxChains[pbfxChainName].pedalBoard = sixletters;
     savePedalBoardFxChains(pedalBoardFxChains);
 }
@@ -57,9 +62,6 @@ function loadPedalBoardState(pbfxChainName)
 function loadFxChainState(pbfxChainName)
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
-    alert("*****" + JSON.stringify(pedalBoardFxChains));
-    alert("*****" + isInstantiated(pbfxChainName));
-    alert("****" + hasNamedChain(pedalBoardFxChains,pbfxChainName));
     if (isInstantiated(pbfxChainName) && hasNamedChain(pedalBoardFxChains,pbfxChainName))return pedalBoardFxChains[pbfxChainName].fxChain;
     //a chain state is an array of 4 effect bags -
     //the items in the chain can be empty
@@ -86,12 +88,14 @@ function isInstantiated(pbfxChainName)
 function renameFxChain(old_key, new_key)
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
-    if (old_key !== new_key) {
-        Object.defineProperty(pedalBoardFxChains, new_key,
-            Object.getOwnPropertyDescriptor(pedalBoardFxChains, old_key));
-        deletePbFxChain(pedalBoardFxChains, old_key);
-    }
+    var newKeyAlreadyExists = new_key in pedalBoardFxChains;
+    if (old_key == new_key) return false;
+    if (newKeyAlreadyExists) {alert("You have renamed this to something already in the database"); return false;}
+
+    Object.defineProperty(pedalBoardFxChains, new_key, Object.getOwnPropertyDescriptor(pedalBoardFxChains, old_key));
+    deletePbFxChain(pedalBoardFxChains, old_key);
     savePedalBoardFxChains(pedalBoardFxChains);
+    return true;
 }
 
 function deletePbFxChain(pedalBoardFxChains, pbfxChainName)

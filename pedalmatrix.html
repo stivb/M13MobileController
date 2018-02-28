@@ -59,7 +59,7 @@
             <div class="ui-block-c" style="width: 40%; float: right;">
                 <div style="float: right;">
                     <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard">PedalBoard Sketch</a>
-                    <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effect">Effect Sketch</a>
+                    <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effectChain">Effect Sketch</a>
                 </div>
             </div>
         </div>
@@ -96,14 +96,13 @@
 	<div data-role="page" id="SongListPage">
             <div data-role="header">
                 <h1>Header</h1>
-                <a data-role="button" class="ui-btn-right" data-icon="gear" data-iconpos="notext"></a>
             </div>
             <div data-role="content">
                  <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
                 <ul data-role="listview" id="songChainList" data-inset="true">
                 </ul>
             </div>
-            <<div data-role="footer" data-position="fixed">
+            <div data-role="footer" data-position="fixed">
 
     </div>
 		<div id="confirm" class="ui-content" data-role="popup" data-theme="a">
@@ -442,7 +441,7 @@
 	
 	$( document ).ready(function() {
 
-        loadPedalBoardFxChains();
+
 	});
 	
 
@@ -474,16 +473,23 @@
 		}
 		
 		$('.scene').change(function() {
-			
+
+            var thisid = $(this).attr('id');
 			for (var i=1;i<=4;i++)
 			{
-			var dd = "M"+i;
-			if ($(this).attr('id')!=dd)
+
+			var dd_n = "M"+i;
+            var myselect = $("#"+dd_n);
+			if (thisid!=dd_n)  //i.e we are dealing with a not-clicked-on-dropdown
 				{
-				var myselect = $("#"+dd);
 				myselect[0].selectedIndex = 0;
-				myselect.selectmenu("refresh");
+                $("#" + dd_n + "-button").css("background-color", "#FFFFFF");
 				}
+			else
+                {
+                $("#" + dd_n + "-button").css("background-color", "#FF0000");
+                }
+            $(myselect).selectmenu("refresh");
 			}
 		});
 		
@@ -568,7 +574,9 @@
 		var s = getNeighbours(letter);
 		var si = s.indexOf(letter)+1;
 		var myselect = $("#M"+dd);
+        $("#M"+dd +  "-button").css("background-color", "#FF0000");
 		myselect[0].selectedIndex = si;
+
 		myselect.selectmenu("refresh");
 		}
 		
@@ -606,6 +614,17 @@
 			
 			var songChainKey = getSongTitle();
 			if (songChainKey=="") {alert("Please add title");return;}
+
+			//checking if the name of the currently being specified has changed
+            //and is not simply the first time it has been created
+
+            var currentlyBeingEdited = getCurrentPbfxChainName();
+			if (currentlyBeingEdited!="" && songChainKey!=currentlyBeingEdited)
+            {
+                var renameSuccess = renameFxChain(currentlyBeingEdited,songChainKey);
+                if (!renameSuccess) return;
+            }
+
 			
 			var val = new Array();
 			val.push(getSceneFolder());
@@ -618,11 +637,7 @@
 			//OLD: songChains[songChainKey] = songChain;
             savePedalBoardState(songChainKey,songChain);
 			//in the event the user has changed the title, delete the entry under the old title
-			if (songChainKey!="" && songChainKey!=getCurrentPbfxChainName())
-            {
-                deletePbFxChain(getCurrentPbfxChainName());
-                setCurrentPbfxChainName(songChainKey);
-            }
+
             $.mobile.navigate("#SongListPage");
 			
 
@@ -690,7 +705,7 @@
             $.mobile.navigate("#FolderSceneEffectsPage");
         }
 
-        $(document).on('click', '.effect', function () {
+        $(document).on('click', '.effectChain', function () {
             var song = getTitleFromSongChainItem($(this));
             showEffects(song);
         });
