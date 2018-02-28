@@ -161,7 +161,7 @@
                     </div>
                     <div class="ui-block-b">
                         <select class="scene" data-native-menu="false" id="M2">
-							<option value="0"></option>
+                            <option ></option>
                             <option value="4">4</option>
                             <option value="5">5</option>
                             <option value="6">6</option>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="ui-block-c">
                         <select class="scene" data-native-menu="false" id="M3">
-							<option value="0"></option>
+                            <option ></option>
                             <option value="7">7</option>
                             <option value="8">8</option>
                             <option value="9">9</option>
@@ -177,7 +177,7 @@
                     </div>
                     <div class="ui-block-d">
                         <select class="scene" data-native-menu="false" id="M4">
-							<option value="0"></option>
+                            <option ></option>
                             <option value="A">10</option>
                             <option value="B">11</option>
                             <option value="C">12</option>
@@ -509,7 +509,7 @@
 			
 			
 		});
-		
+
 		function clearScene()
 		{
 		for (var i=1;i<=4;i++)
@@ -519,6 +519,7 @@
 				{
 				var myselect = $("#"+dd);
 				myselect[0].selectedIndex = 0;
+                $("#M"+i +  "-button").css("background-color", "#FFFFFF");
 				myselect.selectmenu("refresh");
 				}
 			}
@@ -567,7 +568,7 @@
 		
 		
 		function setScene(letter)
-		{
+        {
 		clearScene();
 		if (letter=="") return;
 		var dd = isInWhichDropDown(letter)+1;
@@ -576,7 +577,6 @@
 		var myselect = $("#M"+dd);
         $("#M"+dd +  "-button").css("background-color", "#FF0000");
 		myselect[0].selectedIndex = si;
-
 		myselect.selectmenu("refresh");
 		}
 		
@@ -599,6 +599,7 @@
 		
 		function setFolderSceneAndEffects(s)
 		{
+		    alert(s);
 		if (s=="") {clearScene();clearFolder();clearEffects();return;}
 		
 		setSceneFolder(s.charAt(0));
@@ -746,7 +747,9 @@
 		function populateSongChainList()
 		{
 		$('#songChainList').empty();
-		$.each( allPedalBoardFxKeys(), function( key, value )
+		var allKeys = allPedalBoardFxKeys();
+		alert(JSON.stringify(allKeys));
+		$.each( allPedalBoardFxKeys(),function( key, value )
 			{
                $("#songChainList").append(visualizeSongChainItem(value));
                $( "#songChainList" ).listview( "refresh" );

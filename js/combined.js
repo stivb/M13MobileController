@@ -31,6 +31,27 @@ function allPedalBoardFxKeys()
     return Object.keys(pedalBoardFxChains);
 }
 
+function printOut(pbfxChainName)
+{
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    var theChain = pedalBoardFxChains[pbfxChainName].fxChain;
+
+    alert(JSON.stringify(theChain));
+    var retval = "mailto:subject=" + pbfxChainName + "&body=";
+
+    $.each(theChain, function( index, theEffect ) {
+        if (JSON.stringify(theEffect).length<6) return true;
+        retval+="---"+theEffect.Effect+"---%0D%0A";
+        var effectParams = removeNonNumericFromArray(theEffect);
+        $.each(effectParams, function (key,value){
+            retval+=key+":"+value+"%0D%0A";
+        });
+    });
+    retval+="'";
+    return retval;
+
+}
+
 
 function savePedalBoardState(pbfxChainName, sixletters)
 {
