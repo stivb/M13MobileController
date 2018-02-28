@@ -282,7 +282,8 @@
 
 
     $(document).on('pagebeforeshow', '#EffectChainPage', function(){
-        fX = loadFxChainState(getCurrentPbfxChainName());
+        var theChainName = getCurrentPbfxChainName();
+        fX = loadFxChainState(theChainName);
         if(jQuery.isEmptyObject(fX)) return;
         for (var i = 1;i<5 ;i++)
         {
@@ -290,7 +291,7 @@
             paintEffects(i);
             $('#EffectChainPage').trigger('create');
         }
-        //$('#mailFxChain').attr("href", printOut(getCurrentPbfxChainName()));
+        //if (theChainName!="") $('#mailFxChain').attr("href", printOut(theChainName,fX));
 
     });
 

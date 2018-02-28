@@ -31,11 +31,8 @@ function allPedalBoardFxKeys()
     return Object.keys(pedalBoardFxChains);
 }
 
-function printOut(pbfxChainName)
+function printOut(pbfxChainName,theChain)
 {
-    var pedalBoardFxChains = getPedalBoardFxChains();
-    var theChain = pedalBoardFxChains[pbfxChainName].fxChain;
-
     alert(JSON.stringify(theChain));
     var retval = "mailto:subject=" + pbfxChainName + "&body=";
 
