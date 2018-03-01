@@ -62,3 +62,9 @@
       left: 10%;
       right: 10%
   }
+
+.delay {background-color:lime !important}
+.fuzz {background-color:yellow !important}
+.filter {background-color:fuchsia !important}
+.modulation {background-color:aqua !important}
+.reverb {background-color:orange !important}

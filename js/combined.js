@@ -15,7 +15,7 @@ function getCurrentPbfxChainName()
 function getPedalBoardFxChains()
 {
 
-    if (localStorage["pedalBoardFxChains"].length>5)     return JSON.parse(localStorage["pedalBoardFxChains"]);
+    if (localStorage["pedalBoardFxChains"] && localStorage["pedalBoardFxChains"].length>5)     return JSON.parse(localStorage["pedalBoardFxChains"]);
     return new Object();
 }
 
@@ -33,15 +33,16 @@ function allPedalBoardFxKeys()
 
 function printOut(pbfxChainName,theChain)
 {
-    alert(JSON.stringify(theChain));
+
     var retval = "mailto:subject=" + pbfxChainName + "&body=";
 
     $.each(theChain, function( index, theEffect ) {
         if (JSON.stringify(theEffect).length<6) return true;
         retval+="---"+theEffect.Effect+"---%0D%0A";
-        var effectParams = removeNonNumericFromArray(theEffect);
-        $.each(effectParams, function (key,value){
-            retval+=key+":"+value+"%0D%0A";
+        var effectKeys = removeNonNumericFromArray(Object.keys(theEffect));
+        alert(JSON.stringify(effectKeys));
+        $.each(effectKeys, function (idx,key){
+            retval+=key+":"+theEffect[key]+"%0D%0A";
         });
     });
     retval+="'";

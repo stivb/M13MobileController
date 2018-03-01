@@ -148,25 +148,29 @@
             <div class="ui-grid-d EffectChooser">
 
                 <div class="ui-block-a">
-                    <a class="effectGroupBtn" data-role="button">Fuzz</a>
+                    <a class="effectGroupBtn fuzz" data-role="button">Fuzz</a>
                 </div>
                 <div class="ui-block-b">
-                    <a class="effectGroupBtn" data-role="button">Delay</a>
+                    <a class="effectGroupBtn delay" data-role="button">Delay</a>
                 </div>
                 <div class="ui-block-c">
-                    <a class="effectGroupBtn" data-role="button">Filter</a>
+                    <a class="effectGroupBtn filter" data-role="button">Filter</a>
                 </div>
                 <div class="ui-block-d">
-                    <a class="effectGroupBtn" data-role="button">Modulation</a>
+                    <a class="effectGroupBtn modulation" data-role="button">Modulation</a>
                 </div>
                 <div class="ui-block-e">
-                    <a class="effectGroupBtn" data-role="button">Reverb</a>
+                    <a class="effectGroupBtn reverb" data-role="button">Reverb</a>
                 </div>
             </div>
             <ul id="effectList" data-role="listview" data-inset="true">
             </ul>
 
         </div>
+
+    <div data-role="popup" id="effectHelpPopup" class="ui-content" data-theme="a" style="max-width:350px;">
+        <p id="effectHelpText"></p>
+    </div>
 
 
 
@@ -291,7 +295,7 @@
             paintEffects(i);
             $('#EffectChainPage').trigger('create');
         }
-        //if (theChainName!="") $('#mailFxChain').attr("href", printOut(theChainName,fX));
+        if (theChainName!="") $('#mailFxChain').attr("href", printOut(theChainName,fX));
 
     });
 
@@ -307,6 +311,7 @@
         {
             var li = $('<li/>').appendTo(cList);
             var aaa = $('<a/>').text(effectsToShow[i]).addClass("effectChoice").appendTo(li);
+            var qqq = $('<a/>').text(effectsToShow[i]).addClass("effectHelp").appendTo(li);
         });
         cList.listview( "refresh" );
     });
@@ -387,7 +392,7 @@
             currEffect[value] = $("#slider" + (index+1) ).val();  //saves a numerical value for each of the settableThingNames
             $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
         });
-
+        $('#mailFxChain').attr("href", printOut(getCurrentPbfxChainName(),fX));
 
     }
     /*
@@ -453,6 +458,12 @@
             }
         });
 
+    });
+
+    $('body').on('click', 'a.effectHelp', function() {
+        var fxName = $(this).attr('title');
+        alert(JSON.stringify($(this)));
+        alert(effectDescriptions[fxName]);
     });
 
 
