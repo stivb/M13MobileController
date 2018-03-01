@@ -2,6 +2,28 @@
 
 //resetPedalBoardFxChains();
 
+function setUserEmailAddress(emAddr)
+{
+    localStorage["emAddr"] = emAddr;
+}
+
+function getUserEmailAddress()
+{
+    if (!localStorage["emAddr"]) return "";
+    return localStorage["emAddr"];
+}
+
+function setUserMacAddress(macAddr)
+{
+    localStorage["macAddr"] = macAddr;
+}
+
+function getUserMacAddress()
+{
+    if (!localStorage["macAddr"]) return "";
+    return localStorage["macAddr"];
+}
+
 function setCurrentPbfxChainName(nome)
 {
     localStorage["currentPbfxChainName"] = nome;
@@ -40,7 +62,6 @@ function printOut(pbfxChainName,theChain)
         if (JSON.stringify(theEffect).length<6) return true;
         retval+="---"+theEffect.Effect+"---%0D%0A";
         var effectKeys = removeNonNumericFromArray(Object.keys(theEffect));
-        alert(JSON.stringify(effectKeys));
         $.each(effectKeys, function (idx,key){
             retval+=key+":"+theEffect[key]+"%0D%0A";
         });
@@ -58,7 +79,7 @@ function savePedalBoardState(pbfxChainName, sixletters)
     {
         pedalBoardFxChains[pbfxChainName] = new Object();
     }
-    alert(JSON.stringify(pedalBoardFxChains));
+
     pedalBoardFxChains[pbfxChainName].pedalBoard = sixletters;
     savePedalBoardFxChains(pedalBoardFxChains);
 }

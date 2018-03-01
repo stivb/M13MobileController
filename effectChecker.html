@@ -462,7 +462,6 @@
 
     $('body').on('click', 'a.effectHelp', function() {
         var fxName = $(this).attr('title');
-        alert(JSON.stringify($(this)));
         alert(effectDescriptions[fxName]);
     });
 
@@ -501,12 +500,12 @@
     function saveFxChain()
     {
         saveFxChainState(getCurrentPbfxChainName(),fX);
-        window.location.href="pedalmatrix.html#SongListPage";
+        window.location.href="index.html#SongListPage";
     }
 
     function cancelFxChain()
     {
-        window.location.href="pedalmatrix.html#SongListPage";
+        window.location.href="index.html#SongListPage";
     }
 </script>
 </body>
