@@ -39,7 +39,7 @@
     width: 60px;
     height: 20px;
     margin: 10px auto;
-    padding: 10 px;
+    padding: 10px;
     position: relative;
     background-image: linear-gradient( to right, black, white 0% );
     text-align:center;
@@ -68,3 +68,14 @@
 .filter {background-color:fuchsia !important}
 .modulation {background-color:aqua !important}
 .reverb {background-color:orange !important}
+
+ui-slider-input {
+    visibility:hidden;width:0px; !important
+}
+
+.ui-rangeslider .ui-rangeslider-sliders .ui-slider-track {
+    background: red; !important
+}
+.ui-rangeslider .ui-rangeslider-sliders{
+    margin: 0px; !important
+}

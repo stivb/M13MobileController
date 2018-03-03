@@ -24,7 +24,7 @@ var app = {
 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        connectButton.addEventListener('touchend', app.manageConnection, false);
+        //connectButton.addEventListener('touchend', app.manageConnection, false);
 		//msgBtn.addEventListener('touchend', app.sendText, false);
     },
 

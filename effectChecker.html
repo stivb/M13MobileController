@@ -204,37 +204,37 @@
 
                 <div data-role="fieldcontain"  class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider1"></label>
+                    <label for="slider1" ></label>
                     <input type="range" id="slider1" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
                 <div data-role="fieldcontain"  class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider2"></label>
+                    <label for="slider2" ></label>
                     <input type="range" id="slider2" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
                 <div data-role="fieldcontain" class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider3"></label>
+                    <label for="slider3" ></label>
                     <input type="range" id="slider3" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
                 <div data-role="fieldcontain" " class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider4"></label>
+                    <label for="slider4" ></label>
                     <input type="range" id="slider4" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
                 <div data-role="fieldcontain"  class="slider etp ">
                     <p> Param 1</p>
-                    <label for="slider5"></label>
+                    <label for="slider5" ></label>
                     <input type="range" id="slider5" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
                 <div data-role="fieldcontain"  class="slider etp">
                     <p> Param 1</p>
-                    <label for="slider6"></label>
+                    <label for="slider6" ></label>
                     <input type="range" id="slider6" value="50" min="0" max="100" step="1" onchange="doUpdate(this)"
                     />
                 </div>
@@ -336,6 +336,10 @@
         $( "#EffectTweakerPage").popup();
         $( "#EffectTweakerPage" ).popup( "open" );
 
+        //$(':input[type="number"]').prop("disabled", true);
+
+
+
         /*
         paramNames are just the names of things you can set for that effect
         e.g "fbk" "q" - the things per effect
@@ -345,7 +349,7 @@
         currEffect[value]
          */
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
-        $( ".etp").css("visibility", "hidden");
+        $( ".etp").hide();
         $( "#EffectTweakerPage").css("background-color",currEffect.EffectColor);
 
         /*
@@ -364,12 +368,16 @@
          */
         $.each(paramNames, function( index, settableThingName ) {
             $(labels[index]).text(settableThingName);   //
-            $(labels[index]).parent().css("visibility","visible");
+            $(labels[index]).parent().show();
             $(sliderHeaders[index]).text(settableThingName);
-            $(sliders[index]).css("visibility","visible");
+            $(sliders[index]).show();
             $("#slider" + (index+1)).val(currEffect[settableThingName]).slider().slider('refresh');
             $(paramBoxes[index]).css("background-image",pc(currEffect[settableThingName]));
         });
+
+        //$(".ui-slider-input").css("visibility","hidden");
+        $(".ui-slider-input").attr('readonly', 'readonly');
+
 
     });
 
@@ -435,6 +443,7 @@
         fX[currEffectNum-1] = null;
         $( "#DivFx"+ currEffectNum ).css("background-color","#f9f9f9");
         $( "#DivFx"+ currEffectNum ).children().css("visibility", "hidden");
+        $( "#spanFx"+ currEffectNum ).text("Effect " + currEffectNum);
         $( "#EffectTweakerPage" ).popup( "close" );
     });
 
