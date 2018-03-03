@@ -37,12 +37,13 @@
 }
 .percentIndicator  {
     width: 60px;
-    height: 20px;
+    height: 12px;
     margin: 10px auto;
     padding: 10px;
     position: relative;
     background-image: linear-gradient( to right, black, white 0% );
     text-align:center;
+    border: 1px solid black;
 }
 
 .param
@@ -78,4 +79,10 @@ ui-slider-input {
 }
 .ui-rangeslider .ui-rangeslider-sliders{
     margin: 0px; !important
+}
+
+.whiteonblack
+{
+    background-color:white;
+    color:black;
 }
