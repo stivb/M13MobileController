@@ -58,11 +58,7 @@
     border-width: 1px;
 }
 
-#EffectTweakerPage-popup {
-      width: 80%;
-      left: 10%;
-      right: 10%
-  }
+
 
 .delay {background-color:lime !important}
 .fuzz {background-color:yellow !important}
@@ -83,6 +79,20 @@ ui-slider-input {
 
 .whiteonblack
 {
+    background-color:white;
+    color:black;
+}
+
+#effectTweakerPage-popup, #effectChooserPage-popup, #effectPrintout-popup{
+    height: 98%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left:0; !important;
+}
+
+#transcript {
+    font-family:"Courier New";
     background-color:white;
     color:black;
 }

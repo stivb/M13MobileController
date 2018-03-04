@@ -909,7 +909,7 @@ var effectDescriptions =
     "Smart Harmony":"Inspired by* the Eventide® H3000. This is a diatonic harmonizer. If you ever wished you had that second guitar player for dual guitar parts, this effect is for you.",
     "Echo":"Just like it says …echo… echo…echo. This is a lush echo with reverb.",
     "Spring":"Based on a studio spring reverb. A spring reverb’s characteristic resonant sound was created by springs suspended inside a metal box. Sweet!",
-    "‘63 Spring":"Based on a 1963 brown spring reverb head unit. Best known for great surf guitar tone!",
+    "63 Spring":"Based on a 1963 brown spring reverb head unit. Best known for great surf guitar tone!",
     "Room":"Simulates the acoustic properties of a classic echo chamber, which was a room used in early recording studios for reverb effects.",
     "Plate":"Based on a studio Plate reverb. Similar to the spring, in its metallic resonant quality. Plate reverbs consisted of a thin metal sheet suspended inside a box.",
     "Chamber":"An elongated ambient space such as a hall, stairwell or elevator shaft creates this reverb type. Dreamy.",

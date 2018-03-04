@@ -56,7 +56,7 @@ function allPedalBoardFxKeys()
 function printOut(pbfxChainName,theChain)
 {
 
-    var retval = "mailto:subject=" + pbfxChainName + "&body=";
+    var retval = "mailto:stivbennett@gmail.com?subject=" + pbfxChainName + "&body=";
 
     $.each(theChain, function( index, theEffect ) {
         if (JSON.stringify(theEffect).length<6) return true;
