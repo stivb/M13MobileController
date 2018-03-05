@@ -13,7 +13,7 @@
 </head>
 <body>
 <div data-role="page" id="EffectChainPage">
-    <div data-role="header" >
+    <div data-role="header" id="EffectChainPageHeaderTitle">
         Song Title
     </div>
     <div data-role="content" >
@@ -296,6 +296,7 @@
 
     $(document).on('pagebeforeshow', '#EffectChainPage', function(){
         var theChainName = getCurrentPbfxChainName();
+        $("#EffectChainPageHeaderTitle").text(theChainName);
         fX = loadFxChainState(theChainName);
         if(jQuery.isEmptyObject(fX)) return;
         for (var i = 1;i<5 ;i++)

@@ -27,6 +27,45 @@
     white-space: nowrap;
 }
 
+
+#myEffects {
+    font-size: 84%;
+}
+#myEffects .ui-controlgroup-label{
+    float: none;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+#myEffects .ui-controlgroup-label legend{
+    font-weight: bold;
+    font-size: 130%;
+    width: 100%;
+    margin-bottom: 8px;
+}
+#myEffects .ui-controlgroup-controls {
+    float: none;
+    display: block;
+    width: 100%;
+}
+#myEffects .ui-button{
+    width: 25%;
+}
+#myEffects .ui-button label{
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
 #EffectChooser .ui-btn-inner{
     text-overflow: initial; /* Get rid of the ellipsis */
     padding-left: 5px; /* Play with padding to make max use of available button width */
@@ -95,4 +134,9 @@ ui-slider-input {
     font-family:"Courier New";
     background-color:white;
     color:black;
+}
+
+#EffectChainPageHeaderTitle
+{
+    font-size:16px;
 }
