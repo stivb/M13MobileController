@@ -5,6 +5,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script type="text/javascript" src="cordova.js"></script>
     <script src="js/combined.js"></script>
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
@@ -518,8 +519,9 @@
     //creates a css value from a percentage - so visually show the percent value
     function pc(percent)
     {
-        var retval = "linear-gradient(to right, black, white x%)";
-        retval = retval.replace("x%","" + percent + "%");
+        var retval ="linear-gradient(to right,black,black x%,white x%)";
+        //var retval = "linear-gradient(to right, black, white x%)";
+        retval = retval.replace(/x%/g,"" + percent + "%");
         return retval;
     }
 
