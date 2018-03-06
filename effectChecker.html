@@ -258,6 +258,7 @@
     <div data-role="popup" id="effectPrintout" class="ui-content" data-theme="a">
         <div data-role="header">EFFECT PRINTOUT</div>
         <div data-role="content" id="transcript"></div>
+        <a data-role="button"  href="#" id="emailPrintout" >Close</a>
         <a data-role="button"  href="#" id="closeEffectPrintout" >Close</a>
 
     </div>
@@ -404,6 +405,12 @@
         $("#transcript").html(s);
         $( "#effectPrintout").popup();
         $( "#effectPrintout" ).popup( "open" );
+
+    });
+
+    $("#emailPrintout").click(function() {
+        var s = printOut(getCurrentPbfxChainName(),fX);
+        window.location.href=s;
 
     });
 
