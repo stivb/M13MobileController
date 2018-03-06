@@ -28,8 +28,7 @@
         <div class="ui-grid-b effect" id="DivFx1">
 
             <div class="ui-block-a param" >
-                <span class="paramName whiteonblack">Param 1</span>
-                <div class="percentIndicator"></div>
+
             </div>
             <div class="ui-block-b param">
                 <span class="paramName whiteonblack">Param 2</span>
@@ -55,8 +54,7 @@
         <span class="effectName" id="spanFx2">Effect 2</span>
         <div class="ui-grid-b effect" id="DivFx2">
             <div class="ui-block-a param">
-                <span class="paramName whiteonblack">Param 1</span>
-                <div class="percentIndicator"></div>
+
             </div>
             <div class="ui-block-b param">
                 <span class="paramName whiteonblack">Param 2</span>
@@ -82,8 +80,7 @@
         <span class="effectName" id="spanFx3">Effect 3</span>
         <div class="ui-grid-b effect" id="DivFx3">
             <div class="ui-block-a param">
-                <span class="paramName whiteonblack">Param 1</span>
-                <div class="percentIndicator"></div>
+
             </div>
             <div class="ui-block-b param">
                 <span class="paramName whiteonblack">Param 2</span>
@@ -109,8 +106,7 @@
         <span class="effectName" id="spanFx4">Effect 4</span>
         <div class="ui-grid-b effect" id="DivFx4">
             <div class="ui-block-a param">
-                <span class="paramName whiteonblack">Param 1</span>
-                <div class="percentIndicator"></div>
+
             </div>
             <div class="ui-block-b param">
                 <span class="paramName whiteonblack">Param 2</span>
@@ -176,9 +172,8 @@
 
     <div data-role="popup" id="EffectTweakerPage" >
         <div class="ui-grid-b effect">
-            <div class="ui-block-a param etp">
-                <span class="paramName whiteonblack ">Param 1</span>
-                <div class="percentIndicator"></div>
+            <div class="ui-block-a param">
+
             </div>
             <div class="ui-block-b param etp">
                 <span class="paramName whiteonblack ">Param 2</span>
@@ -258,7 +253,7 @@
     <div data-role="popup" id="effectPrintout" class="ui-content" data-theme="a">
         <div data-role="header">EFFECT PRINTOUT</div>
         <div data-role="content" id="transcript"></div>
-        <a data-role="button"  href="#" id="emailPrintout" >Close</a>
+        <a data-role="button"  href="#" id="emailPrintout" >Email Description of These Effects</a>
         <a data-role="button"  href="#" id="closeEffectPrintout" >Close</a>
 
     </div>
@@ -307,7 +302,7 @@
             paintEffects(i);
             $('#EffectChainPage').trigger('create');
         }
-        if (theChainName!="") $('#mailFxChain').attr("href", printOut(theChainName,fX));
+        //if (theChainName!="") $('#mailFxChain').attr("href", printOut(theChainName,fX));
 
     });
 
@@ -410,7 +405,7 @@
 
     $("#emailPrintout").click(function() {
         var s = printOut(getCurrentPbfxChainName(),fX);
-        window.location.href=s;
+        window.open(s, '_system');
 
     });
 
