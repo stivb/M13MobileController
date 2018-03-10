@@ -443,7 +443,7 @@ var EffectsGroupsList=
      "Freq":0,
      "Q (Width)":0,
      "Speed":0,
-     "Filter LP/BP/HP":0,
+     "Filter [LP/BP/HP]":0,
      "Mix":0
   },
   {
@@ -463,7 +463,7 @@ var EffectsGroupsList=
      "Effect":"Q Freq",
      "Q (Width)":0,
      "Gain":0,
-     "Filter LP/BP/HP":0,
+     "Filter [LP|BP|HP]":0,
      "Mix":0
   },
   {
@@ -500,7 +500,7 @@ var EffectsGroupsList=
      "Effect":"Synth O Matic",
      "Freq":0,
      "Q (Width)":0,
-     "Waveform":0,
+     "Waveform [1|2|3|4|5|6|7|8]":0,
      "Pitch":0,
      "Mix":0
   },
@@ -530,7 +530,7 @@ var EffectsGroupsList=
      "Freq":0,
      "Q (Width)":0,
      "Range":0,
-     "Filter LP/BP/HP":0,
+     "Filter [LP|BP|HP]":0,
      "Mix":0
   },
   {
@@ -538,7 +538,7 @@ var EffectsGroupsList=
      "Freq":0,
      "Q (Width)":0,
      "Range":0,
-     "Filter LP/BP/HP":0,
+     "Filter [LP|BP|HP]":0,
      "Mix":0
   },
   {
@@ -559,7 +559,7 @@ var EffectsGroupsList=
      "Strt Vowel":0,
      "End Vowel":0,
      "Speed":0,
-     "Auto 1-4":0,
+     "Auto [1|2|3|4]":0,
      "Mix":0
   },
   {
@@ -579,7 +579,7 @@ var EffectsGroupsList=
      "Range":0,
      "Enhance":0,
      "Manual":0,
-     "Even/Odd":0
+     "[Even|Odd]":0
   },
   {
      "Effect":"AC Flanger",
@@ -592,7 +592,7 @@ var EffectsGroupsList=
      "Effect":"Analog Chorus",
      "Speed":0,
      "Depth":0,
-     "Chrs/Vibrato":0,
+     "[Chrs|Vibrato]":0,
      "Tone":0,
      "Mix":0
   },
@@ -608,7 +608,7 @@ var EffectsGroupsList=
      "Effect":"Barberpole Phaser",
      "Speed":0,
      "Fdbk":0,
-     "Up/Dwn/St":0,
+     "[Up|Dwn|St]":0,
      "Mix":0
   },
   {
@@ -638,7 +638,7 @@ var EffectsGroupsList=
   {
      "Effect":"Frequency Shifter",
      "Freq":0,
-     "Up/Dwn/St":0,
+     "[Up|Dwn|St]":0,
      "Mix":0
   },
   {
