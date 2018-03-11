@@ -253,6 +253,8 @@
     <div data-role="popup" id="effectPrintout" class="ui-content" data-theme="a">
         <div data-role="header">EFFECT PRINTOUT</div>
         <div data-role="content" id="transcript"></div>
+        <label for="userNotes"></label>
+        <input type="text" id="userNotes"/>
         <a data-role="button"  href="#" id="emailPrintout" >Email Description of These Effects</a>
         <a data-role="button"  href="#" id="closeEffectPrintout" >Close</a>
 
@@ -397,6 +399,7 @@
         var s = printOut(getCurrentPbfxChainName(),fX);
         s = s.replace(/^.*?---/,"<br/><br/>---");
         s = "<div>" + s.replace(/%0D%0A/g,"<br/>") + "</div>";
+
         $("#transcript").html(s);
         $( "#effectPrintout").popup();
         $( "#effectPrintout" ).popup( "open" );
@@ -405,7 +408,8 @@
 
     $("#emailPrintout").click(function() {
         var s = printOut(getCurrentPbfxChainName(),fX);
-        window.open(s, '_system');
+        var tobeEmailed = s + "%0D%0A Notes:" + $('#userNotes').val();
+        window.open(tobeEmailed, '_system');
 
     });
 
@@ -440,6 +444,7 @@
     function getTitleAndNotch(titleIncludingNotches, percentage)
     {
 
+        if (titleIncludingNotches.indexOf('[')==-1) return titleIncludingNotches;
         var notchesString = titleIncludingNotches.match(/\[([^\]]+)\]/)[1];
         var title = titleIncludingNotches.replace(/\[.*$/,"");
         var notchesArray = notchesString.split('|');
@@ -536,9 +541,19 @@
     function doUpdate(obj)
     {
         var i = obj.id.charAt(obj.id.length-1)-1;
+
+
+        var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
+        var keys =  removeNonNumericFromArray(Object.keys(currEffect));
+
+
         var val = obj.value;
         var paramBoxes = $("#EffectTweakerPage").find(".percentIndicator");
         $(paramBoxes[i]).css("background-image",pc(val));
+        var paramLabels = $("#EffectTweakerPage").find(".paramName");
+        $(paramLabels[i]).text(getTitleAndNotch(keys[i],val));
+        var paramNameLabels = $("#EffectTweakerPage").find(".paramNameLabel");
+        $(paramNameLabels[i]).text(getTitleAndNotch(keys[i],val));
     }
     function visualizeFx(num)
     {

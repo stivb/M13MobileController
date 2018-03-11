@@ -500,7 +500,7 @@ var EffectsGroupsList=
      "Effect":"Synth O Matic",
      "Freq":0,
      "Q (Width)":0,
-     "Waveform [1|2|3|4|5|6|7|8]":0,
+     "Wave [1|2|3|4|5|6|7|8]":0,
      "Pitch":0,
      "Mix":0
   },
