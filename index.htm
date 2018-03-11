@@ -195,14 +195,14 @@
                 <!--Scene Layout -->
                 <div data-role="collapsible" data-collapsed="false">
                     <h4>Floorboard Layout</h4>
-                    <div id="myFx" data-role="fieldcontain"   >
+                    <div  data-role="fieldcontain"   >
                         Effects
-                        <div data-role="navbar">
+                        <div data-role="navbar" id="myFx">
                             <ul>
-                                <li><a href="#">Fx1 </a></li>
-                                <li><a href="#">Fx2 </a></li>
-                                <li><a href="#">Fx3 </a></li>
-                                <li><a href="#">Fx4 </a></li>
+                                <li><a class='fxBtn'  >Fx1 </a></li>
+                                <li><a class='fxBtn'  >Fx2 </a></li>
+                                <li><a class='fxBtn'  >Fx3 </a></li>
+                                <li><a class='fxBtn'  >Fx4 </a></li>
                             </ul>
                         </div>
                     </div>
@@ -610,6 +610,7 @@
 		
 		function setEffects(letters)
 		{
+
 		for (var i=0;i<twelve.length;i++)
 			{
 			var myswitch = $("select#f" + twelve.charAt(i));
@@ -622,6 +623,14 @@
 			myswitch[0].selectedIndex = 1;
 			myswitch.slider("refresh");
 			}
+         var cols = getPedalBoardFilterColors();
+		alert(JSON.stringify(cols));
+         //$('#myFx li').removeClass("delay fuzz modulation filter reverb");
+		 $('.fxBtn').each(function(i) {
+             if (cols.length>i ) $(this).css("background-color",cols[i]);
+         });
+
+
 		}
 		
 		
@@ -747,6 +756,11 @@
         $(document).on('click', '.midi', function () {
             var song = getTitleFromSongChainItem($(this));
             doBlueTooth(song);
+        });
+
+        $(document).on('click','.fxBtn', function()
+        {
+            window.location.href = "effectChecker.html";
         });
 
 		

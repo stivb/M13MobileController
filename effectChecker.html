@@ -96,7 +96,7 @@
             </div>
             <div class="ui-block-b param">
                 <span class="paramName whiteonblack">Param 5</span>
-                <div class="percentIndicator"></div>
+                <div class="percentIndicator"></div><
             </div>
             <div class="ui-block-c param">
                 <span class="paramName whiteonblack">Param 6</span>
@@ -425,19 +425,43 @@
         var targetEffectsDiv = "#DivFx" + effectNum;
         $( "#DivFx"+ effectNum ).css("background-color",currEffect.EffectColor);
         var paramBoxes = $(targetEffectsDiv).find(".percentIndicator");
+        var paramNameHolders = $(targetEffectsDiv).find(".paramName");
         $.each(paramNames, function( index, value ) {
             currEffect[value] = $("#slider" + (index+1) ).val();  //saves a numerical value for each of the settableThingNames
             $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
+            var nome = paramNames[index];
+            if (nome.indexOf('[')!=-1) $(paramNameHolders[index]).text(getTitleAndNotch(nome,currEffect[value]));
+
         });
         $('#mailFxChain').attr("href", printOut(getCurrentPbfxChainName(),fX));
 
     }
+
+    function getTitleAndNotch(titleIncludingNotches, percentage)
+    {
+
+        var notchesString = titleIncludingNotches.match(/\[([^\]]+)\]/)[1];
+        var title = titleIncludingNotches.replace(/\[.*$/,"");
+        var notchesArray = notchesString.split('|');
+        var notchesArrayLength = notchesArray.length;
+        var defaultRetVal = title + " " + notchesArray[notchesArrayLength - 1];
+        var units = 100 / notchesArrayLength;
+        for (var i = 1; i < notchesArray.length; i++) {
+            if (percentage < units * i) {
+                defaultRetVal = title + " " + notchesArray[i - 1];
+                break;
+            }
+        }
+        return defaultRetVal;
+    }
+
     /*
     used to reflect the json onto the the screen of the effects page
     this is for (one of the four) effects in a chain
      */
     function paintEffects(effectNum)
     {
+
         var currEffect = fX[effectNum-1];
         $( "#spanFx"+ effectNum ).text(currEffect.Effect);
         $( "#DivFx"+ effectNum ).children().css("visibility", "hidden");
@@ -457,6 +481,9 @@
                 $(paramNameHolders[index]).text(nome);
                 $(paramBoxes[index]).css("background-image",pc(numericValue));
                 $(this).parent().css("visibility","visible");
+
+                var nome = paramNames[index];
+                if (nome.indexOf('[')!=-1) $(paramNameHolders[index]).text(getTitleAndNotch(nome,numericValue));
                 }
         });
 

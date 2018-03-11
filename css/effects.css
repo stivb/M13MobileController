@@ -85,6 +85,8 @@
     border: 1px solid black;
 }
 
+.pcAnnotation {position: relative;float:left}
+
 .param
 {
     text-align:center;
@@ -140,3 +142,5 @@ ui-slider-input {
 {
     font-size:16px;
 }
+
+

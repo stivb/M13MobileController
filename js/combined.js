@@ -41,6 +41,17 @@ function getPedalBoardFxChains()
     return new Object();
 }
 
+function getPedalBoardFilterColors()
+{
+    var pbItems = loadFxChainState(getCurrentPbfxChainName());
+    alert(JSON.stringify(pbItems));
+    var retval = new Array();
+    $.each(pbItems, function( index, value ) {
+    retval.push(value.EffectColor);
+    });
+    return retval;
+    }
+
 function savePedalBoardFxChains(pbfxChainz)
 {
     localStorage["pedalBoardFxChains"] = JSON.stringify(pbfxChainz);
