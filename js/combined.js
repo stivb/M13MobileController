@@ -44,13 +44,24 @@ function getPedalBoardFxChains()
 function getPedalBoardFilterColors()
 {
     var pbItems = loadFxChainState(getCurrentPbfxChainName());
-    alert(JSON.stringify(pbItems));
     var retval = new Array();
     $.each(pbItems, function( index, value ) {
     retval.push(value.EffectColor);
     });
     return retval;
     }
+
+function getPedalBoardEffectNames()
+{
+
+    var pbItems = loadFxChainState(getCurrentPbfxChainName());
+    var retval = new Array();
+    $.each(pbItems, function( index, value ) {
+        retval.push(value.Effect);
+    });
+    return retval;
+}
+
 
 
 
@@ -151,8 +162,9 @@ function renameFxChain(old_key, new_key)
     return true;
 }
 
-function deletePbFxChain(pedalBoardFxChains, pbfxChainName)
+function deletePbFxChain(pbfxChainName)
 {
+    var pedalBoardFxChains = getPedalBoardFxChains();
     delete pedalBoardFxChains[pbfxChainName];
     localStorage["pedalBoardFxChains"] = JSON.stringify(pedalBoardFxChains);
 }

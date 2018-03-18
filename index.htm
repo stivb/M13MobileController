@@ -26,7 +26,10 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/themes/jquery.mobile-1.4.5.min.css"   type="text/css"/>
+    <link rel="stylesheet" href="css/themes/stompbox.css"   type="text/css"/>
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css"  type="text/css" />
+
     <script src="js/combined.js"></script>
 <script src="js/jquery-1.12.4.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
@@ -49,23 +52,26 @@
     <title>Hello World</title>
 </head>
 
-<body>
+<body data-theme="a">
 <script id="songChainItem" type="text/html">
-    <li>
-        <div class="ui-grid-b">
-            <div class="ui-block-b" style="width: 60%;">
+    <li class="song">
+        <div class="ui-grid-c">
+            <div class="ui-block-a" >
                 <span class="songTitle">$SONGTITLE</span>
             </div>
-            <div class="ui-block-c" style="width: 40%; float: right;">
-                <div style="float: right;">
-                    <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard">PedalBoard Sketch</a>
-                    <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effectChain">Effect Sketch</a>
-                </div>
+            <div class="ui-block-b" >
             </div>
+            <div class="ui-block-c" >
+                    <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard">PedalBoard Sketch</a>Pedals
+            </div>
+            <div class="ui-block-d">
+                    <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effectChain">Effects Chain</a>Effects
+                </div>
+
         </div>
     </li>
 </script>
-	  <div data-role="page" id="page0">
+	  <div data-role="page" id="page0" data-theme="a">
             <div data-role="header">
                 <h1>Header</h1>
             </div>
@@ -93,7 +99,7 @@
 
 
 			
-	<div data-role="page" id="SongListPage">
+	<div data-role="page" id="SongListPage" data-theme="a">
             <div data-role="header">
                 <h1>Header</h1>
             </div>
@@ -120,7 +126,7 @@
 
 		</div><!-- /popup -->
         </div>
-	 <div data-role="page" id="FolderSceneEffectsPage">
+	 <div data-role="page" id="FolderSceneEffectsPage" data-theme="a">
             <div data-role="header">
                 <h1>Header</h1>
             </div>
@@ -153,7 +159,10 @@
 				</fieldset>
 				</div>
                 <div class="ui-grid-c">
-					
+                    <div class="ui-block-a">Scenes 1-3</div>
+                    <div class="ui-block-b">Scenes 4-6</div>
+                    <div class="ui-block-c">Scenes 7-9</div>
+                    <div class="ui-block-d">Scenes 10-12</div>
                     <div class="ui-block-a">
                         <select class="scene" data-native-menu="false" id="M1">
 							<option ></option>
@@ -252,7 +261,7 @@
 				<a data-role="button" id="fbCancel" href="#SongListPage">Cancel</a>
             </div>
         </div><!-- /content -->
-		<div data-role="page" id="EffectChooserPage">
+		<div data-role="page" id="EffectChooserPage" data-theme="a">
             <div data-role="content">
                 
                 <div class="ui-grid-d EffectChooser">
@@ -280,7 +289,7 @@
                 </ul>
 			</div>
         </div>
-		<div data-role="page" id="EffectSetterPage">
+		<div data-role="page" id="EffectSetterPage" data-theme="a">
             <div data-role="content">
                 <div class="ui-grid-b effect">
                     <div class="ui-block-a param">
@@ -340,7 +349,7 @@
                 </div>
             </div>
         </div>
-		<div data-role="page" id="EffectChainPage">
+		<div data-role="page" id="EffectChainPage" data-theme="a">
 		<div data-role="content" >
 		<h1>Song Title</h1>
             <div class="ui-grid-c">
@@ -624,10 +633,14 @@
 			myswitch.slider("refresh");
 			}
          var cols = getPedalBoardFilterColors();
-		alert(JSON.stringify(cols));
+		 var fxs = getPedalBoardEffectNames();
          //$('#myFx li').removeClass("delay fuzz modulation filter reverb");
 		 $('.fxBtn').each(function(i) {
-             if (cols.length>i ) $(this).css("background-color",cols[i]);
+             if (cols.length>i )
+             {
+                 $(this).css("background-color",cols[i]);
+                 $(this).text(fxs[i]);
+             }
          });
 
 
@@ -649,36 +662,41 @@
 		
 		$('#Save').click(function() {
 			
-			var songChainKey = getSongTitle();
-			if (songChainKey=="") {alert("Please add title");return;}
+			save();
+			
 
-			//checking if the name of the currently being specified has changed
+		});
+
+		function save()
+        {
+            var songChainKey = getSongTitle();
+            if (songChainKey=="") {alert("Please add title");return;}
+
+            //checking if the name of the currently being specified has changed
             //and is not simply the first time it has been created
 
             var currentlyBeingEdited = getCurrentPbfxChainName();
-			if (currentlyBeingEdited!="" && songChainKey!=currentlyBeingEdited)
+            if (currentlyBeingEdited!="" && songChainKey!=currentlyBeingEdited)
             {
                 var renameSuccess = renameFxChain(currentlyBeingEdited,songChainKey);
                 if (!renameSuccess) return;
             }
 
-			
-			var val = new Array();
-			val.push(getSceneFolder());
-			val.push(getScene());
-			$("select.effect").each(function(){		
-				if (this.value=="on")  val.push(this.id.charAt(1));
-			});
-			
-			var songChain = val.join('');
-			//OLD: songChains[songChainKey] = songChain;
+
+            var val = new Array();
+            val.push(getSceneFolder());
+            val.push(getScene());
+            $("select.effect").each(function(){
+                if (this.value=="on")  val.push(this.id.charAt(1));
+            });
+
+            var songChain = val.join('');
+            //OLD: songChains[songChainKey] = songChain;
             savePedalBoardState(songChainKey,songChain);
-			//in the event the user has changed the title, delete the entry under the old title
+            //in the event the user has changed the title, delete the entry under the old title
 
             $.mobile.navigate("#SongListPage");
-			
-
-		});
+        }
 
 
 		
@@ -699,19 +717,19 @@
 		});
 		
 		$(document).on('click', '.songChainItem', function(){
-			alert(songChains[$(this).text()]);
+			//alert(songChains[$(this).text()]);
 		});
 		
-		$(document).on('taphold', '.songChainItem', function(){
-            setCurrentPbfxChainName($(this).text());
-			$.mobile.navigate("#FolderSceneEffectsPage");
+		$(document).on('taphold', '.song', function(){
+            var songTitle = $(this).find('.songTitle').text();
+            confirmAndDelete( songTitle);
 		});
 		
 
-		$( document ).on( "swipeleft swiperight", ".songChainItem", function( event ) {
+		$( document ).on( "swipeleft swiperight", ".song", function( event ) {
 				
-					
-					confirmAndDelete( $(this).text());
+					var songTitle = $(this).find('.songTitle').text();
+					confirmAndDelete( songTitle);
 			});
 			
 		function confirmAndDelete(litem)
@@ -725,9 +743,8 @@
 		// Proceed when the user confirms
 		$( "#confirm #yes" ).on( "click", function() {
 				var toDelete = $("#songTitlePlaceholder").text();
-				delete songChains[toDelete];
+                deletePbFxChain(toDelete);
 				populateSongChainList();
-                localStorage.savedSongChains = JSON.stringify(songChains);
 		});
 
 
@@ -760,6 +777,7 @@
 
         $(document).on('click','.fxBtn', function()
         {
+            save()
             window.location.href = "effectChecker.html";
         });
 
