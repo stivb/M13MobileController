@@ -54,7 +54,7 @@
 
 <body data-theme="a">
 <script id="songChainItem" type="text/html">
-    <li class="song">
+    <li class="song" style="background-color:black">
         <div class="ui-grid-c">
             <div class="ui-block-a" >
                 <span class="songTitle">$SONGTITLE</span>
@@ -819,6 +819,7 @@
         {
             var s = $('#songChainItem').html();
             s = s.replace("$SONGTITLE",key);
+            s = s.replace("background-color:black",makePedalBoardBackground());
             return s;
         }
 		

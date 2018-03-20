@@ -51,6 +51,22 @@ function getPedalBoardFilterColors()
     return retval;
     }
 
+function makePedalBoardBackground()
+{
+    retval = "background:"
+    var colors = getPedalBoardFilterColors();
+    if (colors.length==0) return retval+="black";
+    if (colors.length==1) return retval+= colors[0];
+    var percentage = 100/colors.length;
+    retval += "linear-gradient(to right"
+    $.each(colors, function( index, value ) {
+        retval +="," + value + " " + percentage*index + "%," +  value + " " + percentage*(index+1) + "%";
+    });
+    return retval;
+
+
+}
+
 function getPedalBoardEffectNames()
 {
 
