@@ -76,28 +76,41 @@
                 <h1>Header</h1>
             </div>
             <div data-role="content">
-                <div class="app">
-                <h1>PhoneGap</h1>
-                <a href="#SongListPage" data-role="button" id="connectButton">Start</a>
-                <div id="deviceready" class="blink">
-                    <p class="event listening">Connecting to Device</p>
-                    <p class="event received">Device is Ready</p>
-                </div>
-                </div>
+
+                <h1>Stompbox Scratchpad</h1>
+                <p>Welcome to the Stompbox Scratchpad.  This is a simple app to help lovers of the Line 6 M13 note down their settings</p>
+                <a href="#SongListPage" data-role="button" id="goToEffects">Go To Effects</a>
+                <a href="#pgSettings" data-role="button" id="goToSettings">Go To Settings</a>
+
+
 
 
 			</div>
             <div data-role="footer" data-position="fixed">
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href=index.html" data-ajax="false">Up</a></li>
-                        <li><a href="effectChecker.html" data-ajax="false">Effects</a></li>
-                    </ul>
-                </div><!-- /navbar -->
+
             </div>
         </div>
 
 
+    <div data-role="page" id="pgSettings" data-theme="a">
+        <div data-role="header">
+            <h1>Settings</h1>
+        </div>
+        <div data-role="content">
+            <label for="emailAddress">Email Address (for emailing settings)</label>
+            <input type="text" style="width:100%" id="emailAddress" name="emailAddress"/>
+            <label for="macAddress">Mac Address (for controlling blutooth equipment)</label>
+            <input type="text" style="width:100%" id="macAddress" name="macAddress"/>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="index.htm" data-ajax="false">Cancel</a></li>
+                    <li><a href="#" id="saveSettings">Save</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 			
 	<div data-role="page" id="SongListPage" data-theme="a">
             <div data-role="header">
@@ -117,7 +130,7 @@
 
         <div class="ui-grid-a">
             <div class="ui-block-a">
-                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+>                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
             </div>
             <div class="ui-block-b">
                 <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
@@ -819,7 +832,7 @@
         {
             var s = $('#songChainItem').html();
             s = s.replace("$SONGTITLE",key);
-            s = s.replace("background-color:black",makePedalBoardBackground());
+            s = s.replace("background-color:black",makePedalBoardBackground(key));
             return s;
         }
 		

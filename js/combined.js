@@ -41,9 +41,10 @@ function getPedalBoardFxChains()
     return new Object();
 }
 
-function getPedalBoardFilterColors()
+function getPedalBoardFilterColors(k)
 {
-    var pbItems = loadFxChainState(getCurrentPbfxChainName());
+    var ka = k || getCurrentPbfxChainName();
+    var pbItems = loadFxChainState(ka);
     var retval = new Array();
     $.each(pbItems, function( index, value ) {
     retval.push(value.EffectColor);
@@ -51,10 +52,11 @@ function getPedalBoardFilterColors()
     return retval;
     }
 
-function makePedalBoardBackground()
+function makePedalBoardBackground(k)
 {
-    retval = "background:"
-    var colors = getPedalBoardFilterColors();
+
+    retval = "background:";
+    var colors = getPedalBoardFilterColors(k);
     if (colors.length==0) return retval+="black";
     if (colors.length==1) return retval+= colors[0];
     var percentage = 100/colors.length;
