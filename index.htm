@@ -742,6 +742,12 @@
 		$(document).on('pagebeforeshow', '#FolderSceneEffectsPage', function(){ 
 			populateSongChainForm();
 		});
+
+		$(document).on('click', '#saveSettings', function(){
+            setUserEmailAddress($('#emailAddress').text());
+            setUserMacAddress($('#macAddress').text());
+            $.mobile.navigate("#SongListPage");
+        });
 		
 		$(document).on('click', '.songChainItem', function(){
 			//alert(songChains[$(this).text()]);
@@ -776,7 +782,7 @@
 
 
         $(document).on('click', '.pedalboard', function () {
-            var song = getTitleFromSongChainItem($(this));
+            var song = getTitleFromSongChainItem($(this));kl
             showPedalBoard(song);
         });
 
@@ -815,11 +821,6 @@
         {
             return elmt.closest("li").find(".songTitle").first().text();
         }
-
-
-
-
-
 
 
         $('#Test').click(function() {
