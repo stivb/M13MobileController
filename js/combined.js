@@ -97,9 +97,18 @@ function allPedalBoardFxKeys()
 
 function printOut(pbfxChainName,theChain)
 {
+    var em = getUserEmailAddress();
+    var retval = "mailto:" + em + "?subject=" + pbfxChainName + "&body=";
 
-    var retval = "mailto:stivbennett@gmail.com?subject=" + pbfxChainName + "&body=";
+    retval+=printOutEffectChainDescriptor(pbfxChainName,theChain);
+    return retval;
 
+}
+
+function printOutEffectChainDescriptor(pbfxChainName,theChain)
+{
+
+    retval = "";
     $.each(theChain, function( index, theEffect ) {
         if (JSON.stringify(theEffect).length<6) return true;
         retval+="---"+theEffect.Effect+"---%0D%0A";
@@ -108,10 +117,26 @@ function printOut(pbfxChainName,theChain)
             retval+=key+":"+theEffect[key]+"%0D%0A";
         });
     });
-    retval+="'";
     return retval;
-
 }
+
+
+function printOutAll()
+{
+    var em = getUserEmailAddress();
+    var separator = "<br/>---------------------------------------------------<br/>";
+    var retval = "mailto:" + em + "?subject=" + pbfxChainName + "&body=";
+    var allKeys =  allPedalBoardFxKeys();
+
+    $.each(allKeys, function( index, key ) {
+        var fx = loadFxChainState(key);
+        retval += printOutEffectChainDescriptor(pbfxChainName,theChain) + separator;
+        });
+
+    return retval;
+}
+
+
 
 
 function savePedalBoardState(pbfxChainName, sixletters)

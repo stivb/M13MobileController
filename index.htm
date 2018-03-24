@@ -732,8 +732,13 @@
 			$.mobile.navigate( "#FolderSceneEffectsPage" );
 			
 		});
-		
-		
+
+
+
+        $(document).on('pagebeforeshow', '#pgSettings', function(){
+            $('#emailAddress').val(getUserEmailAddress());
+            $('#macAddress').val(getUserMacAddress());
+        });
 		
 		$(document).on('pagebeforeshow', '#SongListPage', function(){ 
 			populateSongChainList();
@@ -744,13 +749,13 @@
 		});
 
 		$(document).on('click', '#saveSettings', function(){
-            setUserEmailAddress($('#emailAddress').text());
-            setUserMacAddress($('#macAddress').text());
+            setUserEmailAddress($('#emailAddress').val());
+            setUserMacAddress($('#macAddress').val());
             $.mobile.navigate("#SongListPage");
         });
 		
 		$(document).on('click', '.songChainItem', function(){
-			//alert(songChains[$(this).text()]);
+			//alert(songChains[$(this).text()]);k
 		});
 		
 		$(document).on('taphold', '.song', function(){
