@@ -47,8 +47,9 @@ function getPedalBoardFilterColors(k)
     var pbItems = loadFxChainState(ka);
     var retval = new Array();
     $.each(pbItems, function( index, value ) {
-    retval.push(value.EffectColor);
+    if (value.EffectColor!=null) retval.push(value.EffectColor);
     });
+    //alert(JSON.stringify(retval) + JSON.stringify(pbItems))
     return retval;
     }
 
