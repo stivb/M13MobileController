@@ -54,18 +54,22 @@
 
 <body data-theme="a">
 <script id="songChainItem" type="text/html">
-    <li class="song" style="background-color:black">
-        <div class="ui-grid-c">
+    <li class="song" >
+        <div class="ui-grid-c" style="background-color:black">
+
             <div class="ui-block-a" >
-                <span class="songTitle">$SONGTITLE</span>
+                <!-- both classes v important here - pedalboard is the class listened to for clicks, songTitle is the class of items searched through in order to get
+                the actual song name (used as a key for settings list) -->
+                <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard songTitle">__songtitle__</a>
+                <a href="#" style="text-decoration:none" class="pedalboard songTitle">__songtitle__</a>
             </div>
             <div class="ui-block-b" >
             </div>
             <div class="ui-block-c" >
-                    <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard">PedalBoard Sketch</a>Pedals
             </div>
             <div class="ui-block-d">
-                    <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effectChain">Effects Chain</a>Effects
+                <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effectChain"></a>
+                <a href="#" style="text-decoration:none" class="effectChain">Fx</a>
                 </div>
 
         </div>
@@ -73,14 +77,14 @@
 </script>
 	  <div data-role="page" id="page0" data-theme="a">
             <div data-role="header">
-                <h1>Header</h1>
+                <h1>Stompbox Scratchpad</h1>
             </div>
             <div data-role="content">
 
                 <h1>Stompbox Scratchpad</h1>
                 <p>Welcome to the Stompbox Scratchpad.  This is a simple app to help lovers of the Line 6 M13 note down their settings</p>
                 <a href="#SongListPage" data-role="button" id="goToEffects">Go To Effects</a>
-                <a href="#pgSettings" data-role="button" id="goToSettings">Go To Settings</a>
+                <a href="#pgSettings" data-role="button" class="goToSettings">Go To Settings</a>
 
 
 
@@ -114,34 +118,44 @@
 			
 	<div data-role="page" id="SongListPage" data-theme="a">
             <div data-role="header">
-                <h1>Header</h1>
+                <h1>Song Settings List</h1>
             </div>
             <div data-role="content">
                  <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
                 <ul data-role="listview" id="songChainList" data-inset="true">
                 </ul>
             </div>
-            <div data-role="footer" data-position="fixed">
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
+                    <li><a  id="fullDownload">Email All</a></li>
+                    <li><a href="#help" >Help</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+
+            <p id="question">Are you sure you want to delete: <span id="songTitlePlaceholder"></span>      </p>
+
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    >                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+                </div>
+                <div class="ui-block-b">
+                    <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+                </div>
+            </div>
+
+        </div><!-- /popup -->
 
     </div>
-		<div id="confirm" class="ui-content" data-role="popup" data-theme="a">
 
-        <p id="question">Are you sure you want to delete: <span id="songTitlePlaceholder"></span>      </p>
 
-        <div class="ui-grid-a">
-            <div class="ui-block-a">
->                <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
-            </div>
-            <div class="ui-block-b">
-                <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
-            </div>
-        </div>
-
-		</div><!-- /popup -->
-        </div>
 	 <div data-role="page" id="FolderSceneEffectsPage" data-theme="a">
             <div data-role="header">
-                <h1>Header</h1>
+                <h1>PedalBoard Layout View</h1>
             </div>
             <div data-role="content">
 
@@ -766,16 +780,18 @@
             showPedalBoard(song);
         });
 
-        function showPedalBoard(song)
-        {
-            setCurrentPbfxChainName(song);
-            $.mobile.navigate("#FolderSceneEffectsPage");
-        }
+
 
         $(document).on('click', '.effectChain', function () {
             var song = getTitleFromSongChainItem($(this));
             showEffects(song);
         });
+
+        function showPedalBoard(song)
+        {
+            setCurrentPbfxChainName(song);
+            $.mobile.navigate("#FolderSceneEffectsPage");
+        }
 
         function showEffects(song)
         {
@@ -797,7 +813,7 @@
 		
 		function getTitleFromSongChainItem(elmt)
         {
-            return elmt.closest("li").find(".songTitle").text();
+            return elmt.closest("li").find(".songTitle").first().text();
         }
 
 
@@ -831,7 +847,7 @@
 		function visualizeSongChainItem(key)
         {
             var s = $('#songChainItem').html();
-            s = s.replace("$SONGTITLE",key);
+            s = s.replace(/__songtitle__/g,key);
             s = s.replace("background-color:black",makePedalBoardBackground(key));
             return s;
         }
