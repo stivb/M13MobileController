@@ -125,13 +125,16 @@ function printOutEffectChainDescriptor(pbfxChainName,theChain)
 function printOutAll()
 {
     var em = getUserEmailAddress();
-    var separator = "<br/>---------------------------------------------------<br/>";
-    var retval = "mailto:" + em + "?subject=" + pbfxChainName + "&body=";
+    var separator = "%0D%0A---------------------__songtitle__--------------------%0D%0A";
+    var retval = "mailto:" + em + "?subject=M13 Full Effects Chains" + "&body=";
     var allKeys =  allPedalBoardFxKeys();
 
     $.each(allKeys, function( index, key ) {
+        var newSeparator = separator.replace("__songtitle__",key)
+
         var fx = loadFxChainState(key);
-        retval += printOutEffectChainDescriptor(pbfxChainName,theChain) + separator;
+        retval += newSeparator + printOutEffectChainDescriptor(key,fx);
+
         });
 
     return retval;

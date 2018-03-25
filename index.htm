@@ -129,7 +129,7 @@
             <div data-role="navbar">
                 <ul>
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
-                    <li><a  id="fullDownload">Email All</a></li>
+                    <li><a  id="emailAll">Email All</a></li>
                     <li><a href="#help" >Help</a></li>
                 </ul>
             </div>
@@ -766,7 +766,7 @@
 
 		$( document ).on( "swipeleft swiperight", ".song", function( event ) {
 				
-					var songTitle = $(this).find('.songTitle').text();
+					var songTitle = $(this).find('.songTitle').first().text();
 					confirmAndDelete( songTitle);
 			});
 			
@@ -866,8 +866,12 @@
 		if (getCurrentPbfxChainName()!="") chain=loadPedalBoardState(getCurrentPbfxChainName());
 		setFolderSceneAndEffects(chain);
 		}
-		
-		
+
+    $("#emailAll").click(function() {
+        var tobeEmailed = printOutAll();
+        window.open(tobeEmailed, '_system');
+
+    });
 			
 		
 
