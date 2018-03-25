@@ -343,6 +343,13 @@
         currEffectNum = id.slice(-1)*1; //0,1,2,3 depending on which effect (1-4))
         var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
 
+        if (currEffect.Effect==null || currEffect.Effect=="")
+        {
+            $( "#EffectChooserPage").popup();
+            $( "#EffectChooserPage" ).popup( "open" );
+            return;
+        }
+
         $( "#EffectTweakerPage").popup();
         $( "#EffectTweakerPage" ).popup( "open" );
 

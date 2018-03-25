@@ -140,4 +140,11 @@ ui-slider-input {
     font-size:16px;
 }
 
+.ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d
+{
+    border-left: 1px solid black !important;
+    border-right: 1px solid black !important;
+}
+
+
 
