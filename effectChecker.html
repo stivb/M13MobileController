@@ -384,12 +384,14 @@
         here what you have is an array of strings and values - e.g q - 60 fbk 90
          */
         $.each(paramNames, function( index, settableThingName ) {
-            $(labels[index]).text(settableThingName);   //
+            var currPc = currEffect[settableThingName];
+            var shownThingName = getTitleAndNotch(settableThingName,0);
+            $(labels[index]).text(shownThingName);   //
             $(labels[index]).parent().show();
-            $(sliderHeaders[index]).text(settableThingName);
+            $(sliderHeaders[index]).text(shownThingName);
             $(sliders[index]).show();
-            $("#slider" + (index+1)).val(currEffect[settableThingName]).slider().slider('refresh');
-            $(paramBoxes[index]).css("background-image",pc(currEffect[settableThingName]));
+            $("#slider" + (index+1)).val(currPc).slider().slider('refresh');
+            $(paramBoxes[index]).css("background-image",pc(currPc));
         });
 
         //$(".ui-slider-input").css("visibility","hidden");
@@ -497,7 +499,7 @@
                 $(paramBoxes[index]).css("background-image",pc(numericValue));
                 $(this).parent().css("visibility","visible");
 
-                var nome = paramNames[index];
+
                 if (nome.indexOf('[')!=-1) $(paramNameHolders[index]).text(getTitleAndNotch(nome,numericValue));
                 }
         });
@@ -533,7 +535,7 @@
 
             if (paramNames.length>index)
             {
-                $(this).text(paramNames[index]);
+                $(this).text(getTitleAndNotch(paramNames[index],0));
                 $(this).parent().css("visibility","visible");
             }
         });
