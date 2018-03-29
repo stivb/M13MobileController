@@ -456,7 +456,13 @@
     function getTitleAndNotch(titleIncludingNotches, percentage)
     {
 
-        if (titleIncludingNotches.indexOf('[')==-1) return titleIncludingNotches;
+        if (titleIncludingNotches.indexOf('[')==-1 && titleIncludingNotches.indexOf('{')==-1) return titleIncludingNotches;
+        if (titleIncludingNotches.indexOf('[')!=-1) return parseSqBracketsNotches(titleIncludingNotches, percentage);
+        else return parseCurlyBracesNotches(titleIncludingNotches, percentage);
+    }
+
+    function parseSqBracketsNotches(titleIncludingNotches,percentage)
+    {
         var notchesString = titleIncludingNotches.match(/\[([^\]]+)\]/)[1];
         var title = titleIncludingNotches.replace(/\[.*$/,"");
         var notchesArray = notchesString.split('|');
@@ -470,6 +476,21 @@
             }
         }
         return defaultRetVal;
+    }
+
+    function parseCurlyBracesNotches (titleIncludingNotches,percentage)
+    {
+
+        var notchesString = titleIncludingNotches.match(/\{([^\]]+)\}/)[1];
+        var justSuffix = titleIncludingNotches.match(/\}(.*$)/)[1];
+        var justPrefix = titleIncludingNotches.replace(/\{.*$/,"");
+
+        var notchesArray = notchesString.split('-');
+        var notchScaleStart = notchesArray[0]*1;
+        var notchScaleEnd= notchesArray[1]*1;
+        var notchRange = Math.abs(notchScaleEnd-notchScaleStart);
+        var currVal = Math.round(notchScaleStart + percentage*notchRange/100);
+        return justPrefix + " " + currVal + justSuffix;
     }
 
     /*
@@ -500,7 +521,7 @@
                 $(this).parent().css("visibility","visible");
 
 
-                if (nome.indexOf('[')!=-1) $(paramNameHolders[index]).text(getTitleAndNotch(nome,numericValue));
+                $(paramNameHolders[index]).text(getTitleAndNotch(nome,numericValue));
                 }
         });
 

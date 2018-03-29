@@ -677,10 +677,10 @@ var EffectsGroupsList=
   {
      "Effect":"Pattern Tremolo",
      "Speed":0,
-     "Pattern1 [mute|{0-16}|Full|Skip]":0,
-     "Pattern2 [mute|{0-16}|Full|Skip]":0,
-     "Pattern3 [mute|{0-16}|Full|Skip]":0,
-     "Pattern4 [mute|{0-16}|Full|Skip]":0
+     "Pattern1 [mute|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|Full|Skip]":0,
+     "Pattern2 [mute|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|Full|Skip]":0,
+     "Pattern3 [mute|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|Full|Skip]":0,
+     "Pattern4 [mute|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|Full|Skip]":0
   },
   {
      "Effect":"Phaser",
