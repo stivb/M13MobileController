@@ -141,7 +141,7 @@
         </div>
     </div>
 
-    <div data-role="popup" id="EffectChooserPage">
+    <div data-role="popup" id="EffectChooserPage" data-overlay-theme="b">
 
             <div class="ui-grid-d EffectChooser">
 
@@ -171,7 +171,7 @@
     </div>
 
 
-    <div data-role="popup" id="EffectTweakerPage" >
+    <div data-role="popup" data-overlay-theme="b" id="EffectTweakerPage" >
         <div class="ui-grid-b effect">
             <div class="ui-block-a param">
 
@@ -251,7 +251,7 @@
 
     </div>
 
-    <div data-role="popup" id="effectPrintout" class="ui-content" data-theme="a">
+    <div data-role="popup" id="effectPrintout" data-overlay-theme="a" class="ui-content" data-theme="a">
         <div data-role="header">EFFECT PRINTOUT</div>
         <div data-role="content" id="transcript"></div>
         <label for="userNotes"></label>
@@ -385,7 +385,7 @@
          */
         $.each(paramNames, function( index, settableThingName ) {
             var currPc = currEffect[settableThingName];
-            var shownThingName = getTitleAndNotch(settableThingName,0);
+            var shownThingName = getTitleAndNotch(settableThingName,currPc);
             $(labels[index]).text(shownThingName);   //
             $(labels[index]).parent().show();
             $(sliderHeaders[index]).text(shownThingName);
@@ -400,10 +400,7 @@
 
     });
 
-    $("#EffectTweakerPageOk").click(function() {
-        updateEffects(currEffectNum);
-        $( "#EffectTweakerPage" ).popup( "close" );
-    });
+
 
     $("#mailFxChain").click(function() {
         var s = printOut(getCurrentPbfxChainName(),fX);
@@ -446,52 +443,16 @@
             currEffect[value] = $("#slider" + (index+1) ).val();  //saves a numerical value for each of the settableThingNames
             $(paramBoxes[index]).css("background-image",pc(currEffect[value]));
             var nome = paramNames[index];
-            if (nome.indexOf('[')!=-1) $(paramNameHolders[index]).text(getTitleAndNotch(nome,currEffect[value]));
+            $(paramNameHolders[index]).text(getTitleAndNotch(nome,currEffect[value]));
 
         });
         $('#mailFxChain').attr("href", printOut(getCurrentPbfxChainName(),fX));
 
     }
 
-    function getTitleAndNotch(titleIncludingNotches, percentage)
-    {
 
-        if (titleIncludingNotches.indexOf('[')==-1 && titleIncludingNotches.indexOf('{')==-1) return titleIncludingNotches;
-        if (titleIncludingNotches.indexOf('[')!=-1) return parseSqBracketsNotches(titleIncludingNotches, percentage);
-        else return parseCurlyBracesNotches(titleIncludingNotches, percentage);
-    }
 
-    function parseSqBracketsNotches(titleIncludingNotches,percentage)
-    {
-        var notchesString = titleIncludingNotches.match(/\[([^\]]+)\]/)[1];
-        var title = titleIncludingNotches.replace(/\[.*$/,"");
-        var notchesArray = notchesString.split('|');
-        var notchesArrayLength = notchesArray.length;
-        var defaultRetVal = title + " " + notchesArray[notchesArrayLength - 1];
-        var units = 100 / notchesArrayLength;
-        for (var i = 1; i < notchesArray.length; i++) {
-            if (percentage < units * i) {
-                defaultRetVal = title + " " + notchesArray[i - 1];
-                break;
-            }
-        }
-        return defaultRetVal;
-    }
 
-    function parseCurlyBracesNotches (titleIncludingNotches,percentage)
-    {
-
-        var notchesString = titleIncludingNotches.match(/\{([^\]]+)\}/)[1];
-        var justSuffix = titleIncludingNotches.match(/\}(.*$)/)[1];
-        var justPrefix = titleIncludingNotches.replace(/\{.*$/,"");
-
-        var notchesArray = notchesString.split('-');
-        var notchScaleStart = notchesArray[0]*1;
-        var notchScaleEnd= notchesArray[1]*1;
-        var notchRange = Math.abs(notchScaleEnd-notchScaleStart);
-        var currVal = Math.round(notchScaleStart + percentage*notchRange/100);
-        return justPrefix + " " + currVal + justSuffix;
-    }
 
     /*
     used to reflect the json onto the the screen of the effects page
@@ -527,7 +488,10 @@
 
     }
 
-
+    $("#EffectTweakerPageOk").click(function() {
+        updateEffects(currEffectNum);
+        $( "#EffectTweakerPage" ).popup( "close" );
+    });
 
     $("#EffectTweakerPageCancel").click(function() {
         $( "#EffectTweakerPage" ).popup( "close" );

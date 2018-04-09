@@ -2,6 +2,16 @@
 
 //resetPedalBoardFxChains();
 
+function isInMobileApp()
+{
+    return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+}
+
+function copyToClipboard(txt)
+{
+    if (!isInMobileApp())  alert("Not in mobile app");
+}
+
 function setUserEmailAddress(emAddr)
 {
     localStorage["emAddr"] = emAddr;
@@ -110,15 +120,65 @@ function printOutEffectChainDescriptor(pbfxChainName,theChain)
 {
 
     retval = "";
+    var pc =0
     $.each(theChain, function( index, theEffect ) {
         if (JSON.stringify(theEffect).length<6) return true;
         retval+="---"+theEffect.Effect+"---%0D%0A";
         var effectKeys = removeNonNumericFromArray(Object.keys(theEffect));
         $.each(effectKeys, function (idx,key){
-            retval+=key+":"+theEffect[key]+"%0D%0A";
+            pc = theEffect[key];
+            retval+=getTitleAndNotch(key, pc)+ "(" + pc + "%)%0D%0A";
         });
     });
     return retval;
+}
+
+function getTitleAndNotch(titleIncludingNotches, percentage)
+{
+
+    if (titleIncludingNotches.indexOf('[')==-1 && titleIncludingNotches.indexOf('{')==-1) return titleIncludingNotches;
+    if (titleIncludingNotches.indexOf('[')!=-1) return parseSqBracketsNotches(titleIncludingNotches, percentage);
+    else return parseCurlyBracesNotches(titleIncludingNotches, percentage);
+}
+
+function parseSqBracketsNotches(titleIncludingNotches,percentage)
+{
+    var notchesString = titleIncludingNotches.match(/\[([^\]]+)\]/)[1];
+    var title = titleIncludingNotches.replace(/\[.*$/,"");
+    var notchesArray = notchesString.split('|');
+    var notchesArrayLength = notchesArray.length;
+    var defaultRetVal = title + " " + notchesArray[notchesArrayLength - 1];
+    var units = 100 / notchesArrayLength;
+    for (var i = 1; i < notchesArray.length; i++) {
+        if (percentage < units * i) {
+            defaultRetVal = title + " " + notchesArray[i - 1];
+            break;
+        }
+    }
+    return defaultRetVal;
+}
+
+function minusNotches(titleIncludingNotches)
+{
+    var title = titleIncludingNotches.replace(/\[.*$/,"");
+    title = title.replace((/\{.*$/),"");
+    return title;
+
+}
+
+function parseCurlyBracesNotches (titleIncludingNotches,percentage)
+{
+
+    var notchesString = titleIncludingNotches.match(/\{(.+?)\}/)[1];
+    var justSuffix = titleIncludingNotches.match(/\}(.*$)/)[1];
+    var justPrefix = titleIncludingNotches.replace(/\{.*$/,"");
+
+    var notchesArray = notchesString.split('-');
+    var notchScaleStart = notchesArray[0]*1;
+    var notchScaleEnd= notchesArray[1]*1;
+    var notchRange = Math.abs(notchScaleEnd-notchScaleStart);
+    var currVal = Math.round(notchScaleStart + percentage*notchRange/100);
+    return justPrefix + " " + currVal + justSuffix;
 }
 
 
