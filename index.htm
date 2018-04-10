@@ -61,7 +61,7 @@
                 <!-- both classes v important here - pedalboard is the class listened to for clicks, songTitle is the class of items searched through in order to get
                 the actual song name (used as a key for settings list) -->
                 <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard songTitle">__songtitle__</a>
-                <a href="#" style="text-decoration:none" class="pedalboard songTitle">__songtitle__</a>
+                <a href="#" style="text-decoration:none;background-color:white;color:black" class="pedalboard songTitle">__songtitle__</a>
             </div>
             <div class="ui-block-b" >
             </div>
@@ -129,7 +129,7 @@
             <div data-role="navbar">
                 <ul>
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
-                    <li><a  id="emailAll">Email All</a></li>
+                    <li><a  id="emailAll">Copy All To Clipboard</a></li>
                     <li><a href="#help" >Help</a></li>
                 </ul>
             </div>
@@ -153,10 +153,9 @@
 
         <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" class="ui-content" data-theme="a">
             <div data-role="header">EFFECT PRINTOUT</div>
-            <div data-role="content" id="transcript"></div>
-            <label for="userNotes"></label>
-            <input type="text" id="userNotes"/>
-            <a data-role="button"  href="#" id="emailPrintout" >Email Description of These Effects</a>
+            <a data-role="button"  href="#" id="clipboardCopy" >Copy to Clipboard</a>
+            <textarea id="transcript" name="transcript" cols="40" rows="20" style="overflow: scroll;height:200px">Effects</textarea>
+
             <a data-role="button"  href="#" id="closeEffectPrintout" >Close</a>
 
         </div>
@@ -889,16 +888,24 @@
         var fullPrintout = printOutAll();
         //window.open(tobeEmailed, '_system');
 
-        fullPrintout = fullPrintout.replace(/^.*?---/,"<br/><br/>---");
-        fullPrintout = "<div>" + fullPrintout.replace(/%0D%0A/g,"<br/>") + "</div>";
+        fullPrintout = fullPrintout.replace(/^.*?---/,"\r\n\r\n---");
+        fullPrintout = fullPrintout.replace(/%0D%0A/g,"\r\n") + "";
 
-        $("#transcript").html(fullPrintout);
+        $("#transcript").val(fullPrintout);
         $( "#songlistEffectPrintout").popup();
         $( "#songlistEffectPrintout" ).popup( "open" );
 
         });
 
+    $("#clipboardCopy").click(function() {
+        copyToClipboard("#transcript");
 
+    });
+
+    $("#closeEffectPrintout").click(function() {
+        $( "#songlistEffectPrintout" ).popup( "close" );
+
+    });
 		
 
 		

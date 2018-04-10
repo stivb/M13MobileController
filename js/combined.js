@@ -7,9 +7,11 @@ function isInMobileApp()
     return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 }
 
-function copyToClipboard(txt)
+function copyToClipboard(ctrlId)
 {
-    if (!isInMobileApp())  alert("Not in mobile app");
+        $(ctrlId).focus();
+        $(ctrlId).select();
+        document.execCommand('copy');
 }
 
 function setUserEmailAddress(emAddr)
