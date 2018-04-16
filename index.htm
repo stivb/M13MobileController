@@ -103,8 +103,10 @@
         <div data-role="content">
             <label for="emailAddress">Email Address (for emailing settings)</label>
             <input type="text" style="width:100%" id="emailAddress" name="emailAddress"/>
+            <!--
             <label for="macAddress">Mac Address (for controlling blutooth equipment)</label>
             <input type="text" style="width:100%" id="macAddress" name="macAddress"/>
+            -->
         </div>
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar">
@@ -154,7 +156,7 @@
         <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" class="ui-content" data-theme="a">
             <div data-role="header">EFFECT PRINTOUT</div>
             <a data-role="button"  href="#" id="clipboardCopy" >Copy to Clipboard</a>
-            <textarea id="transcript" name="transcript" cols="40" rows="20" style="overflow: scroll;height:200px">Effects</textarea>
+            <textarea id="transcript" name="transcript" cols="40" rows="20" style="overflow: scroll;height:200px" readonly>Effects</textarea>
 
             <a data-role="button"  href="#" id="closeEffectPrintout" >Close</a>
 
@@ -178,7 +180,7 @@
 
                 <!--Scene and Folder -->
 
-                <div data-role="collapsible">
+                <div data-role="collapsible" >
                     <h4>Scene and Folder</h4>
 				<div id="myGroup" data-role="fieldcontain"   > 
 				Scene Folder
@@ -239,9 +241,9 @@
 
 
                 <!--Scene Layout -->
-                <div data-role="collapsible" data-collapsed="false">
+                <div data-role="collapsible" data-collapsed="false" >
                     <h4>Floorboard Layout</h4>
-                    <div  data-role="fieldcontain"   >
+                    <div  data-role="fieldcontain"  id="fxCollapsible" >
                         Effects
                         <div data-role="navbar" id="myFx">
                             <ul>
@@ -880,7 +882,15 @@
 		{
 		setSongTitle();
 		var chain = "";
-		if (getCurrentPbfxChainName()!="") chain=loadPedalBoardState(getCurrentPbfxChainName());
+		if (getCurrentPbfxChainName()!="")
+            {
+                chain=loadPedalBoardState(getCurrentPbfxChainName());
+                $("#fxCollapsible").show();
+            }
+        else
+            {
+                $("#fxCollapsible").hide();
+            }
 		setFolderSceneAndEffects(chain);
 		}
 
