@@ -192,13 +192,41 @@ function printOutAll()
     var allKeys =  allPedalBoardFxKeys();
 
     $.each(allKeys, function( index, key ) {
-        var newSeparator = separator.replace("__songtitle__",key)
+        var newSeparator = separator.replace("__songtitle__",key);
 
         var fx = loadFxChainState(key);
         retval += newSeparator + printOutEffectChainDescriptor(key,fx);
 
         });
 
+    return retval;
+}
+
+function listAllPedalBoardStates()
+{
+    var allKeys =  allPedalBoardFxKeys();
+    var allScenes = "123456789ABC";
+    var chainsPerScene = [];
+    var songsPerScene=[];
+    $.each(allScenes.split(""), function( index, key ) {
+        chainsPerScene[key]=0;
+        songsPerScene[key]="\n";
+    });
+    var retval = new Array();
+    $.each(allKeys, function( index, key ) {
+
+        var pbx = loadPedalBoardState(key);
+        var scene = pbx.charAt(1);
+        chainsPerScene[scene]++;
+        songsPerScene[scene] +=key + "\n";
+    });
+
+    var sceneSummary = "CHAINS BY SCENE\n\n";
+    $.each(allScenes.split(""), function( index, key ) {
+        sceneSummary+="Scene:" + key + "-------------" + chainsPerScene[key] +  songsPerScene[key];
+
+    });
+    alert(sceneSummary);
     return retval;
 }
 
