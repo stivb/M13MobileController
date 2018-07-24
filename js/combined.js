@@ -65,6 +65,13 @@ function getPedalBoardFilterColors(k)
     return retval;
     }
 
+function getPedalBoardSceneFromChainName(k)
+{
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    var sceneDescript = pedalBoardFxChains[k].pedalBoard;
+    return sceneDescript.charAt(1)*1;
+}
+
 function makePedalBoardBackground(k)
 {
 
@@ -105,7 +112,25 @@ function savePedalBoardFxChains(pbfxChainz)
 function allPedalBoardFxKeys()
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
-    return Object.keys(pedalBoardFxChains);
+    return Object.keys(pedalBoardFxChains).sort();
+}
+
+function allPedalBoardFxKeysOrderedByScene()
+{
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    var objs = pedalBoardFxChains.sort(OrderByScene());
+    return Object.keys(objs);
+}
+
+function OrderByScene() {
+    return function(a, b) {
+        if (a["pedalBoard"].charAt(1)*1 > b["pedalBoard"].charAt(1)*1) {
+            return 1;
+        } else if (a["pedalBoard"].charAt(1)*1 < b["pedalBoard"].charAt(1)*1)  {
+            return -1;
+        }
+        return 0;
+    }
 }
 
 function printOut(pbfxChainName,theChain)

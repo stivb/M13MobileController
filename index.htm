@@ -858,7 +858,10 @@
 		
 		function getTitleFromSongChainItem(elmt)
         {
-            return elmt.closest("li").find(".songTitle").first().text();
+            var s =  elmt.closest("li").find(".songTitle").first().text();
+            var scene = s.match(/\(([^)]+)\)/)[1];
+            var songMinusBrackets = s.replace(/ *\([^)]*\) */g, "");
+            return songMinusBrackets;
         }
 
 
@@ -887,7 +890,10 @@
 		function visualizeSongChainItem(key)
         {
             var s = $('#songChainItem').html();
-            s = s.replace(/__songtitle__/g,key);
+
+            var scene = getPedalBoardSceneFromChainName(key);
+            var visibleSceneText = key + "(" + scene + ")";
+            s = s.replace(/__songtitle__/g,visibleSceneText);
             s = s.replace("background-color:black",makePedalBoardBackground(key));
             return s;
         }
