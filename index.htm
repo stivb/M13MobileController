@@ -123,6 +123,32 @@
                 <h1>Song Settings List</h1>
             </div>
             <div data-role="content">
+
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">
+                        Sort By:
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" id="btnAlphabetically" >Letter</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" data-role="button" id="btnByScene" >Scene</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" data-role="button" id="btnByDate" >Date</a>
+                    </div>
+                </div>
+                <hr/>
+
+
+
+
+
+
+
+
+
+
                  <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
                 <ul data-role="listview" id="songChainList" data-inset="true">
                 </ul>
@@ -131,9 +157,10 @@
             <div data-role="navbar">
                 <ul>
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
-                    <li><a  id="emailAll">Copy All To Clipboard</a></li>
-                    <li><a  id="checkScenes">Check Scenes</a></li>
-                    <li><a href="#help" >Help</a></li>
+                    <li><a  id="emailAll">Print</a></li>
+                    <li><a  id="checkScenes">Scenes</a></li>
+                    <li><a href="#btnImport" >Import</a></li>
+                    <li><a href="#btnExport" >Export</a></li>
                 </ul>
             </div>
         </div>
@@ -940,8 +967,9 @@
 		function populateSongChainList()
 		{
 		$('#songChainList').empty();
-		var allKeys = allPedalBoardFxKeys();
-		$.each( allPedalBoardFxKeys(),function( key, value )
+		//var allKeys = allPedalBoardFxKeys();
+        var allKeys = allPedalBoardFxKeysOrderedByScene();
+		$.each( allKeys,function( key, value )
 			{
                $("#songChainList").append(visualizeSongChainItem(value));
                $( "#songChainList" ).listview( "refresh" );

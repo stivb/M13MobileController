@@ -112,14 +112,38 @@ function savePedalBoardFxChains(pbfxChainz)
 function allPedalBoardFxKeys()
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
+    alert(JSON.stringify(pedalBoardFxChains));
     return Object.keys(pedalBoardFxChains).sort();
 }
 
 function allPedalBoardFxKeysOrderedByScene()
 {
+    var tuples = [];
+    var retval = [];
     var pedalBoardFxChains = getPedalBoardFxChains();
-    var objs = pedalBoardFxChains.sort(OrderByScene());
-    return Object.keys(objs);
+
+    for (var key in pedalBoardFxChains) tuples.push([key, pedalBoardFxChains[key]]);
+
+    tuples.sort(function(a, b) {
+        a = parseInt(a[1].pedalBoard.charAt(1),16);
+        b = parseInt(b[1].pedalBoard.charAt(1),16);
+
+        return a < b ? -1 : (a > b ? 1 : 0);
+    });
+
+    for (var i = 0; i < tuples.length; i++) {
+        var key = tuples[i][0];
+        var value = tuples[i][1];
+        retval.push(key);
+
+        // do something with key and value
+    }
+
+
+    //var pedalBoardFxChains = getPedalBoardFxChains();
+    //var objs = pedalBoardFxChains.sort(OrderByScene());
+    //return Object.keys(objs);
+    return retval;
 }
 
 function OrderByScene() {
