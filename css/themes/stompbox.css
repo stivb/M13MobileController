@@ -744,4 +744,35 @@ button[disabled],
 	outline-width: 1px;
 	outline-style: auto;
 }
-			
+
+.sceneItem {
+	border-width: 1px;
+	border-style: solid;
+	background-color:white;
+	border-color: red;
+	padding:5px;
+}
+
+.on
+{
+	height:75%;
+	width:75%;
+
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin:5%;
+	text-align:center;
+}
+
+.orange
+{
+	background:orange;
+}
+
+.white
+{
+	background:white;
+}
+
+
