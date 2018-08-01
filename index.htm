@@ -181,8 +181,16 @@
         </div><!-- /popup -->
 
 
-        <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" class="ui-content" data-theme="a">
+        <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" data-dismissible="false" class="ui-content" data-theme="a">
             <div data-role="header">EFFECT PRINTOUT</div>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a id="btnPrintable" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Printable</a>
+                </div>
+                <div class="ui-block-b">
+                    <a id="btnJSON" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">JSON</a>
+                </div>
+            </div>
             <a data-role="button"  href="#" id="clipboardCopy" >Copy to Clipboard</a>
             <textarea id="transcript" name="transcript" cols="40" rows="20" style="overflow: scroll;height:200px" readonly>Effects</textarea>
 
@@ -920,6 +928,39 @@
             showEffects(song);
         });
 
+
+        $(document).on('click', '#btnAlphabetically', function () {
+            populateSongChainList('letter');
+        });
+
+        $(document).on('click', '#btnByScene', function () {
+            populateSongChainList('scene');
+        });
+
+        $(document).on('click', '#btnByDate', function () {
+            populateSongChainList('');
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         function showPedalBoard(song)
         {
             setCurrentPbfxChainName(song);
@@ -964,11 +1005,24 @@
 		return s;
 		}
 		
-		function populateSongChainList()
+		function populateSongChainList(how)
 		{
 		$('#songChainList').empty();
-		//var allKeys = allPedalBoardFxKeys();
-        var allKeys = allPedalBoardFxKeysOrderedByScene();
+		var allKeys;
+
+		switch(how)
+        {
+            case "scene":
+                allKeys = allPedalBoardFxKeysOrderedByScene();
+                break;
+            case "letter":
+                allKeys = allPedalBoardFxKeysByLetter();
+                break;
+            default:
+                allKeys = allPedalBoardFxKeys();
+                break;
+        }
+
 		$.each( allKeys,function( key, value )
 			{
                $("#songChainList").append(visualizeSongChainItem(value));
@@ -1006,17 +1060,43 @@
 		}
 
     $("#emailAll").click(function() {
+
+        $("#transcript").val(getPrintOut());
+
+        $( "#songlistEffectPrintout").popup();
+        $( "#songlistEffectPrintout" ).popup( "open" );
+
+        });
+
+    $('#btnPrintable').click(function(event) {
+
+        $("#transcript").val(getPrintOut());
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    $('#btnJSON').click(function(event) {
+
+        $("#transcript").val(getJSON());
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    function getPrintOut()
+    {
         var fullPrintout = printOutAll();
         //window.open(tobeEmailed, '_system');
 
         fullPrintout = fullPrintout.replace(/^.*?---/,"\r\n\r\n---");
         fullPrintout = fullPrintout.replace(/%0D%0A/g,"\r\n") + "";
 
-        $("#transcript").val(fullPrintout);
-        $( "#songlistEffectPrintout").popup();
-        $( "#songlistEffectPrintout" ).popup( "open" );
+        return fullPrintout;
+    }
 
-        });
+    function getJSON()
+    {
+        return localStorage["pedalBoardFxChains"];
+    }
 
     $("#clipboardCopy").click(function() {
         copyToClipboard("#transcript");

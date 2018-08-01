@@ -112,9 +112,14 @@ function savePedalBoardFxChains(pbfxChainz)
 function allPedalBoardFxKeys()
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
-    alert(JSON.stringify(pedalBoardFxChains));
-    return Object.keys(pedalBoardFxChains).sort();
+    return Object.keys(pedalBoardFxChains);
 }
+
+function allPedalBoardFxKeysByLetter()
+{
+    return allPedalBoardFxKeys().sort();
+}
+
 
 function allPedalBoardFxKeysOrderedByScene()
 {
