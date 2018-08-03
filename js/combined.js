@@ -44,6 +44,19 @@ function setCurrentPbfxChainName(nome)
 function getCurrentPbfxChainName()
 {
     return localStorage["currentPbfxChainName"];
+
+
+}
+
+
+function importSongChainsFromJSON(stringifiedSongChains)
+{
+    var importedSongChains = JSON.parse(stringifiedSongChains);
+    if (importedSongChains!=null)
+    {
+        localStorage['previousPedalBoardFxChains'] = localStorage["pedalBoardFxChains"];
+        localStorage["pedalBoardFxChains"] = stringifiedSongChains;
+    }
 }
 
 function getPedalBoardFxChains()

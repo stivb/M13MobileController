@@ -75,48 +75,7 @@
         </div>
     </li>
 </script>
-	  <div data-role="page" id="page0" data-theme="a">
-            <div data-role="header">
-                <h1>Stompbox Scratchpad</h1>
-            </div>
-            <div data-role="content">
 
-                <h1>Stompbox Scratchpad</h1>
-                <p>Welcome to the Stompbox Scratchpad.  This is a simple app to help lovers of the Line 6 M13 note down their settings</p>
-                <a href="#SongListPage" data-role="button" id="goToEffects">Go To Effects</a>
-                <a href="#pgSettings" data-role="button" class="goToSettings">Go To Settings</a>
-
-
-
-
-			</div>
-            <div data-role="footer" data-position="fixed">
-
-            </div>
-        </div>
-
-
-    <div data-role="page" id="pgSettings" data-theme="a">
-        <div data-role="header">
-            <h1>Settings</h1>
-        </div>
-        <div data-role="content">
-            <label for="emailAddress">Email Address (for emailing settings)</label>
-            <input type="text" style="width:100%" id="emailAddress" name="emailAddress"/>
-            <!--
-            <label for="macAddress">Mac Address (for controlling blutooth equipment)</label>
-            <input type="text" style="width:100%" id="macAddress" name="macAddress"/>
-            -->
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="index.htm" data-ajax="false">Cancel</a></li>
-                    <li><a href="#" id="saveSettings">Save</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 			
 	<div data-role="page" id="SongListPage" data-theme="a">
             <div data-role="header">
@@ -124,9 +83,9 @@
             </div>
             <div data-role="content">
 
-                <div class="ui-grid-c">
+                <div class="ui-grid-c ">
                     <div class="ui-block-a">
-                        Sort By:
+                        <a href="#" data-role="button" id="btnSortBy" >Sort By:</a>
                     </div>
                     <div class="ui-block-b">
                         <a href="#" data-role="button" id="btnAlphabetically" >Letter</a>
@@ -159,7 +118,7 @@
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
                     <li><a  id="emailAll">Print</a></li>
                     <li><a  id="checkScenes">Scenes</a></li>
-                    <li><a href="#btnImport" >Import</a></li>
+                    <li><a  id="btnImport" >Import</a></li>
                     <li><a href="#btnExport" >Export</a></li>
                 </ul>
             </div>
@@ -196,6 +155,17 @@
 
             <a data-role="button"  href="#" id="closeEffectPrintout" >Close</a>
 
+        </div>
+
+
+        <div data-role="popup" id="importSongChainsPopup" data-overlay-theme="a" data-dismissible="false" class="ui-content" data-theme="a">
+            <div data-role="header">Import Song Effect Chains</div>
+            <div data-role="content">
+                Paste the JSON data into the text box, then press the BACKUP button<br/>
+                Note, any songs of the same name will be overwritten
+                <textarea id="txtJSONImport" name="txtJSONImport" cols="40" rows="20" >Paste text here  </textarea>
+                <a data-role="button"  href="#" id="btnImportJSON" >Backup</a>
+            </div>
         </div>
 
     </div>
@@ -619,6 +589,50 @@
                <input type="radio" name="sceneFolder" id="sf4" class="sceneFolder" value="4">
                <label for="sceneFolder4">Four</label>
            </fieldset>
+       </div>
+
+        <div data-role="page" id="page0" data-theme="a">
+            <div data-role="header">
+                <h1>Stompbox Scratchpad</h1>
+            </div>
+            <div data-role="content">
+
+                <h1>Stompbox Scratchpad</h1>
+                <p>Welcome to the Stompbox Scratchpad.  This is a simple app to help lovers of the Line 6 M13 note down their settings</p>
+                <a href="#SongListPage" data-role="button" id="goToEffects">Go To Effects</a>
+                <a href="#pgSettings" data-role="button" class="goToSettings">Go To Settings</a>
+
+
+
+
+            </div>
+            <div data-role="footer" data-position="fixed">
+
+            </div>
+        </div>
+
+
+        <div data-role="page" id="pgSettings" data-theme="a">
+            <div data-role="header">
+                <h1>Settings</h1>
+            </div>
+            <div data-role="content">
+                <label for="emailAddress">Email Address (for emailing settings)</label>
+                <input type="text" style="width:100%" id="emailAddress" name="emailAddress"/>
+                <!--
+                <label for="macAddress">Mac Address (for controlling blutooth equipment)</label>
+                <input type="text" style="width:100%" id="macAddress" name="macAddress"/>
+                -->
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="index.htm" data-ajax="false">Cancel</a></li>
+                        <li><a href="#" id="saveSettings">Save</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
     
     <script type="text/javascript" src="cordova.js"></script>
@@ -906,6 +920,7 @@
 		// Proceed when the user confirms
 		$( "#confirm #yes" ).on( "click", function() {
 				var toDelete = $("#songTitlePlaceholder").first().text();
+				toDelete = songMinusSceneBrackets(toDelete)
                 deletePbFxChain(toDelete);
 				populateSongChainList();
 		});
@@ -922,8 +937,24 @@
         });
 
 
+        $(document).on('click', '#btnImport', function () {
+            $( "#importSongChainsPopup").popup();
+            $( "#importSongChainsPopup" ).popup( "open" );
+        });
 
-        $(document).on('click', '.effectChain', function () {
+
+
+        $(document).on('click', '#btnImportJSON', function () {
+
+            importSongChainsFromJSON($('#txtJSONImport').val());
+            $( "#importSongChainsPopup" ).popup( "close" );
+            populateSongChainList();
+        });
+
+
+
+
+    $(document).on('click', '.effectChain', function () {
             var song = getTitleFromSongChainItem($(this));
             showEffects(song);
         });
@@ -989,6 +1020,11 @@
 		function getTitleFromSongChainItem(elmt)
         {
             var s =  elmt.closest("li").find(".songTitle").first().text();
+            return songMinusSceneBrackets(s);
+        }
+
+        function songMinusSceneBrackets(s)
+        {
             var scene = s.match(/\(([^)]+)\)/)[1];
             var songMinusBrackets = s.replace(/ *\([^)]*\) */g, "");
             return songMinusBrackets;

@@ -775,4 +775,16 @@ button[disabled],
 	background:white;
 }
 
+.ui-popup-container, .ui-popup {
+	height: 98%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left:0;
+}
+
+.sortLegend{ font-size:14px;background-color:black;text-color:white;vertical-align: center;font-weight:bold}
+
+textarea { height: auto; }
+
 
