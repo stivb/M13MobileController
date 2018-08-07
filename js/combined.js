@@ -269,6 +269,20 @@ function printOutAll()
     return retval;
 }
 
+function getScenePrintOutText()
+{
+    var keys = allPedalBoardFxKeysOrderedByScene();
+    var retval = "ALL SCENES \n\n";
+    $.each(keys, function( index, key ) {
+
+        var k = key;
+        var pbx = loadPedalBoardState(k);
+        retval+=sceneLettersToDiagram(pbx,k);
+
+    });
+    return retval;
+}
+
 function listAllPedalBoardStates()
 {
     var allKeys =  allPedalBoardFxKeys();
@@ -296,6 +310,34 @@ function listAllPedalBoardStates()
     alert(sceneSummary);
     return retval;
 }
+
+function sceneLettersToDiagram(s,k)
+{
+    var i = 0;
+    var folder = parseInt(s.charAt(0));
+    var scene = parseInt("0x" + s.charAt(1));
+    var retval = "------" + k.toUpperCase() + "-----\n"
+    retval += "FOLDER " + folder + "" + "SCENE " +scene + "\n\n";
+    var slotsUsed = [];
+    for (i=2;i<s.length;i++) slotsUsed.push(s.charAt(i));
+    var checkList="";
+    var q = "147A258B369C";
+    for (var j=0;j<3;j++)
+    {
+        for(var k=0;k<4;k++)
+        {
+            var n = q.charAt(j*4+k+1);
+            if (slotsUsed.indexOf(n)==-1) retval+=".";
+            else retval+="x";
+        }
+
+        retval+="\n";
+
+    }
+    retval+="\n";
+    return retval;
+}
+
 
 
 

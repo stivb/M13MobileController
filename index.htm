@@ -115,11 +115,10 @@
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar">
                 <ul>
-                    <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
-                    <li><a  id="emailAll">Print</a></li>
-                    <li><a  id="checkScenes">Scenes</a></li>
+
                     <li><a  id="btnImport" >Import</a></li>
-                    <li><a href="#btnExport" >Export</a></li>
+                    <li><a  id="btnExport">Export</a></li>
+                    <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
                 </ul>
             </div>
         </div>
@@ -142,11 +141,14 @@
 
         <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" data-dismissible="false" class="ui-content" data-theme="a">
             <div data-role="header">EFFECT PRINTOUT</div>
-            <div class="ui-grid-a">
+            <div class="ui-grid-b">
                 <div class="ui-block-a">
-                    <a id="btnPrintable" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Printable</a>
+                    <a id="btnPrintable" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Fx</a>
                 </div>
                 <div class="ui-block-b">
+                    <a id="btnScenePrintouts" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Scenes</a>
+                </div>
+                <div class="ui-block-c">
                     <a id="btnJSON" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">JSON</a>
                 </div>
             </div>
@@ -163,8 +165,9 @@
             <div data-role="content">
                 Paste the JSON data into the text box, then press the BACKUP button<br/>
                 Note, any songs of the same name will be overwritten
-                <textarea id="txtJSONImport" name="txtJSONImport" cols="40" rows="20" >Paste text here  </textarea>
+                <textarea id="txtJSONImport" name="txtJSONImport" cols="40" rows="20" ></textarea>
                 <a data-role="button"  href="#" id="btnImportJSON" >Backup</a>
+                <a data-role="button"  href="#" id="closeImportPrintout" >Close</a>
             </div>
         </div>
 
@@ -211,7 +214,7 @@
                     <div class="ui-block-c">Scenes 7-9</div>
                     <div class="ui-block-d">Scenes 10-12</div>
                     <div class="ui-block-a">
-                        <select class="scene" data-native-menu="false" id="M1">
+                        <select class="scene"  data-mini="true" id="M1">
 							<option ></option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -219,7 +222,7 @@
                         </select>
                     </div>
                     <div class="ui-block-b">
-                        <select class="scene" data-native-menu="false" id="M2">
+                        <select class="scene" data-mini="true" id="M2">
                             <option ></option>
                             <option value="4">4</option>
                             <option value="5">5</option>
@@ -227,7 +230,7 @@
                         </select>
                     </div>
                     <div class="ui-block-c">
-                        <select class="scene" data-native-menu="false" id="M3">
+                        <select class="scene" data-mini="true" id="M3">
                             <option ></option>
                             <option value="7">7</option>
                             <option value="8">8</option>
@@ -235,7 +238,7 @@
                         </select>
                     </div>
                     <div class="ui-block-d">
-                        <select class="scene" data-native-menu="false" id="M4">
+                        <select class="scene" data-mini="true" id="M4">
                             <option ></option>
                             <option value="A">10</option>
                             <option value="B">11</option>
@@ -673,7 +676,8 @@
 			}
 		return -1;
 		}
-		
+
+
 		$('.scene').change(function() {
 
             var thisid = $(this).attr('id');
@@ -692,8 +696,11 @@
                 $("#" + dd_n + "-button").css("background-color", "#FF0000");
                 }
             $(myselect).selectmenu("refresh");
+            //event.preventDefault();
+            //event.stopPropagation();
 			}
 		});
+
 		
 		$(".effect").change(function() {
 			if ($(this).attr('id')===undefined) return;
@@ -769,9 +776,10 @@
 		}
 		
 		
-		
+
 		function setScene(letter)
         {
+
 		clearScene();
 		if (letter=="") return;
 		var dd = isInWhichDropDown(letter)+1;
@@ -781,7 +789,9 @@
         $("#M"+dd +  "-button").css("background-color", "#FF0000");
 		myselect[0].selectedIndex = si;
 		myselect.selectmenu("refresh");
+
 		}
+
 		
 		function setEffects(letters)
 		{
@@ -815,6 +825,7 @@
 		
 		function setFolderSceneAndEffects(s)
 		{
+
 		if (s=="") {clearScene();clearFolder();clearEffects();return;}
 		
 		setSceneFolder(s.charAt(0));
@@ -883,7 +894,8 @@
 			populateSongChainList();
 		});
 		
-		$(document).on('pagebeforeshow', '#FolderSceneEffectsPage', function(){ 
+		$(document).on('pagebeforeshow', '#FolderSceneEffectsPage', function(){
+
 			populateSongChainForm();
 		});
 
@@ -894,7 +906,7 @@
         });
 		
 		$(document).on('click', '.songChainItem', function(){
-			//alert(songChains[$(this).text()]);k
+			//alert(songChains[$(this).text()]);
 		});
 		
 		$(document).on('taphold', '.song', function(){
@@ -1080,7 +1092,8 @@
 		
 		
 		function populateSongChainForm()
-		{
+        {
+
 		setSongTitle();
 		var chain = "";
 		if (getCurrentPbfxChainName()!="")
@@ -1095,7 +1108,7 @@
 		setFolderSceneAndEffects(chain);
 		}
 
-    $("#emailAll").click(function() {
+    $("#btnExport").click(function() {
 
         $("#transcript").val(getPrintOut());
 
@@ -1107,6 +1120,14 @@
     $('#btnPrintable').click(function(event) {
 
         $("#transcript").val(getPrintOut());
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+
+    $('#btnScenePrintouts').click(function(event) {
+
+        $("#transcript").val(getScenePrintOutText());
         event.preventDefault();
         event.stopPropagation();
     });
@@ -1141,10 +1162,15 @@
 
     $("#checkScenes").click(function() {
         listAllPedalBoardStates();
-    })
+    });
 
     $("#closeEffectPrintout").click(function() {
         $( "#songlistEffectPrintout" ).popup( "close" );
+
+    });
+
+    $("#closeImportPrintout").click(function() {
+        $( "#importSongChainsPopup" ).popup( "close" );
 
     });
 		
