@@ -119,6 +119,7 @@
                     <li><a  id="btnImport" >Import</a></li>
                     <li><a  id="btnExport">Export</a></li>
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
+                    <li><a  id="btnScenes">Scenes</a></li>
                 </ul>
             </div>
         </div>
@@ -1171,6 +1172,11 @@
 
     $("#closeImportPrintout").click(function() {
         $( "#importSongChainsPopup" ).popup( "close" );
+
+    });
+
+    $("#btnScenes").click(function() {
+        listAllPedalBoardStates();
 
     });
 		

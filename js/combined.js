@@ -330,7 +330,7 @@ function sceneLettersToDiagram(s,k)
     {
         for(var k=0;k<4;k++)
         {
-            var n = q.charAt(j*4+k+1);
+            var n = q.charAt(j*4+k);
             if (slotsUsed.indexOf(n)==-1) retval+=".";
             else retval+="x";
         }
@@ -340,6 +340,12 @@ function sceneLettersToDiagram(s,k)
     }
     retval+="\n";
     return retval;
+}
+
+
+function scenesSnapshot()
+{
+
 }
 
 
