@@ -130,7 +130,11 @@ function allPedalBoardFxKeys()
 
 function allPedalBoardFxKeysByLetter()
 {
-    return allPedalBoardFxKeys().sort();
+    var arr = allPedalBoardFxKeys();
+    arr.sort(function (a, b) {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
+    return arr;
 }
 
 
