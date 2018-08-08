@@ -120,6 +120,7 @@
                     <li><a  id="btnExport">Export</a></li>
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
                     <li><a  id="btnScenes">Scenes</a></li>
+                    <li><a  id="btnSetListPopup" href="#setListPage">Set</a></li>
                 </ul>
             </div>
         </div>
@@ -138,6 +139,8 @@
             </div>
 
         </div><!-- /popup -->
+
+
 
 
         <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" data-dismissible="false" class="ui-content" data-theme="a">
@@ -172,7 +175,43 @@
             </div>
         </div>
 
+
+
+
     </div>
+
+
+    <div id="setListPage"  data-role="page" data-theme="a">
+        <div data-role="header"><h1>Construct SetList</h1>
+            <div data-role="navbar" id="myFx">
+                <ul>
+                    <li><a data-role="button" id="btnSetListChoose" href="#pnlChooseSetList">Choose </a></li>
+                    <li><a data-role="button" id="btnSetListOrder">Transmit </a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <div class = "ui-field-contain">
+                <label for = "songSetSelect">Select Songs</label>
+
+                <select name="songSetSelect" id="songSetSelect" data-native-menu="false" data-mini="true" multiple="multiple" size="4">
+                    <option>Country</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="transport">Transport</option>
+                    <option value="others">Others</option>
+                    <option value="hotasdfel">Hotesdfsdfl</option>
+                    <option value="transdfssport">Transposdfrt</option>
+                    <option value="othesdfsdfrs">Othesdfsdfrs</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <a data-role="button" id="btnReturn" href="#SongListPage">Close </a>
+        </div>
+    </div>
+
 
 
 	 <div data-role="page" id="FolderSceneEffectsPage" data-theme="a">
@@ -678,6 +717,13 @@
 		return -1;
 		}
 
+		$('#songSetSelect').change(function(){
+        var str = "";
+        $( "#songSetSelect option:selected" ).each(function() {
+            str += $( this ).text() + " ";
+        });
+        alert(str);
+        });
 
 		$('.scene').change(function() {
 
@@ -1057,6 +1103,7 @@
 		function populateSongChainList(how)
 		{
 		$('#songChainList').empty();
+        $('#songSetSelect').find('option').remove().end();
 		var allKeys;
 
 		switch(how)
@@ -1076,8 +1123,12 @@
 			{
                $("#songChainList").append(visualizeSongChainItem(value));
                $( "#songChainList" ).listview( "refresh" );
+
+                var optTempl = '<option value="' +value+ '">'+value+'</option>';
+                $('#songSetSelect').append(optTempl);
 			});
 		$( "#songChainList" ).trigger("create");
+
 		}
 
 		function visualizeSongChainItem(key)
@@ -1117,6 +1168,8 @@
         $( "#songlistEffectPrintout" ).popup( "open" );
 
         });
+
+
 
     $('#btnPrintable').click(function(event) {
 

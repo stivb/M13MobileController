@@ -787,4 +787,8 @@ button[disabled],
 
 textarea { height: auto; }
 
-
+#pnlChooseSetList.ui-panel {
+	width: 80%;
+	max-width: 440px;
+	min-width: 114px;
+}
