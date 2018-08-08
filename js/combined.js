@@ -350,6 +350,7 @@ localStorage["setList"] = JSON.stringify(setList);
 
 function getSetList()
 {
+    if (localStorage.getItem("setList") === null) return null;
     return JSON.parse(localStorage["setList"]);
 }
 

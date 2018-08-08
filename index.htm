@@ -718,11 +718,11 @@
 		}
 
 		$('#songSetSelect').change(function(){
-        var str = "";
+        var selected=[];
         $( "#songSetSelect option:selected" ).each(function() {
-            str += $( this ).text() + " ";
+            selected.push($( this ).text() )
         });
-        alert(str);
+        setListSerialize(selected);
         });
 
 		$('.scene').change(function() {
@@ -1104,7 +1104,9 @@
 		{
 		$('#songChainList').empty();
         $('#songSetSelect').find('option').remove().end();
+        var inSetList = getSetList();
 		var allKeys;
+        var optTempl;
 
 		switch(how)
         {
@@ -1120,13 +1122,15 @@
         }
 
 		$.each( allKeys,function( key, value )
-			{
+			    {
                $("#songChainList").append(visualizeSongChainItem(value));
                $( "#songChainList" ).listview( "refresh" );
-
-                var optTempl = '<option value="' +value+ '">'+value+'</option>';
-                $('#songSetSelect').append(optTempl);
-			});
+               if (inSetList===null) inSetList = new Array();
+               if (inSetList.indexOf(value)==-1) optTempl = '<option value="' +value+ '">'+value+'</option>';
+               else optTempl = '<option value="' +value+ '" selected="selected">'+value+'</option>';
+               $('#songSetSelect').append(optTempl);
+              // if (getSetList()!==null) $('#songSetSelect').selectmenu("refresh");
+                });
 		$( "#songChainList" ).trigger("create");
 
 		}
