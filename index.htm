@@ -120,7 +120,7 @@
                     <li><a  id="btnExport">Export</a></li>
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
                     <li><a  id="btnScenes">Scenes</a></li>
-                    <li><a  id="btnSetListPopup" href="#setListPage">Set</a></li>
+                    <li><a  id="btnGoSetListPage" >Set</a></li>
                 </ul>
             </div>
         </div>
@@ -195,14 +195,13 @@
                 <label for = "songSetSelect">Select Songs</label>
 
                 <select name="songSetSelect" id="songSetSelect" data-native-menu="false" data-mini="true" multiple="multiple" size="4">
-                    <option>Country</option>
-                    <option value="hotel">Hotel</option>
-                    <option value="transport">Transport</option>
-                    <option value="others">Others</option>
-                    <option value="hotasdfel">Hotesdfsdfl</option>
-                    <option value="transdfssport">Transposdfrt</option>
-                    <option value="othesdfsdfrs">Othesdfsdfrs</option>
                 </select>
+
+                <h1>Order Selected Songs</h1>
+
+                <ul data-role="listview" id="setOrderList">
+
+                </ul>
 
             </div>
         </div>
@@ -723,6 +722,7 @@
             selected.push($( this ).text() )
         });
         setListSerialize(selected);
+        updateSetList();
         });
 
 		$('.scene').change(function() {
@@ -1103,6 +1103,7 @@
 		function populateSongChainList(how)
 		{
 		$('#songChainList').empty();
+		$('#setOrderList').empty();
         $('#songSetSelect').find('option').remove().end();
         var inSetList = getSetList();
 		var allKeys;
@@ -1128,8 +1129,10 @@
                if (inSetList===null) inSetList = new Array();
                if (inSetList.indexOf(value)==-1) optTempl = '<option value="' +value+ '">'+value+'</option>';
                else optTempl = '<option value="' +value+ '" selected="selected">'+value+'</option>';
+
                $('#songSetSelect').append(optTempl);
-              // if (getSetList()!==null) $('#songSetSelect').selectmenu("refresh");
+               $('#songSetSelect').selectmenu();
+               $('#songSetSelect').selectmenu("refresh");
                 });
 		$( "#songChainList" ).trigger("create");
 
@@ -1236,7 +1239,24 @@
         listAllPedalBoardStates();
 
     });
-		
+
+    $("#btnGoSetListPage").click(function() {
+
+        $(':mobile-pagecontainer').pagecontainer('change', '#setListPage');
+        updateSetList();
+    });
+
+    function updateSetList()
+    {
+        $('#setOrderList').empty();
+
+        $( getSetList()).each(function(index, songTitle) {
+            $('#setOrderList').append('<li>' + songTitle + '</li>');
+        });
+
+        $('#setOrderList').listview();
+        $('#setOrderList').listview("refresh");
+    }
 
 		
     </script>
