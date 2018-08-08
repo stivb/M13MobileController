@@ -343,9 +343,14 @@ function sceneLettersToDiagram(s,k)
 }
 
 
-function scenesSnapshot()
+function setListSerialize(setList)
 {
+localStorage["setList"] = JSON.stringify(setList);
+}
 
+function getSetList()
+{
+    return JSON.parse(localStorage["setList"]);
 }
 
 
