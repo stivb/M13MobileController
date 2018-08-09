@@ -217,8 +217,13 @@
         </div>
 
         <div data-role="footer" data-position="fixed">
-            <a data-role="button" id="btnReturn" href="#SongListPage">Close </a>
-        </div>
+            <div data-role="navbar">
+                <ul>
+                    <li><a id="btnReturn" href="#SongListPage">Close</a></li>
+                </ul>
+
+       </div>
+    </div>
     </div>
 
 
@@ -1011,6 +1016,7 @@
 
         $(document).on('click', '.pedalboard', function () {
             var song = getTitleFromSongChainItem($(this));
+
             showPedalBoard(song);
         });
 
