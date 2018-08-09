@@ -32,7 +32,13 @@
 
     <script src="js/combined.js"></script>
 <script src="js/jquery-1.12.4.min.js"></script>
-<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+
+    <script src="js/jquery-ui.min.js"></script>
+
+
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
 
 
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
@@ -50,6 +56,10 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
 	<link rel="stylesheet" type="text/css" href = "css/effects.css"/>
     <title>Hello World</title>
+    <script>
+        var sortableSetup= 0;
+
+    </script>
 </head>
 
 <body data-theme="a">
@@ -85,7 +95,7 @@
 
                 <div class="ui-grid-c ">
                     <div class="ui-block-a">
-                        <a href="#" data-role="button" id="btnSortBy" >Sort By:</a>
+                        <a href="#" data-role="button" class="falseButton" data-theme="b">Sort By:</a>
                     </div>
                     <div class="ui-block-b">
                         <a href="#" data-role="button" id="btnAlphabetically" >Letter</a>
@@ -186,7 +196,7 @@
             <div data-role="navbar" id="myFx">
                 <ul>
                     <li><a data-role="button" id="btnSetListChoose" href="#pnlChooseSetList">Choose </a></li>
-                    <li><a data-role="button" id="btnSetListOrder">Transmit </a></li>
+                    <li><a data-role="button" id="btnTransmit">Transmit </a></li>
                 </ul>
             </div>
         </div>
@@ -936,6 +946,20 @@
             $('#emailAddress').val(getUserEmailAddress());
             $('#macAddress').val(getUserMacAddress());
         });
+
+    $(document).on('pagebeforeshow', '#setListPage', function() {
+
+        if (sortableSetup > 0) return;
+        $("#setOrderList").sortable();
+        $("#ssetOrderList").disableSelection();
+        <!-- Refresh list to the end of sort to have a correct display -->
+        $("#setOrderList").bind("sortstop", function (event, ui) {
+            $('#setOrderList').listview('refresh');
+        });
+        sortableSetup = 1;
+    });
+
+
 		
 		$(document).on('pagebeforeshow', '#SongListPage', function(){ 
 			populateSongChainList();
@@ -1239,6 +1263,16 @@
         listAllPedalBoardStates();
 
     });
+
+    $("#btnTransmit").click(function() {
+        var allSongs = "";
+        $( "#setOrderList li" ).each(function( index ) {
+            allSongs += getPedalBoardChainByName($( this ).text()) + "\n" ;
+        });
+        alert(allSongs);
+    });
+
+
 
     $("#btnGoSetListPage").click(function() {
 

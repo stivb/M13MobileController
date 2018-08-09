@@ -792,3 +792,9 @@ textarea { height: auto; }
 	max-width: 440px;
 	min-width: 114px;
 }
+
+
+.falseButton {
+	outline:0 !important;
+	border: none !important;
+}

@@ -85,6 +85,13 @@ function getPedalBoardSceneFromChainName(k)
     return sceneDescript.charAt(1)*1;
 }
 
+function getPedalBoardChainByName(k)
+{
+    var retval = null;
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    return  pedalBoardFxChains[k].pedalBoard;
+}
+
 function makePedalBoardBackground(k)
 {
 
