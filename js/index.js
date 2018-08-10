@@ -16,16 +16,17 @@ var app = {
     Application constructor
  */
     initialize: function() {
+        if (localStorage['macAddress']!==null) app.macAddress=localStorage['macAddress'];
         this.bindEvents();
-        console.log("Starting SimpleSerial app");
+        alert("Starting SimpleSerial app");
     },
 /*
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        //connectButton.addEventListener('touchend', app.manageConnection, false);
-		//msgBtn.addEventListener('touchend', app.sendText, false);
+        btnConnect.addEventListener('touchend', app.manageConnection, false);
+		btnTransmit.addEventListener('touchend', app.sendText, false);
     },
 
 /*
@@ -62,10 +63,27 @@ var app = {
     Connects if not connected, and disconnects if connected:
 */
 
-	sendText: function() {
-	var theMsg = document.getElementById("msg").value;
+	sendTextOff: function (iput) {
+	    alert("sending off " + iput);
+
+        bluetoothSerial.isConnected(
+            function() {
+                console.log("Bluetooth is connected");
+            },
+            function() {
+                console.log("Bluetooth is *not* connected");
+            }
+        );
+
+        bluetoothSerial.write(iput, function(err, bytesWritten) {
+            if (err) console.log("error" + err);
+        });
+    },
+
+    sendText: function() {
+	var theMsg = localStorage['setList'];
 	theMsg = theMsg + '\n';
-	app.display("Writing : " + theMsg);
+	alert("Writing : " + theMsg);
 	
 	bluetoothSerial.isConnected(
 		function() {
@@ -83,7 +101,8 @@ var app = {
 	
     manageConnection: function() {
 
-		
+	    var gotMacAddress = document.getElementById('txtMacAddress').value;
+	    if (gotMacAddress!=="")  app.macAddress = gotMacAddress;
         // connect() will get called only if isConnected() (below)
         // returns failure. In other words, if not connected, then connect:
         var connect = function () {

@@ -357,6 +357,7 @@ localStorage["setList"] = JSON.stringify(setList);
 
 function getSetList()
 {
+    //localStorage.removeItem("setList");
     if (localStorage.getItem("setList") === null) return null;
     return JSON.parse(localStorage["setList"]);
 }
@@ -442,4 +443,13 @@ function resetPedalBoardFxChains()
 {
     localStorage["pedalBoardFxChains"] = "";
     pedalBoardFxChains = new Object();
+}
+
+function remove(arr, what) {
+    var found = arr.indexOf(what);
+
+    while (found !== -1) {
+        arr.splice(found, 1);
+        found = arr.indexOf(what);
+    }
 }

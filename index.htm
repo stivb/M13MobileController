@@ -59,6 +59,7 @@
     <script>
         var sortableSetup= 0;
 
+
     </script>
 </head>
 
@@ -196,7 +197,7 @@
             <div data-role="navbar" id="myFx">
                 <ul>
                     <li><a data-role="button" id="btnSetListChoose" href="#pnlChooseSetList">Choose </a></li>
-                    <li><a data-role="button" id="btnTransmit">Transmit </a></li>
+                    <li><a data-role="button" id="btnTransmit">p </a></li>
                 </ul>
             </div>
         </div>
@@ -676,10 +677,11 @@
             <div data-role="content">
                 <label for="emailAddress">Email Address (for emailing settings)</label>
                 <input type="text" style="width:100%" id="emailAddress" name="emailAddress"/>
-                <!--
+
                 <label for="macAddress">Mac Address (for controlling blutooth equipment)</label>
-                <input type="text" style="width:100%" id="macAddress" name="macAddress"/>
-                -->
+                <input type="text" style="width:100%" id="txtMacAddress" name="macAddress"/>
+                <a data-role="button" id="btnConnect">Connect</a>
+                <div id="divConnectionStatus"></div>
             </div>
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar">
@@ -960,6 +962,7 @@
         <!-- Refresh list to the end of sort to have a correct display -->
         $("#setOrderList").bind("sortstop", function (event, ui) {
             $('#setOrderList').listview('refresh');
+            saveOrder();
         });
         sortableSetup = 1;
     });
@@ -1010,6 +1013,7 @@
 				var toDelete = $("#songTitlePlaceholder").first().text();
 				toDelete = songMinusSceneBrackets(toDelete)
                 deletePbFxChain(toDelete);
+				remove(localStorage['setList'],toDelete);
 				populateSongChainList();
 		});
 
@@ -1271,12 +1275,20 @@
     });
 
     $("#btnTransmit").click(function() {
-        var allSongs = "";
-        $( "#setOrderList li" ).each(function( index ) {
-            allSongs += getPedalBoardChainByName($( this ).text()) + "\n" ;
-        });
-        alert(allSongs);
+        //saveOrderFromList();
+        app.sendTextOff(saveOrderFromList());
     });
+
+    function saveOrderFromList()
+    {
+        var allSongs = [];
+        $( "#setOrderList li" ).each(function( index ) {
+            allSongs.push(getPedalBoardChainByName($( this ).text()))  ;
+        });
+        //alert(allSongs.join(","));
+        localStorage['setList']=JSON.stringify(allSongs);
+        return allSongs.join(",");
+    }
 
 
 
