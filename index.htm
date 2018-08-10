@@ -215,6 +215,7 @@
                 </ul>
 
             </div>
+            <div id="divMessage"></div>
         </div>
 
         <div data-role="footer" data-position="fixed">
@@ -1279,6 +1280,13 @@
         app.sendTextOff(saveOrderFromList());
     });
 
+    $("#btnConnect").click(function() {
+        //saveOrderFromList();
+        if ($('txtMacAddress').val()=="") {alert("mac address must be added here");return;}
+        app.setMacAddress($('txtMacAddress').val());
+        app.manageConnection();
+    });
+
     function saveOrderFromList()
     {
         var allSongs = [];
@@ -1293,10 +1301,11 @@
 
 
     $("#btnGoSetListPage").click(function() {
-
-        $(':mobile-pagecontainer').pagecontainer('change', '#setListPage');
-        updateSetList();
+    $(':mobile-pagecontainer').pagecontainer('change', '#setListPage');
+    updateSetList();
     });
+
+
 
     function updateSetList()
     {

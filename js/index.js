@@ -18,15 +18,15 @@ var app = {
     initialize: function() {
         if (localStorage['macAddress']!==null) app.macAddress=localStorage['macAddress'];
         this.bindEvents();
-        alert("Starting SimpleSerial app");
+        console.log("Starting SimpleSerial app");
     },
 /*
     bind any events that are required on startup to listeners:
 */
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        btnConnect.addEventListener('touchend', app.manageConnection, false);
-		btnTransmit.addEventListener('touchend', app.sendText, false);
+        //btnConnect.addEventListener('touchend', app.manageConnection, false);
+		//btnTransmit.addEventListener('touchend', app.sendText, false);
     },
 
 /*
@@ -98,11 +98,14 @@ var app = {
                 if (err) console.log("error" + err);
             });
 	},
+
+    setMacAddress: function(iput) {
+	    app.macAddress = iput;
+    },
 	
     manageConnection: function() {
 
-	    var gotMacAddress = document.getElementById('txtMacAddress').value;
-	    if (gotMacAddress!=="")  app.macAddress = gotMacAddress;
+
         // connect() will get called only if isConnected() (below)
         // returns failure. In other words, if not connected, then connect:
         var connect = function () {
@@ -180,7 +183,7 @@ var app = {
     appends @message to the message div:
 */
     display: function(message) {
-        var display = document.getElementById("message"), // the message div
+        var display = document.getElementById("divMessage"), // the message div
             lineBreak = document.createElement("br"),     // a line break
             label = document.createTextNode(message);     // create the label
 
