@@ -173,10 +173,10 @@ var EffectsGroupsList=
 [
   {
      "Effect":"4 Band Shift EQ",
-     "LO":0,
-     "LMID":0,
-     "HMID":0,
-     "HI":0,
+     "LO {-12:12} Db":0,
+     "LMID {-12:12} Db":0,
+     "HMID {-12:12} Db":0,
+     "HI {-12:12} Db":0,
      "SHFT":0
   },
   {
@@ -244,12 +244,12 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "Effect":"Graphic EQ",
-     "80 Hz":0,
-     "220 Hz":0,
-     "440 Hz":0,
-     "1K1 Hz":0,
-     "2K2 Hz":0
+     "Effect":"  EQ",
+     "80 Hz {-12:12} db":0,
+     "220 Hz {-12:12} db":0,
+     "440 Hz {-12:12} db":0,
+     "1K1 Hz {-12:12} db":0,
+     "2K2 Hz {-12:12} db":0
   },
   {
      "Effect":"Heavy Dist",
@@ -343,9 +343,11 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Studio EQ",
-     "500 Hz {-11:11}":0,
-     "1500 Hz {-11:11}":0,
-      "Output {-18:18}":0
+     "A {75:1400} Hz":0,
+      "AOffset {-11:11} Db":0,
+     "B {200:8000} Hz":0,
+      "BOffset {-11:11} Db":0,
+      "Output {-18:18} Db":0
   },
   {
      "Effect":"Sub Octave Fuzz",
@@ -622,10 +624,10 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Dimension",
-     "Swtch 1":0,
-     "Swtch 2":0,
-     "Switch 3":0,
-     "Switch 4":0,
+     "Switch 1 [Off|On]":0,
+     "Switch 2 [Off|On]":0,
+     "Switch 3 [Off|On]":0,
+     "Switch 4 [Off|On]":0,
      "Mix":0
   },
   {
@@ -638,7 +640,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Frequency Shifter",
-     "Freq":0,
+     "Freq {0:3520} Mhz":0,
      "[Up|Dwn|St]":0,
      "Mix":0
   },

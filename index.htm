@@ -197,7 +197,7 @@
             <div data-role="navbar" id="myFx">
                 <ul>
                     <li><a data-role="button" id="btnSetListChoose" href="#pnlChooseSetList">Choose </a></li>
-                    <li><a data-role="button" id="btnTransmit">p </a></li>
+                    <li><a data-role="button" id="btnTransmit">Transmit</a></li>
                 </ul>
             </div>
         </div>
@@ -1176,9 +1176,9 @@
 		function visualizeSongChainItem(key)
         {
             var s = $('#songChainItem').html();
-
+            var folder = getPedalBoardFolderFromChainName(key);
             var scene = getPedalBoardSceneFromChainName(key);
-            var visibleSceneText = key + "(" + scene + ")";
+            var visibleSceneText = key + "(" + scene + "<sup>" + folder + "</sup>)";
             s = s.replace(/__songtitle__/g,visibleSceneText);
             s = s.replace("background-color:black",makePedalBoardBackground(key));
             return s;
@@ -1295,7 +1295,7 @@
         });
         //alert(allSongs.join(","));
         localStorage['setList']=JSON.stringify(allSongs);
-        return allSongs.join(",");
+        return allSongs.join(":");
     }
 
 

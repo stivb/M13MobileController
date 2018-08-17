@@ -82,7 +82,14 @@ function getPedalBoardSceneFromChainName(k)
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
     var sceneDescript = pedalBoardFxChains[k].pedalBoard;
-    return sceneDescript.charAt(1)*1;
+    return "" + parseInt("0x" + sceneDescript.charAt(1),16);
+}
+
+function getPedalBoardFolderFromChainName(k)
+{
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    var sceneDescript = pedalBoardFxChains[k].pedalBoard;
+    return sceneDescript.charAt(0);
 }
 
 function getPedalBoardChainByName(k)
@@ -253,7 +260,7 @@ function parseCurlyBracesNotches (titleIncludingNotches,percentage)
     var justSuffix = titleIncludingNotches.match(/\}(.*$)/)[1];
     var justPrefix = titleIncludingNotches.replace(/\{.*$/,"");
 
-    var notchesArray = notchesString.split('-');
+    var notchesArray = notchesString.split(':');
     var notchScaleStart = notchesArray[0]*1;
     var notchScaleEnd= notchesArray[1]*1;
     var notchRange = Math.abs(notchScaleEnd-notchScaleStart);

@@ -64,19 +64,19 @@ var app = {
 */
 
 	sendTextOff: function (iput) {
-	    alert("sending off " + iput);
+	    //alert("sending off " + iput);
 
         bluetoothSerial.isConnected(
             function() {
                 console.log("Bluetooth is connected");
             },
             function() {
-                console.log("Bluetooth is *not* connected");
+                alert("Bluetooth is *not* connected");
             }
         );
 
         bluetoothSerial.write(iput, function(err, bytesWritten) {
-            if (err) console.log("error" + err);
+            if (err) alert("error" + err);
         });
     },
 
