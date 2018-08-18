@@ -1282,8 +1282,8 @@
 
     $("#btnConnect").click(function() {
         //saveOrderFromList();
-        if ($('txtMacAddress').val()=="") {alert("mac address must be added here");return;}
-        app.setMacAddress($('txtMacAddress').val());
+        if ($('#txtMacAddress').val()=="") {alert("mac address must be added here");return;}
+        app.setMacAddress($('#txtMacAddress').val());
         app.manageConnection();
     });
 

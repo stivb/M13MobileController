@@ -113,7 +113,7 @@ var app = {
             // if not connected, do this:
             // clear the screen and display an attempt to connect
             app.clear();
-            app.display("Attempting to connect. " +
+            alert("Attempting to connect. " +
                 "Make sure the serial port is open on the target device.");
             // attempt to connect:
             bluetoothSerial.connect(

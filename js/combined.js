@@ -14,6 +14,18 @@ function copyToClipboard(ctrlId)
         document.execCommand('copy');
 }
 
+function getSavedMacAddress()
+{
+    var macAddress = localStorage['macAddress'];
+    if (macAddress!=null) return macAddress;
+    return "";
+}
+
+function saveMacAddress(mcAddress)
+{
+    localStorage['macAddress'] = mcAddress;
+}
+
 function setUserEmailAddress(emAddr)
 {
     localStorage["emAddr"] = emAddr;
