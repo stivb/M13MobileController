@@ -39,13 +39,13 @@ function getUserEmailAddress()
 
 function setUserMacAddress(macAddr)
 {
-    localStorage["macAddr"] = macAddr;
+    localStorage["macAddress"] = macAddr;
 }
 
 function getUserMacAddress()
 {
-    if (!localStorage["macAddr"]) return "";
-    return localStorage["macAddr"];
+    if (!localStorage["macAddress"]) return "";
+    return localStorage["macAddress"];
 }
 
 function setCurrentPbfxChainName(nome)

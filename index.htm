@@ -952,7 +952,7 @@
 
         $(document).on('pagebeforeshow', '#pgSettings', function(){
             $('#emailAddress').val(getUserEmailAddress());
-            $('#macAddress').val(getUserMacAddress());
+            $('#txtMacAddress').val(getUserMacAddress());
         });
 
     $(document).on('pagebeforeshow', '#setListPage', function() {
@@ -981,7 +981,8 @@
 
 		$(document).on('click', '#saveSettings', function(){
             setUserEmailAddress($('#emailAddress').val());
-            setUserMacAddress($('#macAddress').val());
+            setUserMacAddress($('#txtMacAddress').val());
+            alert($('#txtMacAddress').val());
             $.mobile.navigate("#SongListPage");
         });
 		
