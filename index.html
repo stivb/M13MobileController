@@ -26,6 +26,21 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile-1.4.5.min.css"   type="text/css"/>
+    <link rel="stylesheet" href="css/themes/stompbox.css"   type="text/css"/>
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css"  type="text/css" />
+
+    <script src="js/combined.js"></script>
+<script src="js/jquery-1.12.4.min.js"></script>
+
+
+    <script src="js/jquery-ui.min.js"></script>
+
+
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+
+
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
     <!-- Good default declaration:
@@ -38,38 +53,1292 @@
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
-    <style>
-        .button {
-            background-color: #dddddd; /* Green */
-            border: none;
-            color: black;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
-
-    </style>
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href = "css/effects.css"/>
+    <title>Hello World</title>
+    <script>
+        var sortableSetup= 0;
+        var appInitialized=0;
 
-    <title>Stompbox Scratchpad</title>
+
+    </script>
 </head>
 
-<body>
-<div class="app">
-    <h1>Stompbox Scratchpad</h1>
-    <div id="deviceready" class="blink">
-        <p class="event listening">Note Your Settings!</p>
-        <p class="event received"></p>
-    </div>
-    <h1><a class="button" href="index.htm#SongListPage">Start</a></h1>
-</div>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript">
-    app.initialize();
+<body data-theme="a">
+<script id="songChainItem" type="text/html">
+    <li class="song" >
+        <div class="ui-grid-c" style="background-color:black">
+
+            <div class="ui-block-a" >
+                <!-- both classes v important here - pedalboard is the class listened to for clicks, songTitle is the class of items searched through in order to get
+                the actual song name (used as a key for settings list) -->
+                <a href="#" data-role="button" data-icon="grid" data-iconpos="notext" data-theme="c" data-inline="true" class="pedalboard songTitle">__songtitle__</a>
+                <a href="#" style="text-decoration:none;background-color:white;color:black" class="pedalboard songTitle">__songtitle__</a>
+            </div>
+            <div class="ui-block-b" >
+            </div>
+            <div class="ui-block-c" >
+            </div>
+            <div class="ui-block-d">
+                <a href="#" data-role="button" data-icon="gear" data-iconpos="notext" data-theme="c" data-inline="true" class="effectChain"></a>
+                <a href="#" style="text-decoration:none" class="effectChain">Fx</a>
+                </div>
+
+        </div>
+    </li>
 </script>
+
+			
+	<div data-role="page" id="SongListPage" data-theme="a">
+            <div data-role="header">
+                <h1>Song Settings List</h1>
+            </div>
+            <div data-role="content">
+
+                <div class="ui-grid-c ">
+                    <div class="ui-block-a">
+                        <a href="#" data-role="button" class="falseButton" data-theme="b">Sort By:</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" id="btnAlphabetically" >Letter</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a href="#" data-role="button" id="btnByScene" >Scene</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a href="#" data-role="button" id="btnByDate" >Date</a>
+                    </div>
+                </div>
+                <hr/>
+
+
+
+
+
+
+
+
+
+
+                 <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
+                <ul data-role="listview" id="songChainList" data-inset="true">
+                </ul>
+            </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+
+                    <li><a  id="btnImport" >Import</a></li>
+                    <li><a  id="btnExport">Export</a></li>
+                    <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
+                    <li><a  id="btnScenes">Scenes</a></li>
+                    <li><a  id="btnGoSetListPage" >Set</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="confirm" class="ui-content" data-role="popup" data-theme="a">
+
+            <p id="question">Are you sure you want to delete: <span id="songTitlePlaceholder"></span>      </p>
+
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a id="yes" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Yes</a>
+                </div>
+                <div class="ui-block-b">
+                    <a id="cancel" class="ui-btn ui-corner-all ui-mini ui-btn-a" data-rel="back">Cancel</a>
+                </div>
+            </div>
+
+        </div><!-- /popup -->
+
+
+
+
+        <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" data-dismissible="false" class="ui-content" data-theme="a">
+            <div data-role="header">EFFECT PRINTOUT</div>
+            <div class="ui-grid-c">
+                <div class="ui-block-a">
+                    <a id="btnPrintable" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Fx</a>
+                </div>
+                <div class="ui-block-b">
+                    <a id="btnScenePrintouts" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Scenes</a>
+                </div>
+                <div class="ui-block-c">
+                    <a id="btnJSON" class="ui-btn ui-corner-all ui-mini ui-btn-a" >JSON</a>
+                </div>
+                <div class="ui-block-d">
+                    <a id="btnBluetooth" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Set</a>
+                </div>
+            </div>
+            <a data-role="button"  href="#" id="clipboardCopy" >Copy to Clipboard</a>
+            <textarea id="transcript" name="transcript" cols="40" rows="20" style="overflow: scroll;height:200px" readonly>Effects</textarea>
+
+            <a data-role="button"  href="#" id="closeEffectPrintout" >Close</a>
+
+        </div>
+
+
+        <div data-role="popup" id="importSongChainsPopup" data-overlay-theme="a" data-dismissible="false" class="ui-content" data-theme="a">
+            <div data-role="header">Import Song Effect Chains</div>
+            <div data-role="content">
+                Paste the JSON data into the text box, then press the BACKUP button<br/>
+                Note, any songs of the same name will be overwritten
+                <textarea id="txtJSONImport" name="txtJSONImport" cols="40" rows="20" ></textarea>
+                <a data-role="button"  href="#" id="btnImportJSON" >Backup</a>
+                <a data-role="button"  href="#" id="closeImportPrintout" >Close</a>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+    <div id="setListPage"  data-role="page" data-theme="a">
+        <div data-role="header"><h1>Construct SetList</h1>
+            <div data-role="navbar" id="myFx">
+                <ul>
+                    <li><a data-role="button" id="btnSetListChoose" href="#pnlChooseSetList">Choose </a></li>
+                    <li><a data-role="button" id="btnTransmit">Transmit</a></li>
+                </ul>
+            </div>
+        </div>
+        <div data-role="content">
+            <div class = "ui-field-contain">
+                <label for = "songSetSelect">Select Songs</label>
+
+                <select name="songSetSelect" id="songSetSelect" data-native-menu="false" data-mini="true" multiple="multiple" size="4">
+                </select>
+
+                <h1>Order Selected Songs</h1>
+
+                <ul data-role="listview" id="setOrderList">
+
+                </ul>
+
+            </div>
+            <div id="divMessage"></div>
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a id="btnReturn" href="#SongListPage">Close</a></li>
+                </ul>
+
+       </div>
+    </div>
+    </div>
+
+
+
+	 <div data-role="page" id="FolderSceneEffectsPage" data-theme="a">
+            <div data-role="header">
+                <h1>PedalBoard Layout View</h1>
+            </div>
+            <div data-role="content">
+
+
+                <div data-role="fieldcontain" >
+                    <label for="txtSongName" >Song Name</label>
+                    <input type="text" id="txtSongName" />
+                </div>
+
+
+                <!--Scene and Folder -->
+
+                <div data-role="collapsible" >
+                    <h4>Folder</h4>
+				<div id="myGroup" data-role="fieldcontain"   > 
+				Scene Folder
+				
+				<fieldset data-role="controlgroup"  data-type="horizontal">
+				
+				<input type="radio" name="sceneFolder" id="sceneFolder1" class="sceneFolder" value="1" >
+				<label for="sceneFolder1">One</label>
+				<input type="radio" name="sceneFolder" id="sceneFolder2" class="sceneFolder" value="2">
+				<label for="sceneFolder2">Two</label>
+				<input type="radio" name="sceneFolder" id="sceneFolder3" class="sceneFolder" value="3">
+				<label for="sceneFolder3">Three</label>
+				<input type="radio" name="sceneFolder" id="sceneFolder4" class="sceneFolder" value="4">
+				<label for="sceneFolder4">Four</label>
+				</fieldset>
+				</div>
+                </div>
+
+                <div class="ui-grid-c">
+                    <div class="ui-block-a">Scenes 1-3</div>
+                    <div class="ui-block-b">Scenes 4-6</div>
+                    <div class="ui-block-c">Scenes 7-9</div>
+                    <div class="ui-block-d">Scenes 10-12</div>
+                    <div class="ui-block-a">
+                        <select class="scene"  data-mini="true" id="M1">
+							<option ></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="ui-block-b">
+                        <select class="scene" data-mini="true" id="M2">
+                            <option ></option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                    <div class="ui-block-c">
+                        <select class="scene" data-mini="true" id="M3">
+                            <option ></option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+                    </div>
+                    <div class="ui-block-d">
+                        <select class="scene" data-mini="true" id="M4">
+                            <option ></option>
+                            <option value="A">10</option>
+                            <option value="B">11</option>
+                            <option value="C">12</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+
+                <!--Scene Layout -->
+                <div data-role="collapsible" data-collapsed="false" >
+                    <h4>Floorboard Layout</h4>
+                    <div  data-role="fieldcontain"  id="fxCollapsible" >
+                        Effects
+                        <div data-role="navbar" id="myFx">
+                            <ul>
+                                <li><a class='fxBtn'  >Fx1 </a></li>
+                                <li><a class='fxBtn'  >Fx2 </a></li>
+                                <li><a class='fxBtn'  >Fx3 </a></li>
+                                <li><a class='fxBtn'  >Fx4 </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                <div class="ui-grid-c">
+                    <div class="ui-block-a effect">
+                        <select data-role="slider" id="f1" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-b effect">
+                        <select data-role="slider" id="f4" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-c effect">
+                        <select data-role="slider" id="f7" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-d effect">
+                        <select data-role="slider" id="fA" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-a effect">
+                        <select data-role="slider" id="f2" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-b effect">
+                        <select data-role="slider" id="f5" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-c effect">
+                        <select data-role="slider" id="f8" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-d effect">
+                        <select data-role="slider" id="fB" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-a effect">
+                        <select data-role="slider" id="f3" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-b effect">
+                        <select data-role="slider" id="f6" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-c effect">
+                        <select data-role="slider" id="f9" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                    <div class="ui-block-d effect">
+                        <select data-role="slider" id="fC" class="effect"><option value="off">Off</option><option value="on">On</option></select>
+                    </div>
+                </div>
+                </div>
+
+
+                </div>
+                <a data-role="button" id="Save">Save</a>
+				<a data-role="button" id="fbCancel" href="#SongListPage">Cancel</a>
+            </div>
+        </div><!-- /content -->
+		<div data-role="page" id="EffectChooserPage" data-theme="a">
+            <div data-role="content">
+                
+                <div class="ui-grid-d EffectChooser">
+				
+                    <div class="ui-block-a">
+                        <a data-role="button">Dist</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a data-role="button">Del</a>
+                    </div>
+                    <div class="ui-block-c">
+                        <a data-role="button">Fltr</a>
+                    </div>
+                    <div class="ui-block-d">
+                        <a data-role="button">Mod</a>
+                    </div>
+                    <div class="ui-block-e">
+                        <a data-role="button">Verb</a>
+                    </div>
+                </div>
+				<ul data-role="listview" data-inset="true">
+                    <li>List Item</li>
+                    <li>List Item</li>
+                    <li>List Item</li>
+                </ul>
+			</div>
+        </div>
+
+
+        <div data-role="page" id="sceneSimilatorPage" data-theme="a">
+            <div data-role="content">
+                <div class="ui-grid-c">
+                    <div class="ui-block-a gotoSceneBtn”>
+                        <a href="#" data-role=“button” id="gtSB1" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-b gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB4" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-c gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB7" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-d gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSBA" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-a gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB2" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-b gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB5" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-c gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB8" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-d gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSBB" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-a gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB3" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-b gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB6" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-c gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSB9" class="gotoSceneBtn"></a>
+                    </div>
+                    <div class="ui-block-d gotoSceneBtn">
+                        <a href="#" data-role="button" id="gtSBC" class="gotoSceneBtn"></a>
+                    </div>
+                </div>
+
+                <div class="ui-grid-c" id=“sceneSimulator”>
+                    <div class="ui-block-a sceneItem” id="gtSB1"></div>
+                    <div class="ui-block-b sceneItem" id="gtSB4" ></div>
+                    <div class="ui-block-c sceneItem" id="gtSB7" ></div>
+                    <div class="ui-block-d sceneItem" id="gtSBA" ></div>
+                    <div class="ui-block-a sceneItem" id="gtSB2" ></div>
+                    <div class="ui-block-b sceneItem" id="gtSB5" > </div>
+                    <div class="ui-block-c sceneItem" id="gtSB8" > </div>
+                    <div class="ui-block-d sceneItem" id="gtSBB" ></div>
+                    <div class="ui-block-a sceneItem" id="gtSB3" ></div>
+                    <div class="ui-block-b sceneItem" id="gtSB6" > </div>
+                    <div class="ui-block-c sceneItem"id="gtSB9" ></div>
+                    <div class="ui-block-d sceneItem" id="gtSBC" ></div>
+                </div>
+            </div>
+        </div>
+
+
+
+		<div data-role="page" id="EffectSetterPage" data-theme="a">
+            <div data-role="content">
+                <div class="ui-grid-b effect">
+                    <div class="ui-block-a param">
+					<span class="param">Param 1</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 2</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 3</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-a param">
+					<span class="param">Param 4</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 5</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 6</span>
+					<div class="percentIndicator"></div>
+					</div>
+                </div>
+                <div data-role="fieldcontain" id="slider1">
+                    <label for="slider1-range"></label>
+                    <input type="range" id="slider1-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider2">
+                    <label for="slider2-range"></label>
+                    <input type="range" id="slider2-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider3">
+                    <label for="slider3-range"></label>
+                    <input type="range" id="slider3-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider4">
+                    <label for="slider4-range"></label>
+                    <input type="range" id="slider4-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider5">
+                    <label for="slider5-range"></label>
+                    <input type="range" id="slider5-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+                <div data-role="fieldcontain" id="slider6">
+                    <label for="slider6-range"></label>
+                    <input type="range" id="slider6-range" value="50" min="0" max="100" step="1"
+                    />
+                </div>
+            </div>
+        </div>
+		<div data-role="page" id="EffectChainPage" data-theme="a">
+		<div data-role="content" >
+		<h1>Song Title</h1>
+            <div class="ui-grid-c">
+                <div class="ui-block-a"><a data-role="button" id="BtnFx1">Fx 1</a></div>
+                <div class="ui-block-b"><a data-role="button" id="BtnFx2">Fx 2</a></div>
+                <div class="ui-block-c"><a data-role="button" id="BtnFx3">Fx 3</a></div>
+                <div class="ui-block-d"><a data-role="button" id="BtnFx4">Fx 4</a></div>
+            </div><!-- /grid-c -->
+				<span class="effectName">Effect 1</span>
+                <div class="ui-grid-b effect" id="DivFx1">
+				
+                    <div class="ui-block-a param" >
+					<span class="param">Param 1</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 2</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 3</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-a param">
+					<span class="param">Param 4</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 5</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 6</span>
+					<div class="percentIndicator"></div>
+					</div>
+                </div>
+				<span class="effectName">Effect 2</span>
+				<div class="ui-grid-b effect" id="DivFx2">
+                    <div class="ui-block-a param">
+					<span class="param">Param 1</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 2</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 3</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-a param">
+					<span class="param">Param 4</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 5</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 6</span>
+					<div class="percentIndicator"></div>
+					</div>
+                </div>
+				<span class="effectName">Effect 3</span>
+				<div class="ui-grid-b effect" id="DivFx3">
+                    <div class="ui-block-a param">
+					<span class="param">Param 1</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 2</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 3</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-a param">
+					<span class="param">Param 4</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 5</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 6</span>
+					<div class="percentIndicator"></div>
+					</div>
+                </div>
+				<span class="effectName">Effect 4</span>
+				<div class="ui-grid-b effect" id="DivFx4">
+                    <div class="ui-block-a param">
+					<span class="param">Param 1</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 2</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 3</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-a param">
+					<span class="param">Param 4</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-b param">
+					<span class="param">Param 5</span>
+					<div class="percentIndicator"></div>
+					</div>
+                    <div class="ui-block-c param">
+					<span class="param">Param 6</span>
+					<div class="percentIndicator"></div>
+					</div>
+                </div>
+				</div>
+            </div>
+       <div data-role="page" id="checkScenes" data-theme="a">
+           <fieldset data-role="controlgroup"  data-type="horizontal">
+
+               <input type="radio" name="sceneFolder" id="sf1" class="sceneFolder" value="1" >
+               <label for="sceneFolder1">One</label>
+               <input type="radio" name="sceneFolder" id="sf2" class="sceneFolder" value="2">
+               <label for="sceneFolder2">Two</label>
+               <input type="radio" name="sceneFolder" id="sf3" class="sceneFolder" value="3">
+               <label for="sceneFolder3">Three</label>
+               <input type="radio" name="sceneFolder" id="sf4" class="sceneFolder" value="4">
+               <label for="sceneFolder4">Four</label>
+           </fieldset>
+       </div>
+
+        <div data-role="page" id="page0" data-theme="a">
+            <div data-role="header">
+                <h1>Stompbox Scratchpad</h1>
+            </div>
+            <div data-role="content">
+
+                <h1>Stompbox Scratchpad</h1>
+                <p>Welcome to the Stompbox Scratchpad.  This is a simple app to help lovers of the Line 6 M13 note down their settings</p>
+                <a href="#SongListPage" data-role="button" id="goToEffects">Go To Effects</a>
+                <a href="#pgSettings" data-role="button" class="goToSettings">Go To Settings</a>
+
+
+
+
+            </div>
+            <div data-role="footer" data-position="fixed">
+
+            </div>
+        </div>
+
+
+        <div data-role="page" id="pgSettings" data-theme="a">
+            <div data-role="header">
+                <h1>Settings</h1>
+            </div>
+            <div data-role="content">
+                <label for="emailAddress">Email Address (for emailing settings)</label>
+                <input type="text" style="width:100%" id="emailAddress" name="emailAddress"/>
+
+                <label for="macAddress">Mac Address (for controlling blutooth equipment)</label>
+                <input type="text" style="width:100%" id="txtMacAddress" name="macAddress"/>
+                <a data-role="button" id="btnConnect">Connect</a>
+                <div id="divConnectionStatus"></div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="index.html" data-ajax="false">Cancel</a></li>
+                        <li><a href="#" id="saveSettings">Save</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/effects.js"></script>
+    <script type="text/javascript">
+	var songChains;
+	
+	$( document ).ready(function() {
+
+
+	});
+	
+
+
+
+
+
+		
+		
+		var twelve = "123456789ABC";
+		var threes = ['123', '456', '789', 'ABC'];
+		
+		function getNeighbours(num)
+		{
+			for (var i=0;i<4;i++) 
+			{
+				if (threes[i].indexOf(num)!=-1) return threes[i];
+			}
+		return "";
+		}
+		
+		function isInWhichDropDown(num)
+		{
+		for (var i=0;i<4;i++) 
+			{
+			if (threes[i].indexOf(num)!=-1) return i;
+			}
+		return -1;
+		}
+
+		$('#songSetSelect').change(function(){
+        var selected=[];
+        $( "#songSetSelect option:selected" ).each(function() {
+            selected.push($( this ).text() )
+        });
+        setListSerialize(selected);
+        updateSetList();
+        });
+
+		$('.scene').change(function() {
+
+            var thisid = $(this).attr('id');
+			for (var i=1;i<=4;i++)
+			{
+
+			var dd_n = "M"+i;
+            var myselect = $("#"+dd_n);
+			if (thisid!=dd_n)  //i.e we are dealing with a not-clicked-on-dropdown
+				{
+				myselect[0].selectedIndex = 0;
+                $("#" + dd_n + "-button").css("background-color", "#FFFFFF");
+				}
+			else
+                {
+                $("#" + dd_n + "-button").css("background-color", "#FF0000");
+                }
+            $(myselect).selectmenu("refresh");
+            //event.preventDefault();
+            //event.stopPropagation();
+			}
+		});
+
+		
+		$(".effect").change(function() {
+			if ($(this).attr('id')===undefined) return;
+			var num = $(this).attr('id').charAt(1);
+			var s = getNeighbours(num);
+			for (var i = 0;i<3;i++)
+			{
+			if (s.charAt(i)!=num) 
+				{
+				var myswitch = $("#f" + s.charAt(i));
+				myswitch[0].selectedIndex = 0;
+				myswitch.slider("refresh");
+				}
+			}
+			
+			
+		});
+
+		function clearScene()
+		{
+		for (var i=1;i<=4;i++)
+			{
+			var dd = "M"+i;
+			if ($(dd).attr('id')!=dd)
+				{
+				var myselect = $("#"+dd);
+				myselect[0].selectedIndex = 0;
+                $("#M"+i +  "-button").css("background-color", "#FFFFFF");
+				myselect.selectmenu("refresh");
+				}
+			}
+		}
+		
+		function clearFolder()
+		{
+		    $('.sceneFolder').checkboxradio().checkboxradio('refresh');
+		$('.sceneFolder').prop('checked',false).checkboxradio("refresh");
+		}
+
+		function clearEffects()
+        {
+            setEffects("");
+        }
+		
+		
+		
+		function getScene()
+		{
+		for (var i=1;i<=4;i++)
+			{
+			var dd = "#M"+i;
+			if ($(dd).val()!="") return $(dd).val();
+			}
+		return "";
+		}
+		
+		function getSongTitle()
+		{
+		return $('#txtSongName').val().replace(':','-');
+		}
+		
+		function setSongTitle()
+		{
+		$('#txtSongName').val(getCurrentPbfxChainName());
+		}
+		
+		function setSceneFolder(letter)
+		{
+		if (letter=="") return;
+		var i = letter*1;
+		clearFolder();
+		$('#sceneFolder' + letter).prop('checked', true).checkboxradio("refresh");
+		}
+		
+		
+
+		function setScene(letter)
+        {
+
+		clearScene();
+		if (letter=="") return;
+		var dd = isInWhichDropDown(letter)+1;
+		var s = getNeighbours(letter);
+		var si = s.indexOf(letter)+1;
+		var myselect = $("#M"+dd);
+        $("#M"+dd +  "-button").css("background-color", "#FF0000");
+		myselect[0].selectedIndex = si;
+		myselect.selectmenu("refresh");
+
+		}
+
+		
+		function setEffects(letters)
+		{
+
+		for (var i=0;i<twelve.length;i++)
+			{
+			var myswitch = $("select#f" + twelve.charAt(i));
+			myswitch[0].selectedIndex = 0;
+			myswitch.slider("refresh");
+			}
+		for (var i=0;i<letters.length;i++)
+			{
+			var myswitch = $("select#f" + letters.charAt(i));
+			myswitch[0].selectedIndex = 1;
+			myswitch.slider("refresh");
+			}
+         var cols = getPedalBoardFilterColors();
+		 var fxs = getPedalBoardEffectNames();
+         //$('#myFx li').removeClass("delay fuzz modulation filter reverb");
+		 $('.fxBtn').each(function(i) {
+             if (cols.length>i )
+             {
+                 $(this).css("background-color",cols[i]);
+                 $(this).text(fxs[i]);
+             }
+         });
+
+
+		}
+		
+		
+		function setFolderSceneAndEffects(s)
+		{
+
+		if (s=="") {clearScene();clearFolder();clearEffects();return;}
+		
+		setSceneFolder(s.charAt(0));
+		setScene(s.charAt(1));
+		setEffects(s.substring(2));
+		}
+		
+		function hasValue(obj, key, value) {
+			return obj.hasOwnProperty(key) && obj[key] === value;
+		}
+		
+		$('#Save').click(function() {
+			
+			save();
+			
+
+		});
+
+		function save()
+        {
+            var songChainKey = getSongTitle();
+            if (songChainKey=="") {alert("Please add title");return;}
+
+            //checking if the name of the currently being specified has changed
+            //and is not simply the first time it has been created
+
+            var currentlyBeingEdited = getCurrentPbfxChainName();
+            if (currentlyBeingEdited!="" && songChainKey!=currentlyBeingEdited)
+            {
+                var renameSuccess = renameFxChain(currentlyBeingEdited,songChainKey);
+                if (!renameSuccess) return;
+            }
+
+
+            var val = new Array();
+            val.push(getSceneFolder());
+            val.push(getScene());
+            $("select.effect").each(function(){
+                if (this.value=="on")  val.push(this.id.charAt(1));
+            });
+
+            var songChain = val.join('');
+            //OLD: songChains[songChainKey] = songChain;
+            savePedalBoardState(songChainKey,songChain);
+            //in the event the user has changed the title, delete the entry under the old title
+
+            $.mobile.navigate("#SongListPage");
+        }
+
+
+		
+		$('#newChain').click(function() {
+            setCurrentPbfxChainName("");
+			$.mobile.navigate( "#FolderSceneEffectsPage" );
+			
+		});
+
+
+
+        $(document).on('pagebeforeshow', '#pgSettings', function(){
+            $('#emailAddress').val(getUserEmailAddress());
+            $('#txtMacAddress').val(getUserMacAddress());
+            if (appInitialized==0) {app.initialize();appInitialized=1;}
+        });
+
+    $(document).on('pagebeforeshow', '#setListPage', function() {
+
+        if (sortableSetup > 0) return;
+        $("#setOrderList").sortable();
+        $("#ssetOrderList").disableSelection();
+        <!-- Refresh list to the end of sort to have a correct display -->
+        $("#setOrderList").bind("sortstop", function (event, ui) {
+            $('#setOrderList').listview('refresh');
+            saveOrderFromList();
+        });
+        sortableSetup = 1;
+    });
+
+
+		
+		$(document).on('pagebeforeshow', '#SongListPage', function(){ 
+			populateSongChainList();
+		});
+		
+		$(document).on('pagebeforeshow', '#FolderSceneEffectsPage', function(){
+
+			populateSongChainForm();
+		});
+
+		$(document).on('click', '#saveSettings', function(){
+            setUserEmailAddress($('#emailAddress').val());
+            setUserMacAddress($('#txtMacAddress').val());
+            alert($('#txtMacAddress').val());
+            $.mobile.navigate("#SongListPage");
+        });
+		
+		$(document).on('click', '.songChainItem', function(){
+			//alert(songChains[$(this).text()]);
+		});
+		
+		$(document).on('taphold', '.song', function(){
+            var songTitle = $(this).find('.songTitle').first().text();
+            confirmAndDelete( songTitle);
+		});
+		
+
+		$( document ).on( "swipeleft swiperight", ".song", function( event ) {
+				
+					var songTitle = $(this).find('.songTitle').first().text();
+					confirmAndDelete( songTitle);
+			});
+			
+		function confirmAndDelete(litem)
+		{
+			
+			$("#songTitlePlaceholder").text(litem);
+			$( "#confirm" ).popup( "open" );
+		}
+		
+		
+		// Proceed when the user confirms
+		$( "#confirm #yes" ).on( "click", function() {
+				var toDelete = $("#songTitlePlaceholder").first().text();
+				toDelete = songMinusSceneBrackets(toDelete)
+                deletePbFxChain(toDelete);
+				remove(localStorage['setList'],toDelete);
+				populateSongChainList();
+		});
+
+
+        $(document).on('click', '.pedalboard', function () {
+            var song = getTitleFromSongChainItem($(this));
+
+            showPedalBoard(song);
+        });
+
+        $(document).on('click', '.songTitle', function () {
+            var song = getTitleFromSongChainItem($(this));
+            showPedalBoard(song);
+        });
+
+
+        $(document).on('click', '#btnImport', function () {
+            $( "#importSongChainsPopup").popup();
+            $( "#importSongChainsPopup" ).popup( "open" );
+        });
+
+
+
+        $(document).on('click', '#btnImportJSON', function () {
+
+            importSongChainsFromJSON($('#txtJSONImport').val());
+            $( "#importSongChainsPopup" ).popup( "close" );
+            populateSongChainList();
+        });
+
+
+
+
+    $(document).on('click', '.effectChain', function () {
+            var song = getTitleFromSongChainItem($(this));
+            showEffects(song);
+        });
+
+
+        $(document).on('click', '#btnAlphabetically', function () {
+            populateSongChainList('letter');
+        });
+
+        $(document).on('click', '#btnByScene', function () {
+            populateSongChainList('scene');
+        });
+
+        $(document).on('click', '#btnByDate', function () {
+            populateSongChainList('');
+        });
+
+
+
+
+
+
+
+
+        function showPedalBoard(song)
+        {
+            setCurrentPbfxChainName(song);
+            $.mobile.navigate("#FolderSceneEffectsPage");
+        }
+
+        function showEffects(song)
+        {
+            setCurrentPbfxChainName(song);
+            window.location.href = "effectChecker.html";
+        }
+
+        $(document).on('click', '.midi', function () {
+            var song = getTitleFromSongChainItem($(this));
+            doBlueTooth(song);
+        });
+
+        $(document).on('click','.fxBtn', function()
+        {
+            if (getCurrentPbfxChainName()=="") { alert("Save song first"); return;}
+            save();
+            window.location.href = "effectChecker.html";
+        });
+
+		
+		function getTitleFromSongChainItem(elmt)
+        {
+            var s =  elmt.closest("li").find(".songTitle").first().text();
+            return songMinusSceneBrackets(s);
+        }
+
+        function songMinusSceneBrackets(s)
+        {
+            var scene = s.match(/\(([^)]+)\)/)[1];
+            var songMinusBrackets = s.replace(/ *\([^)]*\) */g, "");
+            return songMinusBrackets;
+        }
+
+
+        $('#Test').click(function() {
+			SceneAndEffects("22257A");
+		});
+		
+		function getSceneFolder()
+		{
+		var s = $('input[name=sceneFolder]:checked').val();
+		return s;
+		}
+		
+		function populateSongChainList(how)
+		{
+		$('#songChainList').empty();
+		$('#setOrderList').empty();
+        $('#songSetSelect').find('option').remove().end();
+        var inSetList = getSetList();
+		var allKeys;
+        var optTempl;
+
+		switch(how)
+        {
+            case "scene":
+                allKeys = allPedalBoardFxKeysOrderedByScene();
+                break;
+            case "letter":
+                allKeys = allPedalBoardFxKeysByLetter();
+                break;
+            default:
+                allKeys = allPedalBoardFxKeys();
+                break;
+        }
+
+		$.each( allKeys,function( key, value )
+			    {
+               $("#songChainList").append(visualizeSongChainItem(value));
+               $( "#songChainList" ).listview( "refresh" );
+               if (inSetList===null) inSetList = new Array();
+               if (inSetList.indexOf(value)==-1) optTempl = '<option value="' +value+ '">'+value+'</option>';
+               else optTempl = '<option value="' +value+ '" selected="selected">'+value+'</option>';
+
+               $('#songSetSelect').append(optTempl);
+               $('#songSetSelect').selectmenu();
+               $('#songSetSelect').selectmenu("refresh");
+                });
+		$( "#songChainList" ).trigger("create");
+
+		}
+
+		function visualizeSongChainItem(key)
+        {
+            var s = $('#songChainItem').html();
+            var folder = getPedalBoardFolderFromChainName(key);
+            var scene = getPedalBoardSceneFromChainName(key);
+            var visibleSceneText = key + "(" + scene + "<sup>" + folder + "</sup>)";
+            s = s.replace(/__songtitle__/g,visibleSceneText);
+            s = s.replace("background-color:black",makePedalBoardBackground(key));
+            return s;
+        }
+		
+		
+		function populateSongChainForm()
+        {
+
+		setSongTitle();
+		var chain = "";
+		if (getCurrentPbfxChainName()!="")
+            {
+                chain=loadPedalBoardState(getCurrentPbfxChainName());
+                $("#fxCollapsible").show();
+            }
+        else
+            {
+                $("#fxCollapsible").hide();
+            }
+		setFolderSceneAndEffects(chain);
+		}
+
+    $("#btnExport").click(function() {
+
+        $("#transcript").val(getPrintOut());
+
+        $( "#songlistEffectPrintout").popup();
+        $( "#songlistEffectPrintout" ).popup( "open" );
+
+        });
+
+
+
+    $('#btnPrintable').click(function(event) {
+
+        $("#transcript").val(getPrintOut());
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+
+    $('#btnScenePrintouts').click(function(event) {
+
+        $("#transcript").val(getScenePrintOutText());
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    $('#btnJSON').click(function(event) {
+
+        $("#transcript").val(getJSON());
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+    $('#btnBluetooth').click(function(event) {
+
+        $("#transcript").val(getBluetoothString());
+        event.preventDefault();
+        event.stopPropagation();
+    });
+
+
+    function getPrintOut()
+    {
+        var fullPrintout = printOutAll();
+        //window.open(tobeEmailed, '_system');
+
+        fullPrintout = fullPrintout.replace(/^.*?---/,"\r\n\r\n---");
+        fullPrintout = fullPrintout.replace(/%0D%0A/g,"\r\n") + "";
+
+        return fullPrintout;
+    }
+
+    function getJSON()
+    {
+        return localStorage["pedalBoardFxChains"];
+    }
+
+    $("#clipboardCopy").click(function() {
+        copyToClipboard("#transcript");
+
+    });
+
+    $("#checkScenes").click(function() {
+        listAllPedalBoardStates();
+    });
+
+    $("#closeEffectPrintout").click(function() {
+        $( "#songlistEffectPrintout" ).popup( "close" );
+
+    });
+
+    $("#closeImportPrintout").click(function() {
+        $( "#importSongChainsPopup" ).popup( "close" );
+
+    });
+
+    $("#btnScenes").click(function() {
+        listAllPedalBoardStates();
+
+    });
+
+    $("#btnTransmit").click(function() {
+        //saveOrderFromList();
+        app.sendTextOff(saveOrderFromList());
+    });
+
+    $("#btnConnect").click(function() {
+        //saveOrderFromList();
+        if ($('#txtMacAddress').val()=="") {alert("mac address must be added here");return;}
+        app.setMacAddress($('#txtMacAddress').val());
+        app.manageConnection();
+    });
+
+    function saveOrderFromList()
+    {
+        var allSongs = [];
+        $( "#setOrderList li" ).each(function( index ) {
+            allSongs.push($( this ).text())  ;
+        });
+        alert(allSongs.join(","));
+        localStorage['setList']=JSON.stringify(allSongs);
+        return allSongs.join(":");
+    }
+
+    function getBluetoothString()
+    {
+        var allSongChains = [];
+        var allSongNames = getSetList();
+        $.each(allSongNames,function( index ,value) {
+            allSongChains.push(getPedalBoardChainByName(value))  ;
+        });
+        return allSongChains.join(':');
+    }
+
+
+
+    $("#btnGoSetListPage").click(function() {
+    $(':mobile-pagecontainer').pagecontainer('change', '#setListPage');
+    updateSetList();
+    });
+
+
+
+
+
+    function updateSetList()
+    {
+        $('#setOrderList').empty();
+
+        $( getSetList()).each(function(index, songTitle) {
+            $('#setOrderList').append('<li>' + songTitle + '</li>');
+        });
+
+        $('#setOrderList').listview();
+        $('#setOrderList').listview("refresh");
+    }
+
+    function initializeBluetooth()
+    {
+
+    }
+
+		
+    </script>
 </body>
 
 </html>

@@ -18,7 +18,7 @@ var app = {
     initialize: function() {
         if (localStorage['macAddress']!==null) app.macAddress=localStorage['macAddress'];
         this.bindEvents();
-        console.log("Starting SimpleSerial app");
+        alert("Starting SimpleSerial app");
     },
 /*
     bind any events that are required on startup to listeners:
