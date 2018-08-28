@@ -371,7 +371,6 @@ function sceneLettersToDiagram(s,k)
 
 function setListSerialize(setList)
 {
-    alert(JSON.stringify(setList));
 localStorage["setList"] = JSON.stringify(setList);
 }
 

@@ -987,7 +987,6 @@
 		$(document).on('click', '#saveSettings', function(){
             setUserEmailAddress($('#emailAddress').val());
             setUserMacAddress($('#txtMacAddress').val());
-            alert($('#txtMacAddress').val());
             $.mobile.navigate("#SongListPage");
         });
 		
@@ -1294,7 +1293,6 @@
         $( "#setOrderList li" ).each(function( index ) {
             allSongs.push($( this ).text())  ;
         });
-        alert(allSongs.join(","));
         localStorage['setList']=JSON.stringify(allSongs);
         return allSongs.join(":");
     }
