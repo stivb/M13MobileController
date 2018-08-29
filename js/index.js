@@ -17,17 +17,11 @@ var app = {
  */
     initialize: function() {
         if (localStorage['macAddress']!==null) app.macAddress=localStorage['macAddress'];
-        this.bindEvents();
-        alert("Starting SimpleSerial app");
     },
 /*
     bind any events that are required on startup to listeners:
 */
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        //btnConnect.addEventListener('touchend', app.manageConnection, false);
-		//btnTransmit.addEventListener('touchend', app.sendText, false);
-    },
+
 
 /*
     this runs when the device is ready for user interaction:
@@ -36,6 +30,7 @@ var app = {
         // check to see if Bluetooth is turned on.
         // this function is called only
         //if isEnabled(), below, returns success:
+        alert("readying");
         var listPorts = function() {
             // list the available BT ports:
             bluetoothSerial.list(
@@ -76,7 +71,7 @@ var app = {
         );
 
         bluetoothSerial.write(iput, function(err, bytesWritten) {
-            if (err) alert("error" + err);
+            if (err) alert("error" + err.message);
         });
     },
 
@@ -182,6 +177,7 @@ var app = {
     appends @message to the message div:
 */
     display: function(message) {
+        alert(message);
         var display = document.getElementById("divMessage"), // the message div
             lineBreak = document.createElement("br"),     // a line break
             label = document.createTextNode(message);     // create the label

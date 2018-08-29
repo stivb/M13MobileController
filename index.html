@@ -704,11 +704,12 @@
     <script src="js/effects.js"></script>
     <script type="text/javascript">
 	var songChains;
-	
-	$( document ).ready(function() {
 
+    document.addEventListener("deviceready", onDeviceReady, false);
 
-	});
+    function onDeviceReady() {
+        app.onDeviceReady();
+    }
 	
 
 
