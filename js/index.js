@@ -71,7 +71,7 @@ var app = {
         );
 
         bluetoothSerial.write(iput, function(err, bytesWritten) {
-            if (err) alert("error" + err.message);
+            if (err) alert("error in writing: " + err + "\n Text to be written was: " + iput);
         });
     },
 
@@ -90,7 +90,7 @@ var app = {
 	);
 	
 	bluetoothSerial.write(theMsg, function(err, bytesWritten) {
-                if (err) console.log("error" + err);
+                if (err) alert("error" + err.message);
             });
 	},
 
@@ -129,7 +129,13 @@ var app = {
         };
 
         // here's the real action of the manageConnection function:
-        bluetoothSerial.isConnected(disconnect, connect);
+        //bluetoothSerial.isConnected(disconnect, connect);
+
+        bluetoothSerial.connect(
+            app.macAddress,  // device to connect to
+            app.openPort,    // start listening if you succeed
+            app.showError    // show the error if you fail
+        );
     },
 /*
     subscribes to a Bluetooth serial listener for newline
