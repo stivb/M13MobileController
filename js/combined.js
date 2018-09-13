@@ -14,6 +14,18 @@ function copyToClipboard(ctrlId)
         document.execCommand('copy');
 }
 
+function getSavedMacAddress()
+{
+    var macAddress = localStorage['macAddress'];
+    if (macAddress!=null) return macAddress;
+    return "";
+}
+
+function saveMacAddress(mcAddress)
+{
+    localStorage['macAddress'] = mcAddress;
+}
+
 function setUserEmailAddress(emAddr)
 {
     localStorage["emAddr"] = emAddr;
@@ -27,13 +39,13 @@ function getUserEmailAddress()
 
 function setUserMacAddress(macAddr)
 {
-    localStorage["macAddr"] = macAddr;
+    localStorage["macAddress"] = macAddr;
 }
 
 function getUserMacAddress()
 {
-    if (!localStorage["macAddr"]) return "";
-    return localStorage["macAddr"];
+    if (!localStorage["macAddress"]) return "";
+    return localStorage["macAddress"];
 }
 
 function setCurrentPbfxChainName(nome)
@@ -44,6 +56,19 @@ function setCurrentPbfxChainName(nome)
 function getCurrentPbfxChainName()
 {
     return localStorage["currentPbfxChainName"];
+
+
+}
+
+
+function importSongChainsFromJSON(stringifiedSongChains)
+{
+    var importedSongChains = JSON.parse(stringifiedSongChains);
+    if (importedSongChains!=null)
+    {
+        localStorage['previousPedalBoardFxChains'] = localStorage["pedalBoardFxChains"];
+        localStorage["pedalBoardFxChains"] = stringifiedSongChains;
+    }
 }
 
 function getPedalBoardFxChains()
@@ -64,6 +89,27 @@ function getPedalBoardFilterColors(k)
     //alert(JSON.stringify(retval) + JSON.stringify(pbItems))
     return retval;
     }
+
+function getPedalBoardSceneFromChainName(k)
+{
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    var sceneDescript = pedalBoardFxChains[k].pedalBoard;
+    return "" + parseInt("0x" + sceneDescript.charAt(1),16);
+}
+
+function getPedalBoardFolderFromChainName(k)
+{
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    var sceneDescript = pedalBoardFxChains[k].pedalBoard;
+    return sceneDescript.charAt(0);
+}
+
+function getPedalBoardChainByName(k)
+{
+    var retval = null;
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    return  pedalBoardFxChains[k].pedalBoard;
+}
 
 function makePedalBoardBackground(k)
 {
@@ -106,6 +152,57 @@ function allPedalBoardFxKeys()
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
     return Object.keys(pedalBoardFxChains);
+}
+
+function allPedalBoardFxKeysByLetter()
+{
+    var arr = allPedalBoardFxKeys();
+    arr.sort(function (a, b) {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
+    return arr;
+}
+
+
+function allPedalBoardFxKeysOrderedByScene()
+{
+    var tuples = [];
+    var retval = [];
+    var pedalBoardFxChains = getPedalBoardFxChains();
+
+    for (var key in pedalBoardFxChains) tuples.push([key, pedalBoardFxChains[key]]);
+
+    tuples.sort(function(a, b) {
+        a = parseInt(a[1].pedalBoard.charAt(1),16);
+        b = parseInt(b[1].pedalBoard.charAt(1),16);
+
+        return a < b ? -1 : (a > b ? 1 : 0);
+    });
+
+    for (var i = 0; i < tuples.length; i++) {
+        var key = tuples[i][0];
+        var value = tuples[i][1];
+        retval.push(key);
+
+        // do something with key and value
+    }
+
+
+    //var pedalBoardFxChains = getPedalBoardFxChains();
+    //var objs = pedalBoardFxChains.sort(OrderByScene());
+    //return Object.keys(objs);
+    return retval;
+}
+
+function OrderByScene() {
+    return function(a, b) {
+        if (a["pedalBoard"].charAt(1)*1 > b["pedalBoard"].charAt(1)*1) {
+            return 1;
+        } else if (a["pedalBoard"].charAt(1)*1 < b["pedalBoard"].charAt(1)*1)  {
+            return -1;
+        }
+        return 0;
+    }
 }
 
 function printOut(pbfxChainName,theChain)
@@ -175,7 +272,7 @@ function parseCurlyBracesNotches (titleIncludingNotches,percentage)
     var justSuffix = titleIncludingNotches.match(/\}(.*$)/)[1];
     var justPrefix = titleIncludingNotches.replace(/\{.*$/,"");
 
-    var notchesArray = notchesString.split('-');
+    var notchesArray = notchesString.split(':');
     var notchScaleStart = notchesArray[0]*1;
     var notchScaleEnd= notchesArray[1]*1;
     var notchRange = Math.abs(notchScaleEnd-notchScaleStart);
@@ -199,6 +296,20 @@ function printOutAll()
 
         });
 
+    return retval;
+}
+
+function getScenePrintOutText()
+{
+    var keys = allPedalBoardFxKeysOrderedByScene();
+    var retval = "ALL SCENES \n\n";
+    $.each(keys, function( index, key ) {
+
+        var k = key;
+        var pbx = loadPedalBoardState(k);
+        retval+=sceneLettersToDiagram(pbx,k);
+
+    });
     return retval;
 }
 
@@ -229,6 +340,47 @@ function listAllPedalBoardStates()
     alert(sceneSummary);
     return retval;
 }
+
+function sceneLettersToDiagram(s,k)
+{
+    var i = 0;
+    var folder = parseInt(s.charAt(0));
+    var scene = parseInt("0x" + s.charAt(1));
+    var retval = "------" + k.toUpperCase() + "-----\n"
+    retval += "FOLDER " + folder + "" + "SCENE " +scene + "\n\n";
+    var slotsUsed = [];
+    for (i=2;i<s.length;i++) slotsUsed.push(s.charAt(i));
+    var checkList="";
+    var q = "147A258B369C";
+    for (var j=0;j<3;j++)
+    {
+        for(var k=0;k<4;k++)
+        {
+            var n = q.charAt(j*4+k);
+            if (slotsUsed.indexOf(n)==-1) retval+=".";
+            else retval+="x";
+        }
+
+        retval+="\n";
+
+    }
+    retval+="\n";
+    return retval;
+}
+
+
+function setListSerialize(setList)
+{
+localStorage["setList"] = JSON.stringify(setList);
+}
+
+function getSetList()
+{
+    //localStorage.removeItem("setList");
+    if (localStorage.getItem("setList") === null) return null;
+    return JSON.parse(localStorage["setList"]);
+}
+
 
 
 
@@ -310,4 +462,13 @@ function resetPedalBoardFxChains()
 {
     localStorage["pedalBoardFxChains"] = "";
     pedalBoardFxChains = new Object();
+}
+
+function remove(arr, what) {
+    var found = arr.indexOf(what);
+
+    while (found !== -1) {
+        arr.splice(found, 1);
+        found = arr.indexOf(what);
+    }
 }

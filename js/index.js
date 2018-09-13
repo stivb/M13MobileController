@@ -16,17 +16,12 @@ var app = {
     Application constructor
  */
     initialize: function() {
-        this.bindEvents();
-        console.log("Starting SimpleSerial app");
+        if (localStorage['macAddress']!==null) app.macAddress=localStorage['macAddress'];
     },
 /*
     bind any events that are required on startup to listeners:
 */
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        //connectButton.addEventListener('touchend', app.manageConnection, false);
-		//msgBtn.addEventListener('touchend', app.sendText, false);
-    },
+
 
 /*
     this runs when the device is ready for user interaction:
@@ -35,6 +30,7 @@ var app = {
         // check to see if Bluetooth is turned on.
         // this function is called only
         //if isEnabled(), below, returns success:
+        alert("readying");
         var listPorts = function() {
             // list the available BT ports:
             bluetoothSerial.list(
@@ -62,10 +58,27 @@ var app = {
     Connects if not connected, and disconnects if connected:
 */
 
-	sendText: function() {
-	var theMsg = document.getElementById("msg").value;
+	sendTextOff: function (iput) {
+	    //alert("sending off " + iput);
+
+        bluetoothSerial.isConnected(
+            function() {
+                console.log("Bluetooth is connected");
+            },
+            function() {
+                alert("Bluetooth is *not* connected");
+            }
+        );
+
+        bluetoothSerial.write(iput, function(err, bytesWritten) {
+            if (err) alert("error in writing: " + err + "\n Text to be written was: " + iput);
+        });
+    },
+
+    sendText: function() {
+	var theMsg = localStorage['setList'];
 	theMsg = theMsg + '\n';
-	app.display("Writing : " + theMsg);
+	alert("Writing : " + theMsg);
 	
 	bluetoothSerial.isConnected(
 		function() {
@@ -77,13 +90,17 @@ var app = {
 	);
 	
 	bluetoothSerial.write(theMsg, function(err, bytesWritten) {
-                if (err) console.log("error" + err);
+                if (err) alert("error" + err.message);
             });
 	},
+
+    setMacAddress: function(iput) {
+	    app.macAddress = iput;
+    },
 	
     manageConnection: function() {
 
-		
+
         // connect() will get called only if isConnected() (below)
         // returns failure. In other words, if not connected, then connect:
         var connect = function () {
@@ -91,8 +108,7 @@ var app = {
             // if not connected, do this:
             // clear the screen and display an attempt to connect
             app.clear();
-            app.display("Attempting to connect. " +
-                "Make sure the serial port is open on the target device.");
+            alert("Attempting to connect to " + app.macAddress);
             // attempt to connect:
             bluetoothSerial.connect(
                 app.macAddress,  // device to connect to
@@ -113,7 +129,13 @@ var app = {
         };
 
         // here's the real action of the manageConnection function:
-        bluetoothSerial.isConnected(disconnect, connect);
+        //bluetoothSerial.isConnected(disconnect, connect);
+
+        bluetoothSerial.connect(
+            app.macAddress,  // device to connect to
+            app.openPort,    // start listening if you succeed
+            app.showError    // show the error if you fail
+        );
     },
 /*
     subscribes to a Bluetooth serial listener for newline
@@ -161,7 +183,8 @@ var app = {
     appends @message to the message div:
 */
     display: function(message) {
-        var display = document.getElementById("message"), // the message div
+        alert(message);
+        var display = document.getElementById("divMessage"), // the message div
             lineBreak = document.createElement("br"),     // a line break
             label = document.createTextNode(message);     // create the label
 
