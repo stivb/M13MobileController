@@ -139,6 +139,17 @@ function getPedalBoardEffectNames()
     return retval;
 }
 
+function setDefaultFolder(defFolderNum)
+{
+    localStorage["defaultFolder"] = defFolderNum;
+}
+
+function getDefaultFolder()
+{
+    if (localStorage["defaultFolder"] === undefined || localStorage["defaultFolder"] === null) return 1;
+    return localStorage["defaultFolder"]*1;
+}
+
 
 
 

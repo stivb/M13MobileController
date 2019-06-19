@@ -1,4 +1,7 @@
-﻿var visualEffectChain =
+﻿var tempoSettings = ["&#119133","&#119134","&#119135","&#119136","&#119137","&#119138"];
+
+
+var visualEffectChain =
     {
         "Description":"",
         "Effects":[]

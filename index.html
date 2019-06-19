@@ -120,7 +120,7 @@
 
 
 
-                 <a data-role="button" id="newChain" data-icon="plus">Add New Song Effect</a>
+                 <a data-role="button" id="newChain" data-icon="plus">Add New Song Effects Chain</a>
                 <ul data-role="listview" id="songChainList" data-inset="true">
                 </ul>
             </div>
@@ -687,6 +687,25 @@
                 <input type="text" style="width:100%" id="txtMacAddress" name="macAddress"/>
                 <a data-role="button" id="btnConnect">Connect</a>
                 <div id="divConnectionStatus"></div>
+
+                <div id="defaultFolder" data-role="fieldcontain"   >
+                    Scene Folder
+
+                    <fieldset data-role="controlgroup"  data-type="horizontal">
+
+                        <input type="radio" name="defaultFolder" id="defFolder1" class="defFolder" value="1" >
+                        <label for="defFolder1">One</label>
+                        <input type="radio" name="defaultFolder" id="defFolder2" class="defFolder" value="2">
+                        <label for="defFolder2">Two</label>
+                        <input type="radio" name="defaultFolder" id="defFolder3" class="defFolder" value="3">
+                        <label for="defFolder3">Three</label>
+                        <input type="radio" name="defaultFolder" id="defFolder4" class="defFolder" value="4">
+                        <label for="defFolder4">Four</label>
+                    </fieldset>
+                </div>
+
+
+
             </div>
             <div data-role="footer" data-position="fixed">
                 <div data-role="navbar">
@@ -838,7 +857,7 @@
 		}
 		
 		function setSceneFolder(letter)
-		{
+        {
 		if (letter=="") return;
 		var i = letter*1;
 		clearFolder();
@@ -896,7 +915,12 @@
 		function setFolderSceneAndEffects(s)
 		{
 
-		if (s=="") {clearScene();clearFolder();clearEffects();return;}
+		if (s=="")
+		{
+		    clearScene();
+		    clearEffects();
+		    setSceneFolder(getDefaultFolder());
+		    return;}
 		
 		setSceneFolder(s.charAt(0));
 		setScene(s.charAt(1));
@@ -988,6 +1012,7 @@
 		$(document).on('click', '#saveSettings', function(){
             setUserEmailAddress($('#emailAddress').val());
             setUserMacAddress($('#txtMacAddress').val());
+
             $.mobile.navigate("#SongListPage");
         });
 		
@@ -1096,7 +1121,11 @@
             doBlueTooth(song);
         });
 
-        $(document).on('click','.fxBtn', function()
+        $("input[type='radio'][name='defaultFolder']").click(function() {
+            setDefaultFolder($(this).val());
+        });
+
+    $(document).on('click','.fxBtn', function()
         {
             if (getCurrentPbfxChainName()=="") { alert("Save song first"); return;}
             save();
