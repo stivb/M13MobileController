@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var a = new Array();
+    var c = 119133;
+    var i = 0;
+    for (i=0;i<8;i++)
+    {
+        a.push("&#"+(c+i));
+        a.push("&#"+(c+i) + " &#119149");
+    }
+
+    for (i=0;i<a.length;i++)
+    {
+        document.write(a[i]);
+    }
+
+
+</script>
+
+<div style="background:linear-gradient(to right,Yellow 0%,Yellow 25%,lime 25%,lime 50%,lime 50%,lime 75%,aqua 75%,aqua 100%)">
+    hello
+</div>
+
+<div style="background:linear-gradient(to right,rgba(255,255,0,0.2) 0%,rgba(255,255,0,0.2) 25%,rgba(255,0,255,0.2) 25%,rgba(255,0,255,0.2) 50%,rgba(255,0,255,0.2) 50%,rgba(255,0,255,0.2) 75%,rgba(0,255,255,0.2) 75%,rgba(0,255,255,0.2) 100%)">
+    hello
+</div>
+
+<div> just checking</div>
+
+
+</body>
+</html>
