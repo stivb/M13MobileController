@@ -146,5 +146,11 @@ ui-slider-input {
     border-right: 1px solid black !important;
 }
 
+.downward
+{
+    writing-mode: tb-rl;
+    color:white;
+    font-weight: bold;
+}
 
 

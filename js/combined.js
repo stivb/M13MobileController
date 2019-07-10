@@ -84,7 +84,8 @@ function getPedalBoardFilterColors(k)
     var pbItems = loadFxChainState(ka);
     var retval = new Array();
     $.each(pbItems, function( index, value ) {
-    if (value.EffectColor!=null) retval.push(value.EffectColor);
+        if (value!=null) if (value.EffectColor!=null) retval.push(value.EffectColor);
+
     });
     //alert(JSON.stringify(retval) + JSON.stringify(pbItems))
     return retval;
@@ -121,7 +122,7 @@ function makePedalBoardBackground(k)
     var percentage = 100/colors.length;
     retval += "linear-gradient(to right"
     $.each(colors, function( index, value ) {
-        retval +="," + value + " " + percentage*index + "%," +  value + " " + percentage*(index+1) + "%";
+        retval +="," + halfColors[value.toLowerCase()] + " " + percentage*index + "%," +  halfColors[value.toLowerCase()]  + " " + percentage*(index+1) + "%";
     });
     return retval;
 

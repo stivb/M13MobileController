@@ -1,5 +1,22 @@
 ﻿var tempoSettings = ["&#119133","&#119134","&#119135","&#119136","&#119137","&#119138"];
 
+var fullColors =
+    {
+        "lime":"rgba(0,255,0,1)",
+        "yellow":"rgba(255,255,0,1)",
+        "fuchsia":"rgba(255,0,255,1)",
+        "aqua":"rgba(0,255,255,1)",
+        "orange":"rgba(255,165,0,1)"
+    }
+
+var halfColors =
+    {
+        "lime":"rgba(0,255,0,.5)",
+        "yellow":"rgba(255,255,0,.5)",
+        "fuchsia":"rgba(255,0,255,.5)",
+        "aqua":"rgba(0,255,255,.5)",
+        "orange":"rgba(255,165,0,.5)"
+    }
 
 var visualEffectChain =
     {

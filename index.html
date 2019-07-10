@@ -680,6 +680,7 @@
                 <h1>Settings</h1>
             </div>
             <div data-role="content">
+                <!--
                 <label for="emailAddress">Email Address (for emailing settings)</label>
                 <input type="text" style="width:100%" id="emailAddress" name="emailAddress"/>
 
@@ -687,9 +688,11 @@
                 <input type="text" style="width:100%" id="txtMacAddress" name="macAddress"/>
                 <a data-role="button" id="btnConnect">Connect</a>
                 <div id="divConnectionStatus"></div>
+                -->
+
 
                 <div id="defaultFolder" data-role="fieldcontain"   >
-                    Scene Folder
+                    Select Current Default Folder
 
                     <fieldset data-role="controlgroup"  data-type="horizontal">
 
@@ -703,6 +706,10 @@
                         <label for="defFolder4">Four</label>
                     </fieldset>
                 </div>
+
+                <p>Remove All Songs</p>
+
+                <button id="clearAllData">Clear All Data</button>
 
 
 
@@ -903,7 +910,8 @@
 		 $('.fxBtn').each(function(i) {
              if (cols.length>i )
              {
-                 $(this).css("background-color",cols[i]);
+                 $(this).css("background-color",halfColors[cols[i].toLowerCase()]);
+                 $(this).css("color","black");
                  $(this).text(fxs[i]);
              }
          });
