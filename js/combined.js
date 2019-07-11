@@ -7,6 +7,19 @@ function isInMobileApp()
     return document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 }
 
+function returnTempoList()
+{
+    var a = new Array();
+    var c = 119133;
+    var i = 0;
+    for (i=0;i<8;i++)
+    {
+        a.push("&#"+(c+i));
+        a.push("&#"+(c+i) + " &#119149");
+    }
+
+    return a;
+}
 function copyToClipboard(ctrlId)
 {
         $(ctrlId).focus();

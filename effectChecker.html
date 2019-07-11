@@ -161,11 +161,12 @@
                     <a class="effectGroupBtn reverb" data-role="button">Reverb</a>
                 </div>
             </div>
+        <div class="ui-grid-d EffectChooser">
             <div class="ui-block-a">
-                <p class="downward">Distortion</p>
+                <div class="downward">Distortion</div>
             </div>
             <div class="ui-block-b">
-                <p class="downward">Delay</p>
+                <div class="downward">Delay</div>
             </div>
             <div class="ui-block-c">
                 <p class="downward">Filter</p>
@@ -176,9 +177,10 @@
             <div class="ui-block-e">
                 <p class="downward">Modulation</p>
             </div>
+        </div>
             <ul id="effectList" data-role="listview" data-inset="true">
             </ul>
-
+        <a id="effectGroupCancel" data-role="button">Cancel</a>
         </div>
 
     <div data-role="popup" id="effectHelpPopup" class="ui-content" data-theme="a" style="max-width:350px;">
@@ -336,6 +338,7 @@
         {
             var li = $('<li/>').appendTo(cList);
             var aaa = $('<a/>').text(effectsToShow[i]).addClass("effectChoice").appendTo(li);
+            aaa.addClass(filterGroup + "text");
             var qqq = $('<a/>').text(effectsToShow[i]).addClass("effectHelp").appendTo(li);
         });
         cList.listview( "refresh" );
@@ -512,8 +515,12 @@
         $( "#EffectTweakerPage" ).popup( "close" );
     });
 
+    $("#effectGroupCancel").click(function() {
+        $( "#EffectChooserPage" ).popup( "close" );
+    });
+
     $("#EffectTweakerPageRemove").click(function() {
-        fX[currEffectNum-1] = null;
+        fX[currEffectNum-1] = new Array();
         $( "#DivFx"+ currEffectNum ).css("background-color","#f9f9f9");
         $( "#DivFx"+ currEffectNum ).children().css("visibility", "hidden");
         $( "#spanFx"+ currEffectNum ).text("Effect " + currEffectNum);

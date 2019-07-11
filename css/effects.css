@@ -104,6 +104,12 @@
 .modulation {background-color:aqua !important}
 .reverb {background-color:orange !important}
 
+.Delaytext {color:lime !important}
+.Fuzztext {color:yellow !important}
+.Filtertext {color:fuchsia !important}
+.Modulationtext {color:aqua !important}
+.Reverbtext {color:orange !important}
+
 ui-slider-input {
     visibility:hidden;width:0px; !important
 }
@@ -149,8 +155,9 @@ ui-slider-input {
 .downward
 {
     writing-mode: tb-rl;
-    color:white;
+    color:black;
     font-weight: bold;
+    margin-left:45%;
 }
 
 
