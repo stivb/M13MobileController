@@ -18,6 +18,8 @@ var halfColors =
         "orange":"rgba(255,165,0,.5)"
     }
 
+var tempoSymbols = "Tempo [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]";
+
 var visualEffectChain =
     {
         "Description":"",
@@ -949,15 +951,11 @@ var effectDescriptions =
 
 function flipToTempo(effName,effParam)
 {
-    console.log("*************flipToTempo*****************");
-    console.log(JSON.stringify(Object.keys("Analogue Echo")));
-    console.log("******************************");
-    console.log(JSON.stringify(removeNonNumericFromArray(Object.keys(effName))));
-    console.log("******************************");
+    console.log(effName,effParam);
 }
 
 
-function allEffectsByGroup(groupName)
+function allEffectsByGroupInjectNameColor(groupName)
 {
     var thisEffect;
     var retval = new Array();
@@ -989,7 +987,7 @@ for (i=0;i<EffectsGroupsList.length;i++)
 
 function allEffectNamesByGroup(groupName)
 {
-    var retval = allEffectsByGroup(groupName).map(function(elem) {
+    var retval = allEffectsByGroupInjectNameColor(groupName).map(function(elem) {
         return elem.Effect;
     });
     return retval;
@@ -1008,9 +1006,16 @@ function effectAsParallelArray(efg)
 
 function removeNonNumericFromArray(arr)
 {
+    //each effect has a name (the first) - a series (up to five) of numerical values
+    //then two more - the "effectGroup" - the name of the thing its in - and
+    //effect color -
+    //what this thing does is removes the first, and the last two
+    //a better way might be to user underscores on the not-to-be-shown parts of the array
+
     arr.shift();
     arr.pop();
     arr.pop();
+
     return arr;
 }
 
@@ -1039,7 +1044,7 @@ for (i=0;i<EffectsGroupsList.length;i++)
 
 var thisEffect = getEffect("Octo");
 console.log(JSON.stringify(effectAsParallelArray(thisEffect)));
-console.log(JSON.stringify(allEffectsByGroup("Modulation")));
+console.log(JSON.stringify(allEffectsByGroupInjectNameColor("Modulation")));
 
 $( document ).ready(function() {
 
@@ -1052,8 +1057,11 @@ $( document ).ready(function() {
 
 function populateEffects(effectGroup)
 {
-    var s = allEffectsByGroup(effectGroup);
+    var s = allEffectsByGroupInjectNameColor(effectGroup);
+    console.log(JSON.stringify(s));
+    console.log("***************************");
     var fns = s.map(function (item) {return item.EffectsGroup;});
+    console.log(JSON.stringify(fns));
     var selector = "#popup" + effectGroup + " ul";
     $.each(fns, function( index, value ) {
         $(selector).append("<li>" + value + "</li>");

@@ -293,7 +293,7 @@ function minusNotches(titleIncludingNotches)
 
 function parseCurlyBracesNotches (titleIncludingNotches,percentage)
 {
-    if(percentage==100||percentage==0) flipToTempo(titleIncludingNotches);
+    if(percentage==100||percentage==0) flipToTempo(titleIncludingNotches,percentage);
     var notchesString = titleIncludingNotches.match(/\{(.+?)\}/)[1];
     var justSuffix = titleIncludingNotches.match(/\}(.*$)/)[1];
     var justPrefix = titleIncludingNotches.replace(/\{.*$/,"");

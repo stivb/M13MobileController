@@ -559,20 +559,24 @@
     //a function which mirrors in the small pc indicators the movement in the sliders
     function doUpdate(obj)
     {
-        var i = obj.id.charAt(obj.id.length-1)-1;
+        //indicates which one of the <5 params is being changed
+        var paramNamePos = obj.id.charAt(obj.id.length-1)-1;
+
+
 
 
         var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
         var keys =  removeNonNumericFromArray(Object.keys(currEffect));
-
+        console.log(keys[paramNamePos]);
 
         var val = obj.value;
         var paramBoxes = $("#EffectTweakerPage").find(".percentIndicator");
-        $(paramBoxes[i]).css("background-image",pc(val));
+        $(paramBoxes[paramNamePos]).css("background-image",pc(val));
         var paramLabels = $("#EffectTweakerPage").find(".paramName");
-        $(paramLabels[i]).text(getTitleAndNotch(keys[i],val));
+        var toWrite = getTitleAndNotch(keys[paramNamePos],val);
+        $(paramLabels[paramNamePos]).text(toWrite);
         var paramNameLabels = $("#EffectTweakerPage").find(".paramNameLabel");
-        $(paramNameLabels[i]).text(getTitleAndNotch(keys[i],val));
+        $(paramNameLabels[paramNamePos]).text(toWrite);
     }
     function visualizeFx(num)
     {
