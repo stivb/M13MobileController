@@ -330,6 +330,7 @@
     $( ".effectGroupBtn" ).click(function() {
 
         var filterGroup = $(this).text();
+        alert(filterGroup);
         var effectsToShow = allEffectNamesByGroup(filterGroup);
         var cList = $('#effectList');
         cList.empty();
@@ -361,7 +362,7 @@
         currEffectNum = id.slice(-1)*1; //0,1,2,3 depending on which effect (1-4))
         var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
 
-        if (currEffect.Effect==null || currEffect.Effect=="")
+        if (currEffect._Effect=null || currEffect._Effect="")
         {
             $( "#EffectChooserPage").popup();
             $( "#EffectChooserPage" ).popup( "open" );
@@ -480,7 +481,7 @@
     {
 
         var currEffect = fX[effectNum-1];
-        $( "#spanFx"+ effectNum ).text(currEffect.Effect);
+        $( "#spanFx"+ effectNum ).text(currEffect._Effect;
         $( "#DivFx"+ effectNum ).children().css("visibility", "hidden");
         $( "#DivFx"+ effectNum ).css("background-color",currEffect._EffectColor);
 

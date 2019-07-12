@@ -148,7 +148,7 @@ function getPedalBoardEffectNames()
     var pbItems = loadFxChainState(getCurrentPbfxChainName());
     var retval = new Array();
     $.each(pbItems, function( index, value ) {
-        retval.push(value.Effect);
+        retval.push(value._Effect);
     });
     return retval;
 }
@@ -247,7 +247,7 @@ function printOutEffectChainDescriptor(pbfxChainName,theChain)
     var pc =0
     $.each(theChain, function( index, theEffect ) {
         if (JSON.stringify(theEffect).length<6) return true;
-        retval+="---"+theEffect.Effect+"---%0D%0A";
+        retval+="---"+theEffect._Effect+"---%0D%0A";
         var effectKeys = removeNonNumericFromArray(Object.keys(theEffect));
         $.each(effectKeys, function (idx,key){
             pc = theEffect[key];
