@@ -260,6 +260,7 @@ function printOutEffectChainDescriptor(pbfxChainName,theChain)
 function getTitleAndNotch(titleIncludingNotches, percentage)
 {
 
+    console.log(titleIncludingNotches);
     if (titleIncludingNotches.indexOf('[')==-1 && titleIncludingNotches.indexOf('{')==-1) return titleIncludingNotches;
     if (titleIncludingNotches.indexOf('[')!=-1) return parseSqBracketsNotches(titleIncludingNotches, percentage);
     else return parseCurlyBracesNotches(titleIncludingNotches, percentage);
@@ -292,15 +293,21 @@ function minusNotches(titleIncludingNotches)
 
 function parseCurlyBracesNotches (titleIncludingNotches,percentage)
 {
-
+    if(percentage==100||percentage==0) flipToTempo(titleIncludingNotches);
     var notchesString = titleIncludingNotches.match(/\{(.+?)\}/)[1];
     var justSuffix = titleIncludingNotches.match(/\}(.*$)/)[1];
     var justPrefix = titleIncludingNotches.replace(/\{.*$/,"");
-
+    //console.log("***********************************");
+    //console.log("notchesString="+notchesString);
+    //console.log("justSuffix="+justSuffix);
+    //console.log("justPrefix"+justPrefix);
     var notchesArray = notchesString.split(':');
     var notchScaleStart = notchesArray[0]*1;
     var notchScaleEnd= notchesArray[1]*1;
+    //console.log("notchScaleStart="+notchScaleStart);
+    //console.log("notchScaleEnd="+notchScaleEnd);
     var notchRange = Math.abs(notchScaleEnd-notchScaleStart);
+    //console.log("notchRange="+notchRange);
     var currVal = Math.round(notchScaleStart + percentage*notchRange/100);
     return justPrefix + " " + currVal + justSuffix;
 }

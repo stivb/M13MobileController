@@ -31,9 +31,11 @@ var EffectsGroupsList=
 	 "EffectColor":"lime",
 	 "Effects":
 [
+
+
   {
      "Effect":"Analog Echo",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Bass":0,
      "Treble":0,
@@ -41,7 +43,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Analog w/Mod",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Speed":0,
      "Mod Depth":0,
@@ -49,7 +51,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Auto Volume Echo",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Depth":0,
      "Swell Time":0,
@@ -57,7 +59,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Digital Delay",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Bass":0,
      "Treble":0,
@@ -65,7 +67,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Digital Delay w/ Mod",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Speed":0,
      "Mod Depth":0,
@@ -73,7 +75,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Dynamic Delay",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Threshold":0,
      "Ducking":0,
@@ -81,7 +83,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Echo Platter",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Wow/Flutter":0,
      "Drive":0,
@@ -89,7 +91,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Echo Platter DryThru",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Wow/Flutter":0,
      "Drive":0,
@@ -97,7 +99,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Lo Res Delay",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Tone":0,
      "Resolution":0,
@@ -105,7 +107,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Multi-Head",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Heads [Off|1|2]":0,
      "Heads [Off|3|4]":0,
@@ -113,7 +115,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Ping Pong",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Time Offset":0,
      "Stereo Spread":0,
@@ -121,7 +123,7 @@ var EffectsGroupsList=
   },
   {
      "Effect":"Reverse",
-     "Time {0-2000}ms":0,
+     "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Speed":0,
      "Mod Depth":0,
@@ -945,7 +947,14 @@ var effectDescriptions =
 }
 
 
-
+function flipToTempo(effName,effParam)
+{
+    console.log("*************flipToTempo*****************");
+    console.log(JSON.stringify(Object.keys("Analogue Echo")));
+    console.log("******************************");
+    console.log(JSON.stringify(removeNonNumericFromArray(Object.keys(effName))));
+    console.log("******************************");
+}
 
 
 function allEffectsByGroup(groupName)
