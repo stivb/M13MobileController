@@ -29,8 +29,8 @@ var visualEffectChain =
 var EffectsGroupsList=
 [
 { 
-	 "EffectsGroup":"Delay",
-	 "EffectColor":"lime",
+	 "_EffectsGroup":"Delay",
+	 "_EffectColor":"lime",
 	 "Effects":
 [
 
@@ -191,8 +191,8 @@ var EffectsGroupsList=
   ] 
 },
 { 
-	 "EffectsGroup":"Fuzz",
-	 "EffectColor":"Yellow",
+	 "_EffectsGroup":"Fuzz",
+	 "_EffectColor":"Yellow",
 	 "Effects":
 [
   {
@@ -410,8 +410,8 @@ var EffectsGroupsList=
   }]
   },
   {
-  "EffectsGroup":"Filter",
-  "EffectColor":"fuchsia",
+  "_EffectsGroup":"Filter",
+  "_EffectColor":"fuchsia",
   "Effects":
   [
   {
@@ -596,8 +596,8 @@ var EffectsGroupsList=
   }]
 },
 {
-	"EffectsGroup":"Modulation",
-	"EffectColor":"aqua",
+	"_EffectsGroup":"Modulation",
+	"_EffectColor":"aqua",
 	"Effects":
 [
   {
@@ -770,8 +770,8 @@ var EffectsGroupsList=
   }]
   },
   {
-  "EffectsGroup":"Reverb",
-  "EffectColor":"Orange",
+  "_EffectsGroup":"Reverb",
+  "_EffectColor":"Orange",
   "Effects":
   [
   {
@@ -960,13 +960,13 @@ function allEffectsByGroupInjectNameColor(groupName)
     var thisEffect;
     var retval = new Array();
     var i,j,fg;
-    for (i=0;i<EffectsGroupsList.length;i++) if (EffectsGroupsList[i].EffectsGroup==groupName) break;
+    for (i=0;i<EffectsGroupsList.length;i++) if (EffectsGroupsList[i]._EffectsGroup==groupName) break;
     fg = EffectsGroupsList[i];
     for (j=0;j<fg.Effects.length;j++)
         {
         thisEffect = JSON.parse(JSON.stringify(fg.Effects[j]));
-        thisEffect.EffectsGroup = fg.EffectsGroup;
-        thisEffect.EffectColor = fg.EffectColor;
+        thisEffect._EffectsGroup = fg._EffectsGroup;
+        thisEffect._EffectColor = fg._EffectColor;
         retval.push(thisEffect);
         }
     return retval;
@@ -1007,7 +1007,7 @@ function effectAsParallelArray(efg)
 function removeNonNumericFromArray(arr)
 {
     //each effect has a name (the first) - a series (up to five) of numerical values
-    //then two more - the "effectGroup" - the name of the thing its in - and
+    //then two more - the "effectGroup" (e.g. fuzz,delay,modulation,etc) the name of the thing its in - and
     //effect color -
     //what this thing does is removes the first, and the last two
     //a better way might be to user underscores on the not-to-be-shown parts of the array
@@ -1032,8 +1032,8 @@ for (i=0;i<EffectsGroupsList.length;i++)
 		if (fg.Effects[j].Effect==effectName)
 			{
 			var retval = JSON.parse(JSON.stringify(fg.Effects[j])) ;
-			retval.EffectsGroup = fg.EffectsGroup;
-			retval.EffectColor = fg.EffectColor;
+			retval._EffectsGroup = fg._EffectsGroup;
+			retval._EffectColor = fg._EffectColor;
 			return retval;
 			}
 		}

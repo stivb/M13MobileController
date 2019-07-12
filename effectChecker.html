@@ -378,14 +378,14 @@
         /*
         paramNames are just the names of things you can set for that effect
         e.g "fbk" "q" - the things per effect
-        excluding merely formatting stuff like  .EffectColor (color)  .Effect (effect name) and .EffectsGroup
+        excluding merely formatting stuff like  ._EffectColor (color)  .Effect (effect name) and .EffectsGroup
         paramNames are just the things you can set
         you can get the VALUE per effect by
         currEffect[value]
          */
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
         $( ".etp").hide();
-        $( "#EffectTweakerPage").css("background-color",currEffect.EffectColor);
+        $( "#EffectTweakerPage").css("background-color",currEffect._EffectColor);
 
         /*
         these are lists of sliders labels slider headers and param boxes per effect
@@ -454,7 +454,7 @@
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));//gets rid of non settableThingName items
 
         var targetEffectsDiv = "#DivFx" + effectNum;
-        $( "#DivFx"+ effectNum ).css("background-color",currEffect.EffectColor);
+        $( "#DivFx"+ effectNum ).css("background-color",currEffect._EffectColor);
         var paramBoxes = $(targetEffectsDiv).find(".percentIndicator");
         var paramNameHolders = $(targetEffectsDiv).find(".paramName");
         $.each(paramNames, function( index, value ) {
@@ -482,7 +482,7 @@
         var currEffect = fX[effectNum-1];
         $( "#spanFx"+ effectNum ).text(currEffect.Effect);
         $( "#DivFx"+ effectNum ).children().css("visibility", "hidden");
-        $( "#DivFx"+ effectNum ).css("background-color",currEffect.EffectColor);
+        $( "#DivFx"+ effectNum ).css("background-color",currEffect._EffectColor);
 
 
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
@@ -537,7 +537,7 @@
         var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
         $( "#DivFx"+ currEffectNum ).find(".percentIndicator").css("background-image",pc(0));
         $( "#DivFx"+ currEffectNum ).children().css("visibility", "hidden");
-        $( "#DivFx"+ currEffectNum ).css("background-color",currEffect.EffectColor);
+        $( "#DivFx"+ currEffectNum ).css("background-color",currEffect._EffectColor);
         $( "#DivFx"+ currEffectNum ).find( ".paramName" ).each(function(index,elmt){
 
             if (paramNames.length>index)
