@@ -1063,7 +1063,7 @@ $( document ).ready(function() {
 
 function populateEffects(effectGroup)
 {
-    alert(effectGroup);
+
     var s = allEffectsByGroupInjectNameColor(effectGroup);
     console.log(JSON.stringify(s));
     console.log("***************************");
