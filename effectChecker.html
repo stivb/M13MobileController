@@ -577,11 +577,7 @@
         {
             if (hasAlternateRepresentation(currEffect,currParamName))
             {
-                //there exists and alternate representation for this key
-                var other = currEffect["_"+currParamName];
-                var existing = currEffect[currParamName];
-                currEffect[currParamName]=other;
-                currEffect["_"+currParamName]=existing;
+                alert(getAlternatesWithStem(currEffect,currParamName.split(' ')[0]));
             }
 
 

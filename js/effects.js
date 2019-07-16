@@ -39,12 +39,21 @@ function getStems(obj)
     return q;
 }
 
+function getAlternatesWithStem(obj, stem)
+{
+    var keyz = Object.keys(obj);
+    var q = keyz.filter(function(item) {
+        return (item.indexOf(stem)==0||item.indexOf(stem)==1);
+    });
+    return q;
+}
+
 function switchKeyNames(obj)
 {
     var stemsNoUnderscores = getStems(obj).map(function(item) {
         return item.substr(1);
     });
-    
+
 }
 
 function hasDuplicates(array) {
