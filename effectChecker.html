@@ -350,6 +350,7 @@
         $( "#EffectChooserPage").popup();
         $( "#EffectChooserPage" ).popup( "open" );
         var id = $(this).attr("id");
+
         currEffectNum = id.slice(-1)*1;
     });
 
@@ -361,7 +362,8 @@
         currEffectNum = id.slice(-1)*1; //0,1,2,3 depending on which effect (1-4))
         var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
 
-        if (currEffect._Effect==null || currEffect.Effect=="")
+
+        if (currEffect._EffectName==null || currEffect._EffectName=="")
         {
             $( "#EffectChooserPage").popup();
             $( "#EffectChooserPage" ).popup( "open" );
@@ -383,7 +385,7 @@
         you can get the VALUE per effect by
         currEffect[value]
          */
-        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        var paramNames = removeNonParamKeysFromArray(Object.keys(currEffect));
         $( ".etp").hide();
         $( "#EffectTweakerPage").css("background-color",currEffect._EffectColor);
 
@@ -451,7 +453,7 @@
     {
         var currEffect = fX[effectNum-1] ;//an item from the 4 object array
 
-        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));//gets rid of non settableThingName items
+        var paramNames = removeNonParamKeysFromArray(Object.keys(currEffect));//gets rid of non settableThingName items
 
         var targetEffectsDiv = "#DivFx" + effectNum;
         $( "#DivFx"+ effectNum ).css("background-color",currEffect._EffectColor);
@@ -480,12 +482,12 @@
     {
 
         var currEffect = fX[effectNum-1];
-        $( "#spanFx"+ effectNum ).text(currEffect.Effect);
+        $( "#spanFx"+ effectNum ).text(currEffect._EffectName);
         $( "#DivFx"+ effectNum ).children().css("visibility", "hidden");
         $( "#DivFx"+ effectNum ).css("background-color",currEffect._EffectColor);
 
 
-        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        var paramNames = removeNonParamKeysFromArray(Object.keys(currEffect));
         var targetEffectsDiv = "#DivFx" + effectNum;
 
         var paramBoxes = $(targetEffectsDiv).find(".percentIndicator");
@@ -533,8 +535,9 @@
         $( "#EffectChooserPage" ).popup( "close" );
         $("#spanFx" + currEffectNum).text(fxName );
         var currEffect = getEffect(fxName );
+
         fX[currEffectNum-1] = currEffect;
-        var paramNames = removeNonNumericFromArray(Object.keys(currEffect));
+        var paramNames = removeNonParamKeysFromArray(Object.keys(currEffect));
         $( "#DivFx"+ currEffectNum ).find(".percentIndicator").css("background-image",pc(0));
         $( "#DivFx"+ currEffectNum ).children().css("visibility", "hidden");
         $( "#DivFx"+ currEffectNum ).css("background-color",currEffect._EffectColor);
@@ -566,7 +569,7 @@
 
 
         var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
-        var keys =  removeNonNumericFromArray(Object.keys(currEffect));
+        var keys =  removeNonParamKeysFromArray(Object.keys(currEffect));
         console.log(keys[paramNamePos]);
 
         var val = obj.value;

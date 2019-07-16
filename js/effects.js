@@ -36,7 +36,7 @@ var EffectsGroupsList=
 
 
   {
-     "_Effect":"Analog Echo",
+     "_EffectName":"Analog Echo",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Bass":0,
@@ -44,7 +44,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Analog w/Mod",
+     "_EffectName":"Analog w/Mod",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Speed":0,
@@ -52,7 +52,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Auto Volume Echo",
+     "_EffectName":"Auto Volume Echo",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Depth":0,
@@ -60,7 +60,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Digital Delay",
+     "_EffectName":"Digital Delay",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Bass":0,
@@ -68,7 +68,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Digital Delay w/ Mod",
+     "_EffectName":"Digital Delay w/ Mod",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Speed":0,
@@ -76,7 +76,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Dynamic Delay",
+     "_EffectName":"Dynamic Delay",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Threshold":0,
@@ -84,7 +84,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Echo Platter",
+     "_EffectName":"Echo Platter",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Wow/Flutter":0,
@@ -92,7 +92,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Echo Platter DryThru",
+     "_EffectName":"Echo Platter DryThru",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Wow/Flutter":0,
@@ -100,7 +100,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Lo Res Delay",
+     "_EffectName":"Lo Res Delay",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Tone":0,
@@ -108,7 +108,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Multi-Head",
+     "_EffectName":"Multi-Head",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Heads [Off|1|2]":0,
@@ -116,7 +116,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Ping Pong",
+     "_EffectName":"Ping Pong",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Time Offset":0,
@@ -124,7 +124,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Reverse",
+     "_EffectName":"Reverse",
      "Time {0:2000}ms":0,
      "Fdbk":0,
      "Mod Speed":0,
@@ -132,7 +132,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Stereo Delay",
+     "_EffectName":"Stereo Delay",
      "Left Time":0,
      "Left Fdbk":0,
      "Right Time":0,
@@ -140,7 +140,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Sweep Echo",
+     "_EffectName":"Sweep Echo",
      "Time":0,
      "Fdbk":0,
      "Sweep Speed":0,
@@ -148,7 +148,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Sweep Echo DryThru",
+     "_EffectName":"Sweep Echo DryThru",
      "Time":0,
      "Fdbk":0,
      "Sweep Speed":0,
@@ -156,7 +156,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Tape Echo",
+     "_EffectName":"Tape Echo",
      "Time":0,
      "Fdbk":0,
      "Bass":0,
@@ -164,7 +164,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Tape Echo DryThru",
+     "_EffectName":"Tape Echo DryThru",
      "Time":0,
      "Fdbk":0,
      "Bass":0,
@@ -172,7 +172,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Tube Echo",
+     "_EffectName":"Tube Echo",
      "Time":0,
      "Fdbk":0,
      "Wow/Flutter":0,
@@ -180,7 +180,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Tube Echo",
+     "_EffectName":"Tube Echo",
      "DryThru":0,
      "Time":0,
      "Fdbk":0,
@@ -196,7 +196,7 @@ var EffectsGroupsList=
 	 "Effects":
 [
   {
-     "_Effect":"4 Band Shift EQ",
+     "_EffectName":"4 Band Shift EQ",
      "LO {-12:12} Db":0,
      "LMID {-12:12} Db":0,
      "HMID {-12:12} Db":0,
@@ -204,23 +204,23 @@ var EffectsGroupsList=
      "SHFT":0
   },
   {
-     "_Effect":"Bass Octaver",
+     "_EffectName":"Bass Octaver",
      "Tone":0,
      "Normal":0,
      "Octave":0
   },
   {
-     "_Effect":"Blue Comp",
+     "_EffectName":"Blue Comp",
      "Sustain":0,
      "Level":0
   },
   {
-     "_Effect":"Blue Comp Treb",
+     "_EffectName":"Blue Comp Treb",
      "Sustain":0,
      "Level":0
   },
   {
-     "_Effect":"Boost Comp",
+     "_EffectName":"Boost Comp",
      "Drive":0,
      "Bass":0,
      "Comp":0,
@@ -228,7 +228,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Buzz Saw",
+     "_EffectName":"Buzz Saw",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -236,7 +236,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Classic Dist",
+     "_EffectName":"Classic Dist",
      "Drive":0,
      "Bass":0,
      "Filter":0,
@@ -244,7 +244,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Colordrive",
+     "_EffectName":"Colordrive",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -252,7 +252,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Facial Fuzz",
+     "_EffectName":"Facial Fuzz",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -260,7 +260,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Fuzz Pi",
+     "_EffectName":"Fuzz Pi",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -268,7 +268,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"  EQ",
+     "_EffectName":"  EQ",
      "80 Hz {-12:12} db":0,
      "220 Hz {-12:12} db":0,
      "440 Hz {-12:12} db":0,
@@ -276,7 +276,7 @@ var EffectsGroupsList=
      "2K2 Hz {-12:12} db":0
   },
   {
-     "_Effect":"Heavy Dist",
+     "_EffectName":"Heavy Dist",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -284,7 +284,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Jet Fuzz",
+     "_EffectName":"Jet Fuzz",
      "Drive":0,
      "Fdbk":0,
      "Tone":0,
@@ -292,7 +292,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Jumbo Fuzz",
+     "_EffectName":"Jumbo Fuzz",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -300,7 +300,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Line 6 Distortion",
+     "_EffectName":"Line 6 Distortion",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -308,7 +308,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Line 6 Drive",
+     "_EffectName":"Line 6 Drive",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -316,7 +316,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Mid Focus EQ",
+     "_EffectName":"Mid Focus EQ",
      "HP Freq":0,
      "HP Q":0,
      "LP Freq":0,
@@ -324,12 +324,12 @@ var EffectsGroupsList=
      "Gain":0
   },
   {
-     "_Effect":"Noise Gate",
+     "_EffectName":"Noise Gate",
      "Thresh":0,
      "Decay":0
   },
   {
-     "_Effect":"Octave Fuzz",
+     "_EffectName":"Octave Fuzz",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -337,7 +337,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Overdrive",
+     "_EffectName":"Overdrive",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -345,7 +345,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Parametric EQ",
+     "_EffectName":"Parametric EQ",
      "Lows":0,
      "Highs":0,
      "Freq":0,
@@ -353,12 +353,12 @@ var EffectsGroupsList=
      "Gain":0
   },
   {
-     "_Effect":"Red Comp",
+     "_EffectName":"Red Comp",
      "Sustain":0,
      "Level":0
   },
   {
-     "_Effect":"Screamer",
+     "_EffectName":"Screamer",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -366,7 +366,7 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Studio EQ",
+     "_EffectName":"Studio EQ",
      "A {75:1400} Hz":0,
       "AOffset {-11:11} Db":0,
      "B {200:8000} Hz":0,
@@ -374,7 +374,7 @@ var EffectsGroupsList=
       "Output {-18:18} Db":0
   },
   {
-     "_Effect":"Sub Octave Fuzz",
+     "_EffectName":"Sub Octave Fuzz",
      "Drive":0,
      "Bass":0,
      "Sub":0,
@@ -382,12 +382,12 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Tube Comp",
+     "_EffectName":"Tube Comp",
      "Thresh":0,
      "Level":0
   },
   {
-     "_Effect":"Tube Drive",
+     "_EffectName":"Tube Drive",
      "Drive":0,
      "Bass":0,
      "Mid":0,
@@ -395,17 +395,17 @@ var EffectsGroupsList=
      "Output":0
   },
   {
-     "_Effect":"Vetta Comp",
+     "_EffectName":"Vetta Comp",
      "Sens":0,
      "Level":0
   },
   {
-     "_Effect":"Vetta Juice",
+     "_EffectName":"Vetta Juice",
      "Amount":0,
      "Level":0
   },
   {
-     "_Effect":"Volume Pedal",
+     "_EffectName":"Volume Pedal",
      "Volume":0
   }]
   },
@@ -415,7 +415,7 @@ var EffectsGroupsList=
   "Effects":
   [
   {
-     "_Effect":"Attack Synth",
+     "_EffectName":"Attack Synth",
      "Freq":0,
      "Wave [Square|PWIM|Ramp]":0,
      "Speed (Attack)":0,
@@ -423,22 +423,22 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Chrome",
+     "_EffectName":"Chrome",
      "Position":0,
      "Mix":0
   },
   {
-     "_Effect":"Chrome Custom",
+     "_EffectName":"Chrome Custom",
      "Position":0,
      "Mix":0
   },
   {
-     "_Effect":"Colorful",
+     "_EffectName":"Colorful",
      "Position":0,
      "Mix":0
   },
   {
-     "_Effect":"Comet Trails",
+     "_EffectName":"Comet Trails",
      "Freq":0,
      "Q (Width)":0,
      "Speed":0,
@@ -446,17 +446,17 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Conductor",
+     "_EffectName":"Conductor",
      "Position":0,
      "Mix":0
   },
   {
-     "_Effect":"Fassel",
+     "_EffectName":"Fassel",
      "Position":0,
      "Mix":0
   },
   {
-     "_Effect":"Growler",
+     "_EffectName":"Growler",
      "Freq":0,
      "Q (Width)":0,
      "Speed":0,
@@ -464,7 +464,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Obi-Wah",
+     "_EffectName":"Obi-Wah",
      "Freq":0,
      "Q (Width)":0,
      "Speed":0,
@@ -472,7 +472,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Octisynth",
+     "_EffectName":"Octisynth",
      "Freq":0,
      "Q (Width)":0,
      "Speed (Vibrato)":0,
@@ -480,12 +480,12 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Pitch Glide",
+     "_EffectName":"Pitch Glide",
      "Pitch":0,
      "Mix":0
   },
   {
-     "_Effect":"Q Filter",
+     "_EffectName":"Q Filter",
       "Freq":0,
      "Q (Width)":0,
      "Gain":0,
@@ -493,7 +493,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Seeker",
+     "_EffectName":"Seeker",
      "Freq":0,
      "Q (Width)":0,
      "Speed":0,
@@ -501,7 +501,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Slow Filter",
+     "_EffectName":"Slow Filter",
       "Freq":0,
      "Q (Width)":0,
      "Speed (Attack)":0,
@@ -509,14 +509,14 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Smart Harmony",
+     "_EffectName":"Smart Harmony",
      "Scale [Maj|Min|Maj Pent|Min Pent|Harm Min|Mel Min|Whole|Whole x Scale]":0,
      "Key [C|C#|D|D#|E|F|F#|G|G#|A|A#|B]":0,
      "Shift[-9|-7|-6|-5|-4|-3|-2|0|2|3|4|5|6|7|9]":0,
      "Mix":0
   },
   {
-     "_Effect":"Spin Cycle",
+     "_EffectName":"Spin Cycle",
      "Freq":0,
      "Q (Width)":0,
      "Speed":0,
@@ -524,7 +524,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Synth O Matic",
+     "_EffectName":"Synth O Matic",
      "Freq":0,
      "Q (Width)":0,
      "Wave [1|2|3|4|5|6|7|8]":0,
@@ -532,7 +532,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Synth String",
+     "_EffectName":"Synth String",
      "Freq":0,
      "Attack":0,
      "Speed (Modulation)":0,
@@ -540,12 +540,12 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Throaty",
+     "_EffectName":"Throaty",
      "Position":0,
      "Mix":0
   },
   {
-     "_Effect":"Throbber",
+     "_EffectName":"Throbber",
      "Freq":0,
      "Q (Width)":0,
      "Speed":0,
@@ -553,7 +553,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Tron Down",
+     "_EffectName":"Tron Down",
      "Freq":0,
      "Q (Width)":0,
      "Range [Low|High]":0,
@@ -561,7 +561,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Tron Up",
+     "_EffectName":"Tron Up",
      "Freq":0,
      "Q (Width)":0,
      "Range [Low|High]":0,
@@ -569,7 +569,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"V Tron",
+     "_EffectName":"V Tron",
       "Strt Vowel [A|E|I|O|U]":0,
       "End Vowel [A|E|I|O|U]":0,
      "Speed (Attack)":0,
@@ -577,12 +577,12 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Vetta Wah",
+     "_EffectName":"Vetta Wah",
      "Position":0,
      "Mix":0
   },
   {
-     "_Effect":"Voice Box",
+     "_EffectName":"Voice Box",
      "Strt Vowel [A|E|I|O|U]":0,
      "End Vowel [A|E|I|O|U]":0,
      "Speed":0,
@@ -590,7 +590,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Weeper",
+     "_EffectName":"Weeper",
      "Position":0,
      "Mix":0
   }]
@@ -601,7 +601,7 @@ var EffectsGroupsList=
 	"Effects":
 [
   {
-     "_Effect":"80A Flanger",
+     "_EffectName":"80A Flanger",
      "Speed":0,
      "Range":0,
      "Enhance":0,
@@ -609,14 +609,14 @@ var EffectsGroupsList=
      "[Even|Odd]":0
   },
   {
-     "_Effect":"AC Flanger",
+     "_EffectName":"AC Flanger",
      "Speed":0,
      "Width":0,
      "Regen":0,
      "Manual":0
   },
   {
-     "_Effect":"Analog Chorus",
+     "_EffectName":"Analog Chorus",
      "Speed":0,
      "Depth":0,
      "[Chrs|Vibrato]":0,
@@ -624,7 +624,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Analog Flanger",
+     "_EffectName":"Analog Flanger",
      "Speed":0,
      "Depth":0,
      "Feedback":0,
@@ -632,14 +632,14 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Barberpole Phaser",
+     "_EffectName":"Barberpole Phaser",
      "Speed":0,
      "Fdbk":0,
      "[Up|Dwn|St]":0,
      "Mix":0
   },
   {
-     "_Effect":"Bias Tremolo",
+     "_EffectName":"Bias Tremolo",
      "Speed":0,
      "Depth":0,
      "Shape":0,
@@ -647,7 +647,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Dimension",
+     "_EffectName":"Dimension",
      "Switch 1 [Off|On]":0,
      "Switch 2 [Off|On]":0,
      "Switch 3 [Off|On]":0,
@@ -655,7 +655,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Dual Phaser",
+     "_EffectName":"Dual Phaser",
      "Speed":0,
      "Depth":0,
      "Feedback":0,
@@ -663,13 +663,13 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Frequency Shifter",
+     "_EffectName":"Frequency Shifter",
      "Freq {0:3520} Mhz":0,
      "[Up|Dwn|St]":0,
      "Mix":0
   },
   {
-     "_Effect":"Jet Flanger",
+     "_EffectName":"Jet Flanger",
      "Speed":0,
      "Depth":0,
      "Feedback":0,
@@ -677,7 +677,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Opto Tremolo",
+     "_EffectName":"Opto Tremolo",
      "Speed":0,
      "Depth":0,
      "Shape":0,
@@ -685,7 +685,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Panned Phaser",
+     "_EffectName":"Panned Phaser",
      "Speed":0,
      "Depth":0,
      "Output [Left|Center|Right]":0,
@@ -693,7 +693,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Panner",
+     "_EffectName":"Panner",
      "Speed":0,
      "Depth":0,
      "Shape [Triangle|Sine|Square]":0,
@@ -701,7 +701,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Pattern Tremolo",
+     "_EffectName":"Pattern Tremolo",
      "Speed":0,
      "Pattern1 [mute|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|Full|Skip]":0,
      "Pattern2 [mute|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|Full|Skip]":0,
@@ -709,7 +709,7 @@ var EffectsGroupsList=
      "Pattern4 [mute|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|Full|Skip]":0
   },
   {
-     "_Effect":"Phaser",
+     "_EffectName":"Phaser",
      "Speed":0,
      "Depth":0,
      "Feedback":0,
@@ -717,7 +717,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Pitch Vibrato",
+     "_EffectName":"Pitch Vibrato",
      "Speed":0,
      "Depth":0,
      "Rise Time":0,
@@ -725,7 +725,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Ring Modulator",
+     "_EffectName":"Ring Modulator",
      "Speed":0,
      "Depth":0,
      "Shape":0,
@@ -733,7 +733,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Rotary Drum",
+     "_EffectName":"Rotary Drum",
      "Speed [Slow|Fast]":0,
      "Depth":0,
      "Tone":0,
@@ -741,7 +741,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Rotary Drum/Horn",
+     "_EffectName":"Rotary Drum/Horn",
      "Speed [Slow|Fast":0,
      "Depth":0,
      "Horn Depth":0,
@@ -749,11 +749,11 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"Script Phase",
+     "_EffectName":"Script Phase",
      "Speed":0
   },
   {
-     "_Effect":"Tri Chorus",
+     "_EffectName":"Tri Chorus",
      "Speed":0,
      "Depth 1":0,
      "Depth 2":0,
@@ -761,7 +761,7 @@ var EffectsGroupsList=
      "Mix":0
   },
   {
-     "_Effect":"U-Vibe",
+     "_EffectName":"U-Vibe",
      "Speed":0,
      "Depth":0,
      "Feedback":0,
@@ -775,84 +775,84 @@ var EffectsGroupsList=
   "Effects":
   [
   {
-     "_Effect":"63 Spring",
+     "_EffectName":"63 Spring",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Cave",
+     "_EffectName":"Cave",
      "Decay":0,
      "Pre-Delay":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Chamber",
+     "_EffectName":"Chamber",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Ducking",
+     "_EffectName":"Ducking",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Echo (Reverb)",
+     "_EffectName":"Echo (Reverb)",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Hall",
+     "_EffectName":"Hall",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Octo",
+     "_EffectName":"Octo",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Particle Verb",
+     "_EffectName":"Particle Verb",
      "Dwell":0,
      "Gain":0,
      "Hazard/Stable [Stable|Critical|Hazard]":0,
      "Mix":0
   },
   {
-     "_Effect":"Plate",
+     "_EffectName":"Plate",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Room",
+     "_EffectName":"Room",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Spring",
+     "_EffectName":"Spring",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
      "Mix":0
   },
   {
-     "_Effect":"Tile",
+     "_EffectName":"Tile",
      "Decay":0,
      "Pre-Delay {0:2000}s":0,
      "Tone":0,
@@ -962,9 +962,6 @@ function allEffectsByGroupInjectNameColor(groupName)
     var i,j,fg;
     for (i=0;i<EffectsGroupsList.length;i++)
     {
-        console.log(EffectsGroupsList[i]._EffectsGroup);
-        console.log("=");
-        console.log(groupName);
         if (EffectsGroupsList[i]._EffectsGroup==groupName) break;
     }
     fg = EffectsGroupsList[i];
@@ -987,14 +984,14 @@ var effects = new Array();
 for (i=0;i<EffectsGroupsList.length;i++)
 	{
 	fg = EffectsGroupsList[i];
-	for (j=0;j<fg.Effects.length;j++) effects.push(fg.Effects[j]._Effect);
+	for (j=0;j<fg.Effects.length;j++) effects.push(fg.Effects[j]._EffectName);
 	}
 }
 
 function allEffectNamesByGroup(groupName)
 {
     var retval = allEffectsByGroupInjectNameColor(groupName).map(function(elem) {
-        return elem._Effect;
+        return elem._EffectName;
     });
     return retval;
 }
@@ -1005,12 +1002,12 @@ function effectAsParallelArray(efg)
 {
 
     var retval = new Object();
-    retval.keyz = removeNonNumericFromArray(Object.keys(efg));
-    retval.valuez = removeNonNumericFromArray(Object.values(efg));
+    retval.keyz = removeNonParamKeysFromArray(Object.keys(efg));
+    retval.valuez = removeNonParamKeysFromArray(Object.values(efg));
     return retval;
 }
 
-function removeNonNumericFromArray(arr)
+function removeNonParamKeysFromArray(arr)
 {
     //each effect has a name (the first) - a series (up to five) of numerical values
     //then two more - the "effectGroup" (e.g. fuzz,delay,modulation,etc) the name of the thing its in - and
@@ -1018,16 +1015,24 @@ function removeNonNumericFromArray(arr)
     //what this thing does is removes the first, and the last two
     //a better way might be to user underscores on the not-to-be-shown parts of the array
 
-    arr.shift();
-    arr.pop();
-    arr.pop();
+    //arr.shift();
+    //arr.pop();
+    //arr.pop();
 
-    return arr;
+
+     var newArr = new Array();
+     for (var i=0;i<arr.length;i++)
+     {
+         if (arr[i].charAt(0)!='_') newArr.push(arr[i]);
+     }
+     return newArr;
+
 }
 
 function getEffect(effectName)
 {
 var i,j,fg,fgstr;
+alert("The effectNanme is" + effectName);
 for (i=0;i<EffectsGroupsList.length;i++)
 	{
 	fg = EffectsGroupsList[i];
@@ -1035,7 +1040,7 @@ for (i=0;i<EffectsGroupsList.length;i++)
 	console.log(fgstr);
 	for (j=0;j<fg.Effects.length;j++)
 		{
-		if (fg.Effects[j]._Effect=effectName)
+		if (fg.Effects[j]._EffectName==effectName)
 			{
 			var retval = JSON.parse(JSON.stringify(fg.Effects[j])) ;
 			retval._EffectsGroup = fg._EffectsGroup;
