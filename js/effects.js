@@ -25,6 +25,38 @@ var tempoString = "_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮
 function hasAlternateRepresentation(obj,paramName)
 {
     var paramNameStem=paramName.split(" ")[0];
+    q = getStems(obj);
+    if (q.includes("_" +paramNameStem)) return true;
+    return false;
+}
+
+function getStems(obj)
+{
+    var keyz = Object.keys(obj);
+    var q = keyz.map(function(item) {
+        return item.split(' ')[0];
+    });
+    return q;
+}
+
+function switchKeyNames(obj)
+{
+    var stemsNoUnderscores = getStems(obj).map(function(item) {
+        return item.substr(1);
+    });
+    
+}
+
+function hasDuplicates(array) {
+    return (new Set(array)).size !== array.length;
+}
+
+
+
+
+function switchToAlternateRepresentation(obj,paramName)
+{
+    var paramNameStem=paramName.split(" ")[0];
     var keyz = Object.keys(obj);
     var q = keyz.map(function(item) {
         return item.split(' ')[0];
