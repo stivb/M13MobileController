@@ -18,7 +18,20 @@ var halfColors =
         "orange":"rgba(255,165,0,.5)"
     }
 
-var tempoSymbols = "Tempo [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]";
+var tempoSymbolArray = ['𝅝','𝅝 𝅭','𝅗𝅥','𝅗𝅥 𝅭','𝅘𝅥','𝅘𝅥 𝅭','𝅘𝅥𝅮','𝅘𝅥𝅮 𝅭','𝅘𝅥𝅯','𝅘𝅥𝅯 𝅭','𝅘𝅥𝅰','𝅘𝅥𝅰 𝅭','𝅘𝅥𝅱','𝅘𝅥𝅱 𝅭','𝅘𝅥𝅲','𝅘𝅥𝅲 𝅭'];
+var tempoString = "_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]";
+
+
+function hasAlternateRepresentation(obj,paramName)
+{
+    var paramNameStem=paramName.split(" ")[0];
+    var keyz = Object.keys(obj);
+    var q = keyz.map(function(item) {
+        return item.split(' ')[0];
+    });
+    if (q.includes("_" +paramNameStem)) return true;
+    return false;
+}
 
 var visualEffectChain =
     {
@@ -37,7 +50,7 @@ var EffectsGroupsList=
 
   {
      "_EffectName":"Analog Echo",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Bass":0,
      "Treble":0,
@@ -45,7 +58,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Analog w/Mod",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Mod Speed":0,
      "Mod Depth":0,
@@ -53,7 +66,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Auto Volume Echo",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Mod Depth":0,
      "Swell Time":0,
@@ -61,7 +74,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Digital Delay",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Bass":0,
      "Treble":0,
@@ -69,7 +82,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Digital Delay w/ Mod",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Mod Speed":0,
      "Mod Depth":0,
@@ -77,7 +90,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Dynamic Delay",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Threshold":0,
      "Ducking":0,
@@ -85,7 +98,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Echo Platter",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Wow/Flutter":0,
      "Drive":0,
@@ -93,7 +106,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Echo Platter DryThru",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Wow/Flutter":0,
      "Drive":0,
@@ -101,7 +114,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Lo Res Delay",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Tone":0,
      "Resolution":0,
@@ -109,7 +122,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Multi-Head",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Heads [Off|1|2]":0,
      "Heads [Off|3|4]":0,
@@ -117,7 +130,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Ping Pong",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Time Offset":0,
      "Stereo Spread":0,
@@ -125,7 +138,7 @@ var EffectsGroupsList=
   },
   {
      "_EffectName":"Reverse",
-     "Time {0:2000}ms":0,
+     "Time {0:2000}ms":0,"_Time [𝅝|𝅝 𝅭|𝅗𝅥|𝅗𝅥 𝅭|𝅘𝅥|𝅘𝅥 𝅭|𝅘𝅥𝅮|𝅘𝅥𝅮 𝅭|𝅘𝅥𝅯|𝅘𝅥𝅯 𝅭|𝅘𝅥𝅰|𝅘𝅥𝅰 𝅭|𝅘𝅥𝅱|𝅘𝅥𝅱 𝅭|𝅘𝅥𝅲|𝅘𝅥𝅲 𝅭]":100,
      "Fdbk":0,
      "Mod Speed":0,
      "Mod Depth":0,
@@ -1023,6 +1036,7 @@ function removeNonParamKeysFromArray(arr)
      var newArr = new Array();
      for (var i=0;i<arr.length;i++)
      {
+         if (arr[i]==undefined||arr[i]=="") continue;
          if (arr[i].charAt(0)!='_') newArr.push(arr[i]);
      }
      return newArr;
@@ -1032,7 +1046,7 @@ function removeNonParamKeysFromArray(arr)
 function getEffect(effectName)
 {
 var i,j,fg,fgstr;
-alert("The effectNanme is" + effectName);
+
 for (i=0;i<EffectsGroupsList.length;i++)
 	{
 	fg = EffectsGroupsList[i];

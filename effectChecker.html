@@ -563,20 +563,37 @@
     function doUpdate(obj)
     {
         //indicates which one of the <5 params is being changed
-        var paramNamePos = obj.id.charAt(obj.id.length-1)-1;
 
-
-
-
-        var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
-        var keys =  removeNonParamKeysFromArray(Object.keys(currEffect));
-        console.log(keys[paramNamePos]);
 
         var val = obj.value;
+
+        var paramNamePos = obj.id.charAt(obj.id.length-1)-1;
+        var currEffect = fX[currEffectNum-1] ;//initialized as one item in a 4 item empty array
+
+        var keys =  removeNonParamKeysFromArray(Object.keys(currEffect));
+        var currParamName = keys[paramNamePos];
+
+        if (val==100||val==0)
+        {
+            if (hasAlternateRepresentation(currEffect,currParamName))
+            {
+                //there exists and alternate representation for this key
+                var other = currEffect["_"+currParamName];
+                var existing = currEffect[currParamName];
+                currEffect[currParamName]=other;
+                currEffect["_"+currParamName]=existing;
+            }
+
+
+        }
+
+
+
+
         var paramBoxes = $("#EffectTweakerPage").find(".percentIndicator");
         $(paramBoxes[paramNamePos]).css("background-image",pc(val));
         var paramLabels = $("#EffectTweakerPage").find(".paramName");
-        var toWrite = getTitleAndNotch(keys[paramNamePos],val);
+        var toWrite = getTitleAndNotch(currParamName,val);
         $(paramLabels[paramNamePos]).text(toWrite);
         var paramNameLabels = $("#EffectTweakerPage").find(".paramNameLabel");
         $(paramNameLabels[paramNamePos]).text(toWrite);
