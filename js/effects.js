@@ -45,7 +45,7 @@ function getAlternatesWithStem(obj, stem)
     var q = keyz.filter(function(item) {
         return (item.indexOf(stem)==0||item.indexOf(stem)==1);
     });
-    return q;
+    return q.sort();
 }
 
 function switchKeyNames(obj)
@@ -53,6 +53,28 @@ function switchKeyNames(obj)
     var stemsNoUnderscores = getStems(obj).map(function(item) {
         return item.substr(1);
     });
+
+}
+
+function swapTempoTypes(obj,stem)
+{
+    var newObj = new Object();
+    var keyz = Object.keys(obj);
+    newObj[keyz[0]] = obj[keyz[0]];
+
+    var timeMeasures = getAlternatesWithStem(obj,stem);
+    var currTimeMeasure = timeMeasures[0];
+    var hiddenTimeMeasure = timeMeasures[1];
+    var newTimeMeasure = hiddenTimeMeasure.substr(1);
+    newObj[newTimeMeasure]=100;
+    newObj["_"+currTimeMeasure]=100;
+    var i;
+    for (i=3;i<keyz.length;i++)
+    {
+        newObj[keyz[i]]=obj[keyz[i]]
+    }
+
+    return newObj;
 
 }
 

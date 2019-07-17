@@ -573,17 +573,14 @@
         var keys =  removeNonParamKeysFromArray(Object.keys(currEffect));
         var currParamName = keys[paramNamePos];
 
-        if (val==100||val==0)
+        if (val==100)
         {
+            console.log(currParamName);
             if (hasAlternateRepresentation(currEffect,currParamName))
             {
-                alert(getAlternatesWithStem(currEffect,currParamName.split(' ')[0]));
+                fX[currEffectNum-1] = swapTempoTypes(currEffect,currParamName.split(' ')[0]);
             }
-
-
         }
-
-
 
 
         var paramBoxes = $("#EffectTweakerPage").find(".percentIndicator");
