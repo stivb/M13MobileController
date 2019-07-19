@@ -95,19 +95,37 @@
             </div>
             <div data-role="content">
 
-                <div class="ui-grid-c ">
+                <div class="ui-grid-a ">
+                    <div class="ui-block-a" style="text-align:center">
+                        Sort By
+                    </div>
+                    <div class="ui-block-b" style="text-align:center">
+                        In Folders
+                    </div>
                     <div class="ui-block-a" >
-                        <h2 style="text-align:right;">Sort By-></h2>
+                        <select   data-mini="true" id="sortby">
+                            <option ></option>
+                            <option value="folder">Folder</option>
+                            <option value="scene">Scene</option>
+                            <option value="name">Name</option>
+                            <option value="date" selected="selected">Date</option>
+                        </select>
                     </div>
                     <div class="ui-block-b">
-                        <a href="#" data-role="button" id="btnAlphabetically" >Letter</a>
+                        <select   data-mini="true" id="filterby" >
+                            <option ></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected="selected">All</option>
+
+                        </select>
                     </div>
-                    <div class="ui-block-c">
-                        <a href="#" data-role="button" id="btnByScene" >Scene</a>
-                    </div>
-                    <div class="ui-block-d">
-                        <a href="#" data-role="button" id="btnByDate" >Date</a>
-                    </div>
+                        <!--<a href="#" data-role="button" id="btnAlphabetically" >Letter</a>-->
+
+
+
                 </div>
                 <hr/>
 
@@ -820,6 +838,19 @@
 			
 		});
 
+
+    $('#sortby').change(function() {
+
+        populateSongChainList($(this).val(),$('#filterby').val());
+
+    });
+
+    $('#filterby').change(function() {
+
+        populateSongChainList($('#sortby').val(),$(this).val());
+
+    });
+
 		function clearScene()
 		{
 		for (var i=1;i<=4;i++)
@@ -1170,7 +1201,7 @@
 		return s;
 		}
 		
-		function populateSongChainList(how)
+		function populateSongChainList(sortby,filterby)
 		{
 		$('#songChainList').empty();
 		$('#setOrderList').empty();
@@ -1179,20 +1210,36 @@
 		var allKeys;
         var optTempl;
 
-		switch(how)
+		switch(sortby)
         {
+
+
             case "scene":
                 allKeys = allPedalBoardFxKeysOrderedByScene();
                 break;
-            case "letter":
+            case "name":
                 allKeys = allPedalBoardFxKeysByLetter();
+                break;
+            case "folder":
+                allKeys = allPedalBoardFxKeysByFolder();
+                break;
+            case "date":
+                allKeys = allPedalBoardFxKeys();
                 break;
             default:
                 allKeys = allPedalBoardFxKeys();
                 break;
         }
 
-		$.each( allKeys,function( key, value )
+        var allbyfolder = allPedalBoardFxKeysFilterByFolder(filterby);
+
+
+		var sortedAndFiltered = allKeys.filter(function(n) {
+            return allbyfolder.indexOf(n) > -1;
+        });
+
+
+		$.each( sortedAndFiltered,function( key, value )
 			    {
                $("#songChainList").append(visualizeSongChainItem(value));
                $( "#songChainList" ).listview( "refresh" );

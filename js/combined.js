@@ -106,6 +106,8 @@ function getPedalBoardFilterColors(k)
 
 function getPedalBoardSceneFromChainName(k)
 {
+    //pedalboard is a six character folder,scene,number,number,number,number
+    //however the four numbers are hexadecimal
     var pedalBoardFxChains = getPedalBoardFxChains();
     var sceneDescript = pedalBoardFxChains[k].pedalBoard;
     return "" + parseInt("0x" + sceneDescript.charAt(1),16);
@@ -115,6 +117,7 @@ function getPedalBoardFolderFromChainName(k)
 {
     var pedalBoardFxChains = getPedalBoardFxChains();
     var sceneDescript = pedalBoardFxChains[k].pedalBoard;
+
     return sceneDescript.charAt(0);
 }
 
@@ -187,6 +190,79 @@ function allPedalBoardFxKeysByLetter()
     });
     return arr;
 }
+
+function allPedalBoardFxKeysByFolder()
+{
+    var tuples = [];
+    var retval = [];
+    var pedalBoardFxChains = getPedalBoardFxChains();
+
+    for (var key in pedalBoardFxChains) tuples.push([key, pedalBoardFxChains[key]]);
+
+    tuples.sort(function(a, b) {
+
+        a = parseInt(a[1].pedalBoard.charAt(0),16);
+        b = parseInt(b[1].pedalBoard.charAt(0),16);
+
+        return a < b ? -1 : (a > b ? 1 : 0);
+    });
+
+    for (var i = 0; i < tuples.length; i++) {
+        var key = tuples[i][0];
+        var value = tuples[i][1];
+        retval.push(key);
+
+        // do something with key and value
+    }
+
+
+    return retval;
+}
+
+function allPedalBoardFxKeysFilterByFolder(folderNum) {
+
+    var retval = [];
+    var pedalBoardFxChains = getPedalBoardFxChains();
+
+
+    if (folderNum == null || folderNum == undefined || isNaN(folderNum == false) || folderNum < 1 || folderNum > 4) return Object.keys(pedalBoardFxChains);
+
+    for (var key in pedalBoardFxChains)
+    {
+        if (pedalBoardFxChains[key].pedalBoard.charAt(0)*1==folderNum) retval.push(key);
+    }
+
+    return retval;
+}
+
+
+
+function allPedalBoardFxKeysOrderedByFolder()
+{
+    var tuples = [];
+    var retval = [];
+    var pedalBoardFxChains = getPedalBoardFxChains();
+    for (var key in pedalBoardFxChains) tuples.push([key, pedalBoardFxChains[key]]);
+
+    tuples.sort(function(a, b) {
+        a = parseInt(a[1].pedalBoard.charAt(0),16);
+        b = parseInt(b[1].pedalBoard.charAt(0),16);
+
+        return a < b ? -1 : (a > b ? 1 : 0);
+    });
+
+    for (var i = 0; i < tuples.length; i++) {
+        var key = tuples[i][0];
+        var value = tuples[i][1];
+        retval.push(key);
+
+        // do something with key and value
+    }
+
+
+    return retval;
+}
+
 
 
 function allPedalBoardFxKeysOrderedByScene()
