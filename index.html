@@ -131,8 +131,10 @@
                     <li><a  id="btnImport" >Import</a></li>
                     <li><a  id="btnExport">Export</a></li>
                     <li><a href="#pgSettings" data-role="button" class="goToSettings">Settings</a></li>
+                    <!--
                     <li><a  id="btnScenes">Scenes</a></li>
                     <li><a  id="btnGoSetListPage" >Set</a></li>
+                    -->
                 </ul>
             </div>
         </div>
@@ -157,19 +159,22 @@
 
         <div data-role="popup" id="songlistEffectPrintout" data-overlay-theme="a" data-dismissible="false" class="ui-content" data-theme="a">
             <div data-role="header">EFFECT PRINTOUT</div>
-            <div class="ui-grid-c">
+            <div class="ui-grid-a">
                 <div class="ui-block-a">
-                    <a id="btnPrintable" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Fx</a>
+                    <a id="btnPrintable" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Fx Listing</a>
                 </div>
+
                 <div class="ui-block-b">
-                    <a id="btnScenePrintouts" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Scenes</a>
-                </div>
-                <div class="ui-block-c">
                     <a id="btnJSON" class="ui-btn ui-corner-all ui-mini ui-btn-a" >JSON</a>
                 </div>
-                <div class="ui-block-d">
+                <!--
+                <div class="ui-block-c">
                     <a id="btnBluetooth" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Set</a>
                 </div>
+                <div class="ui-block-d">
+                    <a id="btnScenePrintouts" class="ui-btn ui-corner-all ui-mini ui-btn-a" >Scenes</a>
+                </div>
+                -->
             </div>
             <a data-role="button"  href="#" id="clipboardCopy" >Copy to Clipboard</a>
             <textarea id="transcript" name="transcript" cols="40" rows="20" style="overflow: scroll;height:200px" readonly>Effects</textarea>
